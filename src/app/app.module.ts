@@ -11,6 +11,8 @@ import { GroupComponent } from './group/group.component';
 import { GroupsComponent } from './groups/groups.component';
 import { CreateComponent } from './create/create.component';
 import { JoinComponent } from './join/join.component';
+import { MywishlistComponent } from './mywishlist/mywishlist.component';
+import { PartnerwishlistComponent } from './partnerwishlist/partnerwishlist.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { JoinComponent } from './join/join.component';
     GroupComponent,
     GroupsComponent,
     CreateComponent,
-    JoinComponent
+    JoinComponent,
+    MywishlistComponent,
+    PartnerwishlistComponent
   ],
   imports: [
     BrowserModule,
