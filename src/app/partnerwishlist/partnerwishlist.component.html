@@ -1,9 +1,7 @@
 <h2>My Partner</h2>
 
 <ul>
-  <li>Item 1</li>
-  <li>Item 2</li>
-  <li>Item 3</li>
+  <li *ngFor="let item of partnerWishlist">{{ item }}</li>
 </ul>
 
 <a routerLink="../group">Back</a>

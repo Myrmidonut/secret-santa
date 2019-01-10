@@ -1,9 +1,7 @@
 <h2>My Groups</h2>
 
 <ul>
-  <li><a routerLink="../group">Group 1</a></li>
-  <li><a routerLink="../group">Group 2</a></li>
-  <li><a routerLink="../group">Group 3</a></li>
+  <li *ngFor="let group of groups"><a routerLink="../group">{{ group }}</a></li>
 </ul>
 
 <a routerLink="">Back</a>
