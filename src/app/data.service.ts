@@ -8,10 +8,16 @@ export class DataService {
   myWishlist: string[]
   partnerWishlist: string[]
   groups: string[]
+  members: string[]
 
   loadGroups() {
     // fetch from api
     this.groups = ["Family", "Work", "Friends"]
+  }
+
+  loadMembers() {
+    // fetch from api
+    this.members = ["Jim", "John", "Joe", "Jeff"]
   }
 
   loadMyWishlist() {

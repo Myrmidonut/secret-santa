@@ -8,6 +8,8 @@ import { GroupComponent } from "./group/group.component";
 import { GroupsComponent } from "./groups/groups.component";
 import { MywishlistComponent } from "./mywishlist/mywishlist.component";
 import { PartnerwishlistComponent } from "./partnerwishlist/partnerwishlist.component";
+import { MembersComponent } from "./members/members.component";
+import { InviteComponent } from "./invite/invite.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -16,7 +18,9 @@ const routes: Routes = [
   { path: "group", component: GroupComponent },
   { path: "groups", component: GroupsComponent },
   { path: "mywishlist", component: MywishlistComponent },
-  { path: "partnerwishlist", component: PartnerwishlistComponent }
+  { path: "partnerwishlist", component: PartnerwishlistComponent },
+  { path: "members", component: MembersComponent },
+  { path: "invite", component: InviteComponent }
 ];
 
 @NgModule({

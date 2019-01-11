@@ -5,11 +5,10 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.scss']
 })
-export class GroupComponent implements OnInit {
 
+export class GroupComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
   }
-
 }

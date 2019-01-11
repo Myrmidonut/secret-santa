@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { DataService } from "../data.service";
 
 @Component({
@@ -16,6 +15,5 @@ export class MywishlistComponent implements OnInit {
   ngOnInit() {
     this.data.loadMyWishlist()
     this.myWishlist = this.data.myWishlist;
-
   }
 }
