@@ -1,7 +1,7 @@
 <h2>Invite People</h2>
 
-<form>
-  <input type="email" placeholder="Email"><br>
+<form [formGroup]="inviteForm">
+  <input type="email" placeholder="Email" formControlName="email"><br>
   <input type="submit">
 </form>
 

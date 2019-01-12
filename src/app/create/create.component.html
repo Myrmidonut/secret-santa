@@ -1,10 +1,14 @@
 <h2>Create a Group:</h2>
 
-<form>
-  <label for="name">Name:</label>
-  <input type="text" id="name"><br>
+<form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="name"><br>
+  <input type="text" formControlName="status"><br>
   <input type="submit">
 </form>
+
+<br><br>
+<hr>
+<br><br>
 
 <a routerLink="../invite">Invite Screen</a><br>
 

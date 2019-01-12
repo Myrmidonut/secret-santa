@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { DataService } from "../data.service";
 
 @Component({
   selector: 'app-create',
@@ -7,8 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class CreateComponent implements OnInit {
-  constructor() { }
+  createForm = this.formbuilder.group({
+    name: ["", Validators.required],
+    status: ["", Validators.required]
+  })
+
+  constructor(private formbuilder: FormBuilder, private data: DataService) { }
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+    this.data.createGroup(this.createForm.value)
   }
 }

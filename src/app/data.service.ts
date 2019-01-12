@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class DataService {
+  constructor(private httpClient: HttpClient) { }
+
   myWishlist: string[]
   partnerWishlist: string[]
   groups: string[]
@@ -30,9 +34,35 @@ export class DataService {
     this.partnerWishlist  = ["wine", "TV"]
   }
 
-  createGroup() {
+  createGroup(data) {
     // send group name to api
     // get name and code back
+
+    console.log("data: ", data)
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        //'Content-Type':  'application/x-www-form-urlencoded'
+        'Content-Type':  'application/json'
+      })
+    }
+
+    this.httpClient.post("/create", data, httpOptions)
+    .subscribe(res => {
+      console.log(res)
+    })
+
+    /*
+    fetch("/create", {
+      method: 'post',
+      body: new URLSearchParams(data)
+    })
+    .then(response => response.text())
+    .then(data => {
+      console.log("return: ", data)
+    })
+    .catch(error => console.log(error))
+    */
   }
 
   inviteToGroup() {
@@ -46,6 +76,4 @@ export class DataService {
   leaveGroup() {
     // send group name
   }
-
-  constructor() { }
 }
