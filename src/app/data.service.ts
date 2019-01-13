@@ -14,6 +14,7 @@ export class DataService {
   groups: string[]
   members: string[]
   user: string = "testuser"
+  activeGroup: {}
 
   loadGroups() {
     // fetch from api
@@ -35,9 +36,9 @@ export class DataService {
     this.partnerWishlist  = ["wine", "TV"]
   }
 
-  createGroup(formdata, owner) {
-    // send groupname to api
-    // get name and code back
+  /*createGroup(formdata, owner) {
+    // send groupname and owner to api
+    // get groupname and code back
 
     let body = new URLSearchParams();
     body.set("groupname", formdata.groupname)
@@ -51,9 +52,9 @@ export class DataService {
 
     this.httpClient.post("/create", body.toString(), httpOptions)
     .subscribe(res => {
-      console.log(res)
+      return res
     })
-  }
+  }*/
 
   inviteToGroup() {
     // 

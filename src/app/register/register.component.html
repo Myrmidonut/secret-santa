@@ -1,9 +1,21 @@
 <h2>Register:</h2>
 
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <input type="text" formControlName="username"><br>
-  <input type="text" formControlName="password"><br>
-  <input type="text" formControlName="email"><br>
+  <label>
+    Username:
+    <input type="text" formControlName="username">
+  </label>
+  <br>
+  <label>
+    Password:
+    <input type="text" formControlName="password">
+  </label>
+  <br>
+  <label>
+    Email:
+    <input type="text" formControlName="email">
+  </label>
+  <br>
   <input type="submit">
 </form>
 

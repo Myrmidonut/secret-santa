@@ -8,12 +8,12 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 })
 
 export class JoinComponent implements OnInit {
+  constructor(private formbuilder: FormBuilder) { }
+
   joinForm = this.formbuilder.group({
     name: [""],
     code: [""]
   })
-
-  constructor(private formbuilder: FormBuilder) { }
 
   ngOnInit() {
   }

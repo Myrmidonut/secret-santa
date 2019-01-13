@@ -1,17 +1,17 @@
 <h2>Create a Group:</h2>
 
 <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
-  <input type="text" formControlName="groupname"><br>
+  <label>
+    Groupname:
+    <input type="text" formControlName="groupname"><br>
+    <div *ngIf="submitted && createForm.controls.groupname.errors">
+      <div *ngIf="createForm.controls.groupname.errors.required">
+        A name is required.
+      </div>
+    </div>
+  </label>
+
   <input type="submit">
 </form>
-
-<br><br>
-<hr>
-<br><br>
-
-<a routerLink="../invite">Invite Screen</a><br>
-
-* create group<br>
-* show invite screen<br>
 
 <a routerLink="">Back</a>

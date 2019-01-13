@@ -18,9 +18,9 @@ mongoose.connect(process.env.DB)
 
 const db = mongoose.connection
 
-db.on("error", console.log.bind(console, "connection error:"))
+db.on("error", console.log.bind(console, "Connection error:"))
 db.once("open", function() {
-  console.log("connected to db")
+  console.log("Connected to database.")
 })
 
 const GroupSchema = new mongoose.Schema({
@@ -103,29 +103,53 @@ app.post("/login", passport.authenticate("local", {
 
 // GROUPS
 app.post("/create", (req, res) => {
-  // receive group name and owner
-  // check if exists and warn
-  // otherwise create with groupname, owner, random code
-  // send group name and random code back
+  // groupname
+  // owner
+  // create groupname, owner, random code
+  // or return error if group already exists
+  // send group name and code back
 
   console.log(req.body)
+  console.log("user: ", req.user)
 
-  res.json(req.body)
+  const groupname = req.body.groupname
+  const owner = req.user.username
+  const code = Math.random().toString(36).substring(2, 7);
+
+  if (true) {
+    res.json({groupname: groupname, owner: owner, code: code})
+  } else {
+    res.json("Group exists already")
+  }
 })
 
 app.post("/join", (req, res) => {
+  // username
+  // groupname
+  // code
+
   res.json("join")
 })
 
 app.post("/leave", (req, res) => {
+  // username
+  // groupname
+
   res.json("leave")
 })
 
 app.post("/mywishlist", (req, res) => {
+  // username
+  // groupname
+  // wishlist entries
+
   res.json("mywishlist")
 })
 
 app.post("/partnerwishlist", (req, res) => {
+  // username
+  // groupname
+
   res.json("partnerwishlist")
 })
 
