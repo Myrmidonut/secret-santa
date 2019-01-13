@@ -16,6 +16,8 @@ import { MywishlistComponent } from './mywishlist/mywishlist.component';
 import { PartnerwishlistComponent } from './partnerwishlist/partnerwishlist.component';
 import { MembersComponent } from './members/members.component';
 import { InviteComponent } from './invite/invite.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { InviteComponent } from './invite/invite.component';
     MywishlistComponent,
     PartnerwishlistComponent,
     MembersComponent,
-    InviteComponent
+    InviteComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

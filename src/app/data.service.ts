@@ -13,6 +13,7 @@ export class DataService {
   partnerWishlist: string[]
   groups: string[]
   members: string[]
+  user: string = "testuser"
 
   loadGroups() {
     // fetch from api
@@ -34,35 +35,24 @@ export class DataService {
     this.partnerWishlist  = ["wine", "TV"]
   }
 
-  createGroup(data) {
-    // send group name to api
+  createGroup(formdata, owner) {
+    // send groupname to api
     // get name and code back
 
-    console.log("data: ", data)
+    let body = new URLSearchParams();
+    body.set("groupname", formdata.groupname)
+    body.set("owner", owner)
 
     const httpOptions = {
       headers: new HttpHeaders({
-        //'Content-Type':  'application/x-www-form-urlencoded'
-        'Content-Type':  'application/json'
+        "Content-Type": "application/x-www-form-urlencoded"
       })
     }
 
-    this.httpClient.post("/create", data, httpOptions)
+    this.httpClient.post("/create", body.toString(), httpOptions)
     .subscribe(res => {
       console.log(res)
     })
-
-    /*
-    fetch("/create", {
-      method: 'post',
-      body: new URLSearchParams(data)
-    })
-    .then(response => response.text())
-    .then(data => {
-      console.log("return: ", data)
-    })
-    .catch(error => console.log(error))
-    */
   }
 
   inviteToGroup() {
@@ -75,5 +65,44 @@ export class DataService {
 
   leaveGroup() {
     // send group name
+  }
+
+  login(formdata) {
+    console.log(formdata)
+
+    let body = new URLSearchParams();
+    body.set("username", formdata.username)
+    body.set("password", formdata.password)
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/x-www-form-urlencoded"
+      })
+    }
+
+    this.httpClient.post("/login", body.toString(), httpOptions)
+    .subscribe(res => {
+      console.log(res)
+    });
+  }
+
+  register(formdata) {
+    console.log(formdata)
+
+    let body = new URLSearchParams();
+    body.set("username", formdata.username)
+    body.set("password", formdata.password)
+    body.set("email", formdata.email)
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/x-www-form-urlencoded"
+      })
+    }
+
+    this.httpClient.post("/register", body.toString(), httpOptions)
+    .subscribe(res => {
+      console.log(res)
+    });
   }
 }

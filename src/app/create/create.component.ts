@@ -9,17 +9,16 @@ import { DataService } from "../data.service";
 })
 
 export class CreateComponent implements OnInit {
-  createForm = this.formbuilder.group({
-    name: ["", Validators.required],
-    status: ["", Validators.required]
-  })
-
   constructor(private formbuilder: FormBuilder, private data: DataService) { }
+
+  createForm = this.formbuilder.group({
+    groupname: ["", Validators.required]
+  })
 
   ngOnInit() {
   }
 
   onSubmit() {
-    this.data.createGroup(this.createForm.value)
+    this.data.createGroup(this.createForm.value, this.data.user)
   }
 }

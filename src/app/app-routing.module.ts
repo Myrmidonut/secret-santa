@@ -10,6 +10,8 @@ import { MywishlistComponent } from "./mywishlist/mywishlist.component";
 import { PartnerwishlistComponent } from "./partnerwishlist/partnerwishlist.component";
 import { MembersComponent } from "./members/members.component";
 import { InviteComponent } from "./invite/invite.component";
+import { LoginComponent } from "./login/login.component";
+import { RegisterComponent } from "./register/register.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -20,7 +22,9 @@ const routes: Routes = [
   { path: "mywishlist", component: MywishlistComponent },
   { path: "partnerwishlist", component: PartnerwishlistComponent },
   { path: "members", component: MembersComponent },
-  { path: "invite", component: InviteComponent }
+  { path: "invite", component: InviteComponent },
+  { path: "login", component: LoginComponent },
+  { path: "register", component: RegisterComponent }
 ];
 
 @NgModule({
