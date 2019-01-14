@@ -27,11 +27,11 @@ const GroupSchema = new mongoose.Schema({
   groupname: String,
   code: String,
   owner: String,
-  members: {
-    name: String,
+  members: [{
+    username: String,
     wishlist: [String],
     partner: String
-  }
+  }]
 })
 
 const Group = mongoose.model("Group", GroupSchema)
@@ -62,17 +62,12 @@ passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
 function isLoggedIn(req, res, next) {
-  if (req.isAuthenticate()) {
+  if (req.user) {
     return next()
+  } else {
+    res.json("not authenticated")
   }
-  //res.redirect("/login")
 }
-
-/*
-app.get("/secret", isLoggedIn, (req, res) => {
-  res.render("secret")
-})
-*/
 
 // START
 app.get('/', (req, res) => {
@@ -81,8 +76,6 @@ app.get('/', (req, res) => {
 
 // ACCOUNT
 app.post("/register", (req, res) => {
-  console.log("register: ", req.body)
-
   const newUser = new User({username: req.body.username, email: req.body.email})
 
   User.register(newUser, req.body.password, (error, user) => {
@@ -100,31 +93,23 @@ app.post("/register", (req, res) => {
   })
 })
 
-app.post("/login", passport.authenticate("local", {
-  //successRedirect: "/",
-  //failureRedirect: "/login"
-}), (req, res) => {
-  console.log(req.body)
-
+app.post("/login", passport.authenticate("local"), (req, res) => {
   res.json("success")
 })
 
 // GROUPS
-app.post("/create", (req, res) => {
+app.post("/create", isLoggedIn, (req, res) => {
   // groupname
   // owner
   // create groupname, owner, random code
   // or return error if group already exists
   // send group name and code back
 
-  console.log(req.body)
-  //console.log("user: ", req.user)
-
   const groupname = req.body.groupname
-  const owner = "user" //req.user.username
+  const owner = req.user.username
   const code = Math.random().toString(36).substring(2, 7);
 
-  Group.findOneAndUpdate({groupname: groupname, owner: owner}, {}, {upsert: true}, (error, data) => {
+  Group.findOneAndUpdate({groupname: groupname, owner: owner}, {code: code}, {upsert: true}, (error, data) => {
     if (error) console.log(error)
     else {
       if (data === null) {
@@ -136,34 +121,102 @@ app.post("/create", (req, res) => {
   })
 })
 
-app.post("/join", (req, res) => {
+app.post("/join", isLoggedIn, (req, res) => {
   // username
   // groupname
   // code
 
-  res.json("join")
+  const groupname = req.body.groupname
+  const code = req.body.code
+  const username = req.user.username
+
+  Group.findOne({groupname: groupname, code: code, members: {$elemMatch: {username: username}}}, (error, data) => {
+    if (error) console.log(error)
+    else {
+      if (data === null) {
+        Group.findOneAndUpdate({groupname: groupname, code: code}, {$push: {members: {username: username}}}, {new: true}, (error, data) => {
+          res.json({status: "member created", data: data})
+        })
+      } else {
+        res.json({status: "member exists", data: data})
+      }
+    }
+  })
 })
 
 app.post("/leave", (req, res) => {
   // username
   // groupname
 
-  res.json("leave")
+  // check if not found
+
+  const username = req.user.username
+  const groupname = req.body.groupname
+
+  Group.findOneAndUpdate({groupname: groupname}, {$pull: {members: {username: username}}}, {new: true}, (error, data) => {
+    if (error) console.log(error)
+    else {
+      if (data === null) {
+        res.json({status: "not found", data: data})
+      } else {
+        res.json({status: "deleted", data: data})
+      }
+    }
+  })
 })
 
-app.post("/mywishlist", (req, res) => {
+app.post("/mywishlist", isLoggedIn, (req, res) => {
   // username
   // groupname
+  // code
   // wishlist entries
 
-  res.json("mywishlist")
+  // error: replaces members with wishlist
+
+  const groupname = req.body.groupname
+  const wishlist = req.body.mywishlist
+  const code = req.body.code
+  const username = req.user.username
+
+  Group.findOneAndUpdate({groupname: groupname, code: code, members: {$elemMatch: {username: username}}}, {$set: {members: {wishlist: wishlist}}}, {new: true}, (error, data) => {
+    res.json({status: "wishlist changed", data: data})
+  })
 })
 
 app.post("/partnerwishlist", (req, res) => {
   // username
   // groupname
+  // code
 
   res.json("partnerwishlist")
+})
+
+app.post("/launch", isLoggedIn, (req, res) => {
+  // owner
+  // groupname
+  // code
+
+  // set up launch
+
+  const username = req.user.username
+  const groupname = req.body.groupname
+  const code = req.body.code
+
+  Group.findOne({groupname: groupname, code: code}, (error, data) => {
+    if (error) console.log(error)
+    else {
+      if (data === null) {
+        res.json("groupname not found")
+      } else {
+        if (data.owner === username) {
+          // launch
+          res.json({status: "active user is the owner", data: data})
+        } else {
+          res.json({status: "active user is not the owner", data: data})
+        }
+      }
+    }
+  })
 })
 
 // SERVER
