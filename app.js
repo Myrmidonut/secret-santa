@@ -24,8 +24,9 @@ db.once("open", function() {
 })
 
 const GroupSchema = new mongoose.Schema({
-  name: String,
+  groupname: String,
   code: String,
+  owner: String,
   members: {
     name: String,
     wishlist: [String],
@@ -84,11 +85,18 @@ app.post("/register", (req, res) => {
 
   const newUser = new User({username: req.body.username, email: req.body.email})
 
-  User.register(newUser, req.body.password, (err, user) => {
-    if (err) console.log(err)
-    passport.authenticate("local") (req, res, () => {
-      console.log("success")
-    })
+  User.register(newUser, req.body.password, (error, user) => {
+    if (error) {
+      console.log(error)
+      
+      res.json(error)
+    } else {
+      passport.authenticate("local") (req, res, () => {
+        console.log("success")
+
+        res.json(user)
+      })
+    }
   })
 })
 
@@ -110,17 +118,22 @@ app.post("/create", (req, res) => {
   // send group name and code back
 
   console.log(req.body)
-  console.log("user: ", req.user)
+  //console.log("user: ", req.user)
 
   const groupname = req.body.groupname
-  const owner = req.user.username
+  const owner = "user" //req.user.username
   const code = Math.random().toString(36).substring(2, 7);
 
-  if (true) {
-    res.json({groupname: groupname, owner: owner, code: code})
-  } else {
-    res.json("Group exists already")
-  }
+  Group.findOneAndUpdate({groupname: groupname, owner: owner}, {}, {upsert: true}, (error, data) => {
+    if (error) console.log(error)
+    else {
+      if (data === null) {
+        res.json({status: "new group created", data: data})
+      } else {
+        res.json({status: "group exists", data: data})
+      }
+    }
+  })
 })
 
 app.post("/join", (req, res) => {
