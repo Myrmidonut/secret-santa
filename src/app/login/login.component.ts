@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
       })
     }
 
-    this.httpClient.post("/login", body.toString(), httpOptions)
+    this.httpClient.post<{username: string, password: string}>("/login", body.toString(), httpOptions)
     .subscribe(res => {
       console.log(res)
     });

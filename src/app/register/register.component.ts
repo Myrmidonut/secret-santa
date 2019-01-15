@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit {
       })
     }
 
-    this.httpClient.post("/register", body.toString(), httpOptions)
+    this.httpClient.post<{username: string, password: string, email: string}>("/register", body.toString(), httpOptions)
     .subscribe(res => {
       console.log(res)
     });

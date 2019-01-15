@@ -1,12 +1,32 @@
 <h2>Join Group</h2>
 
-<form [formGroup]="joinForm">
-  <label for="name">Name:</label>
-  <input type="text" id="name" formControlName="name">
+<form [formGroup]="joinForm" (ngSubmit)="onSubmit()">
+  <label for="groupname">
+    Groupname:
+    <input type="text" id="groupname" formControlName="groupname">
 
-  <label for="code">Code:</label>
-  <input type="text" id="code" formControlName="code">
+    <div *ngIf="submitted && joinForm.controls.groupname.errors">
+      <div *ngIf="joinForm.controls.groupname.errors.required">
+        A groupname is required.
+      </div>
+    </div>
+  </label>
 
+  <br>
+  
+  <label for="code">
+    Code:
+    <input type="text" id="code" formControlName="code">
+
+    <div *ngIf="submitted && joinForm.controls.code.errors">
+      <div *ngIf="joinForm.controls.code.errors.required">
+        A code is required.
+      </div>
+    </div>
+  </label>
+
+  <br>
+  
   <input type="submit">
 </form>
 
