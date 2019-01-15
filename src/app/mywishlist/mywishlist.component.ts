@@ -12,6 +12,8 @@ export class MywishlistComponent implements OnInit {
 
   myWishlist: string[]
 
+  // title, description, link
+
   ngOnInit() {
     this.data.loadMyWishlist()
     this.myWishlist = this.data.myWishlist;

@@ -62,6 +62,8 @@ export class CreateComponent implements OnInit {
 
       this.data.activeGroup = res.groupname
 
+      // joinGroup
+
       this.router.navigate(["/invite"])
     })
   }

@@ -30,7 +30,11 @@ const GroupSchema = new mongoose.Schema({
   launched: Boolean,
   members: [{
     username: String,
-    wishlist: [String],
+    wishlist: [{
+      title: String,
+      description: String,
+      link: String
+    }],
     partner: String
   }]
 })
@@ -102,9 +106,6 @@ app.post("/login", passport.authenticate("local"), (req, res) => {
 app.post("/create", isLoggedIn, (req, res) => {
   // groupname
   // owner
-  // create groupname, owner, random code
-  // or return error if group already exists
-  // send group name and code back
 
   const groupname = req.body.groupname
   const owner = req.user.username
@@ -131,12 +132,14 @@ app.post("/join", isLoggedIn, (req, res) => {
   const code = req.body.code
   const username = req.user.username
 
-  Group.findOne({groupname: groupname, code: code, members: {$elemMatch: {username: username}}}, (error, data) => {
+  Group.findOne({groupname: groupname, code: code, "members.username": username}, (error, data) => {
     if (error) console.log(error)
     else {
       if (data === null) {
-        Group.findOneAndUpdate({groupname: groupname, code: code}, {$push: {members: {username: username}}}, {new: true}, (error, data) => {
-          res.json({status: "member created", data: data})
+        Group.findOneAndUpdate({groupname: groupname, code: code}, {$push: {members: {username: username}}}, {new: true}, (error2, data2) => {
+          User.findOneAndUpdate({username: username}, {$push: {groups: groupname}}, {new: true}, (error3, data3) => {
+            res.json({status: "member created", data: data2, user: data3})
+          })
         })
       } else {
         res.json({status: "member exists", data: data})
@@ -145,11 +148,9 @@ app.post("/join", isLoggedIn, (req, res) => {
   })
 })
 
-app.post("/leave", (req, res) => {
+app.post("/leave", isLoggedIn, (req, res) => {
   // username
   // groupname
-
-  // check if not found
 
   const username = req.user.username
   const groupname = req.body.groupname
@@ -176,13 +177,14 @@ app.post("/mywishlist", isLoggedIn, (req, res) => {
   // convert to array
 
   const groupname = req.body.groupname
-  const wishlist = req.body.mywishlist
+  //const wishlist = [{title: "test title", description: "test description", link: "test link"}]
+  const wishlist = req.body.wishlist
   const code = req.body.code
   const username = req.user.username
 
   console.log(wishlist)
 
-  Group.findOneAndUpdate({groupname: groupname, code: code, "members.username": username}, {"members.$.wishlist": wishlist}, {new: true, fields: {"members.$.wishlist": 1}}, (error, data) => {
+  Group.findOneAndUpdate({groupname: groupname, code: code, "members.username": username}, {$set: {"members.$.wishlist": wishlist}}, {new: true}, (error, data) => {
     res.json({status: "wishlist changed", data: data})
   })
 })
@@ -202,8 +204,6 @@ app.post("/partnerwishlist", isLoggedIn, (req, res) => {
     else {
       partner = data.members[0].partner
 
-      console.log(partner)
-
       Group.findOne({groupname: groupname, code: code}, {members: {$elemMatch: {username: partner}}}, (error, data) => {
         res.json({partner: data.members[0].username, partnerwishlist: data.members[0].wishlist})
       })
@@ -211,10 +211,33 @@ app.post("/partnerwishlist", isLoggedIn, (req, res) => {
   })
 })
 
+app.post("/group", isLoggedIn, (req, res) => {
+  const username = req.user.username
+  const groupname = req.body.groupname
+  const code = req.body.code
+
+  Group.findOne({groupname: groupname, code: code, "members.username": username}, (error, data) => {
+    const members = []
+    data.members.forEach(e => members.push(e.username))
+
+    res.json({groupname: data.groupname, owner: data.owner, members: members})
+  })
+})
+
+app.post("/groups", isLoggedIn, (req, res) => {
+  const username = req.user.username
+
+  User.findOne({username: username}, (error, data) => {
+    res.json(data.groups)
+  })
+})
+
 app.post("/launch", isLoggedIn, (req, res) => {
   // owner
   // groupname
   // code
+
+  // user leaves?
 
   function shuffleArray(items) {
     for (let i = items.length; i-- > 1; ) {
