@@ -27,6 +27,7 @@ const GroupSchema = new mongoose.Schema({
   groupname: String,
   code: String,
   owner: String,
+  launched: Boolean,
   members: [{
     username: String,
     wishlist: [String],
@@ -171,24 +172,43 @@ app.post("/mywishlist", isLoggedIn, (req, res) => {
   // code
   // wishlist entries
 
-  // error: replaces members with wishlist
+  // receive wishlist as json
+  // convert to array
 
   const groupname = req.body.groupname
   const wishlist = req.body.mywishlist
   const code = req.body.code
   const username = req.user.username
 
-  Group.findOneAndUpdate({groupname: groupname, code: code, members: {$elemMatch: {username: username}}}, {$set: {members: {wishlist: wishlist}}}, {new: true}, (error, data) => {
+  console.log(wishlist)
+
+  Group.findOneAndUpdate({groupname: groupname, code: code, "members.username": username}, {"members.$.wishlist": wishlist}, {new: true, fields: {"members.$.wishlist": 1}}, (error, data) => {
     res.json({status: "wishlist changed", data: data})
   })
 })
 
-app.post("/partnerwishlist", (req, res) => {
+app.post("/partnerwishlist", isLoggedIn, (req, res) => {
   // username
   // groupname
   // code
 
-  res.json("partnerwishlist")
+  const groupname = req.body.groupname
+  const username = req.user.username
+  const code = req.body.code
+  let partner = ""
+
+  Group.findOne({groupname: groupname, code: code, launched: true}, {members: {$elemMatch: {username: username}}}, (error, data) => {
+    if (error) console.log(error)
+    else {
+      partner = data.members[0].partner
+
+      console.log(partner)
+
+      Group.findOne({groupname: groupname, code: code}, {members: {$elemMatch: {username: partner}}}, (error, data) => {
+        res.json({partner: data.members[0].username, partnerwishlist: data.members[0].wishlist})
+      })
+    }
+  })
 })
 
 app.post("/launch", isLoggedIn, (req, res) => {
@@ -196,24 +216,46 @@ app.post("/launch", isLoggedIn, (req, res) => {
   // groupname
   // code
 
-  // set up launch
+  function shuffleArray(items) {
+    for (let i = items.length; i-- > 1; ) {
+      let j = Math.floor(Math.random() * i);
+      let temp = items[i];
+      items[i] = items[j];
+      items[j] = temp;
+    }
+  }
 
   const username = req.user.username
   const groupname = req.body.groupname
   const code = req.body.code
+  let partners = []
 
   Group.findOne({groupname: groupname, code: code}, (error, data) => {
     if (error) console.log(error)
     else {
       if (data === null) {
         res.json("groupname not found")
+      } else if (data.launched === true) {
+        res.json({status: "already launched", data: data})
+      } else if (data.owner === username) {
+        data.members.forEach(e => {
+          partners.push(e.username)
+        })
+
+        shuffleArray(partners)
+
+        data.members.forEach((e, i) => {
+          e.partner = partners[i]
+        })
+
+        Group.findOneAndUpdate({groupname: groupname, code: code}, {members: data.members, launched: true}, {new: true}, (error, data) => {
+          if (error) console.log(error)
+          else {
+            res.json({status: "active user is the owner, launched now", data: data})
+          }
+        })
       } else {
-        if (data.owner === username) {
-          // launch
-          res.json({status: "active user is the owner", data: data})
-        } else {
-          res.json({status: "active user is not the owner", data: data})
-        }
+        res.json({status: "active user is not the owner", data: data})
       }
     }
   })
