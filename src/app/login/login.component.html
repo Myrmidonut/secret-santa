@@ -4,13 +4,29 @@
   <label>
     Username:
     <input type="text" formControlName="username">
+
+    <div *ngIf="submitted && loginForm.controls.username.errors">
+      <div *ngIf="loginForm.controls.username.errors.required">
+        A username is required.
+      </div>
+    </div>
   </label>
+
   <br>
+
   <label>
     Password:
     <input type="text" formControlName="password">
+
+    <div *ngIf="submitted && loginForm.controls.password.errors">
+      <div *ngIf="loginForm.controls.password.errors.required">
+        A password is required.
+      </div>
+    </div>
   </label>
+
   <br>
+
   <input type="submit">
 </form>
 

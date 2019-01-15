@@ -13,15 +13,15 @@ import { Router } from "@angular/router";
 
 export class CreateComponent implements OnInit {
   constructor(
-    private formbuilder: FormBuilder, 
+    private formBuilder: FormBuilder, 
     private data: DataService, 
     private httpClient: HttpClient,
     private router: Router
     ) {
-      this.createForm = this.formbuilder.group({
-        groupname: ["", Validators.required]
-      })
-    }
+    this.createForm = this.formBuilder.group({
+      groupname: ["", Validators.required]
+    })
+  }
 
   createForm: FormGroup
   submitted = false
@@ -31,13 +31,13 @@ export class CreateComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
+    this.submitted = true
 
     if (this.createForm.invalid) {
       return;
     }
 
-    this.success = true;
+    this.success = true
 
     this.createGroup(this.createForm.value, this.data.user)
   }
@@ -46,7 +46,7 @@ export class CreateComponent implements OnInit {
     // send groupname and owner to api
     // get groupname and code back
 
-    let body = new URLSearchParams();
+    let body = new URLSearchParams()
     body.set("groupname", formdata.groupname)
     body.set("owner", owner)
 

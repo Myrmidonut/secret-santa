@@ -4,18 +4,42 @@
   <label>
     Username:
     <input type="text" formControlName="username">
+
+    <div *ngIf="submitted && registerForm.controls.username.errors">
+      <div *ngIf="registerForm.controls.username.errors.required">
+        A username is required.
+      </div>
+    </div>
   </label>
+
   <br>
+
   <label>
     Password:
     <input type="text" formControlName="password">
+
+    <div *ngIf="submitted && registerForm.controls.password.errors">
+      <div *ngIf="registerForm.controls.password.errors.required">
+        A password is required.
+      </div>
+    </div>
   </label>
+
   <br>
+  
   <label>
     Email:
     <input type="text" formControlName="email">
+
+    <div *ngIf="submitted && registerForm.controls.email.errors">
+      <div *ngIf="registerForm.controls.email.errors.required">
+        An email is required.
+      </div>
+    </div>
   </label>
+
   <br>
+
   <input type="submit">
 </form>
 

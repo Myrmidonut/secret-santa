@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class DataService {
-  constructor(private httpClient: HttpClient) { }
+  constructor() { }
 
   myWishlist: string[]
   partnerWishlist: string[]
@@ -36,26 +34,6 @@ export class DataService {
     this.partnerWishlist  = ["wine", "TV"]
   }
 
-  /*createGroup(formdata, owner) {
-    // send groupname and owner to api
-    // get groupname and code back
-
-    let body = new URLSearchParams();
-    body.set("groupname", formdata.groupname)
-    body.set("owner", owner)
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/x-www-form-urlencoded"
-      })
-    }
-
-    this.httpClient.post("/create", body.toString(), httpOptions)
-    .subscribe(res => {
-      return res
-    })
-  }*/
-
   inviteToGroup() {
     // 
   }
@@ -66,44 +44,5 @@ export class DataService {
 
   leaveGroup() {
     // send group name
-  }
-
-  login(formdata) {
-    console.log(formdata)
-
-    let body = new URLSearchParams();
-    body.set("username", formdata.username)
-    body.set("password", formdata.password)
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/x-www-form-urlencoded"
-      })
-    }
-
-    this.httpClient.post("/login", body.toString(), httpOptions)
-    .subscribe(res => {
-      console.log(res)
-    });
-  }
-
-  register(formdata) {
-    console.log(formdata)
-
-    let body = new URLSearchParams();
-    body.set("username", formdata.username)
-    body.set("password", formdata.password)
-    body.set("email", formdata.email)
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/x-www-form-urlencoded"
-      })
-    }
-
-    this.httpClient.post("/register", body.toString(), httpOptions)
-    .subscribe(res => {
-      console.log(res)
-    });
   }
 }

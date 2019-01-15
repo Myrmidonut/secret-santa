@@ -4,6 +4,7 @@
   <label>
     Groupname:
     <input type="text" formControlName="groupname"><br>
+    
     <div *ngIf="submitted && createForm.controls.groupname.errors">
       <div *ngIf="createForm.controls.groupname.errors.required">
         A name is required.
