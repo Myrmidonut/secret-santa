@@ -12,7 +12,13 @@ export class MywishlistComponent implements OnInit {
 
   myWishlist: string[]
 
-  // title, description, link
+  // [{
+  //   title: "test title",
+  //   description: "test description",
+  //   link: "test link"
+  // }]
+
+  // JSON.stringify(myWishlist)
 
   ngOnInit() {
     this.data.loadMyWishlist()

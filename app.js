@@ -176,6 +176,8 @@ app.post("/mywishlist", isLoggedIn, (req, res) => {
   // receive wishlist as json
   // convert to array
 
+  // JSON.parse(req.body.wishlist)
+
   const groupname = req.body.groupname
   //const wishlist = [{title: "test title", description: "test description", link: "test link"}]
   const wishlist = req.body.wishlist
