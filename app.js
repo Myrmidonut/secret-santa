@@ -86,14 +86,10 @@ app.post("/register", (req, res) => {
 
   User.register(newUser, req.body.password, (error, user) => {
     if (error) {
-      console.log(error)
-      
       res.json(error)
     } else {
       passport.authenticate("local") (req, res, () => {
-        console.log("success")
-
-        res.json(user)
+        res.json({username: user.username})
       })
     }
   })
