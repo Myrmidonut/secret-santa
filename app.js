@@ -126,9 +126,14 @@ app.post("/create", isLoggedIn, (req, res) => {
     if (error) console.log(error)
     else {
       if (data === null) {
-        res.json({status: "new group created", groupname: groupname})
+        User.findOneAndUpdate({username: owner}, {$push: {owner: groupname}}, (error, data) => {
+          if (error) console.log(error)
+          else {
+            res.json({status: "new group created", groupname: groupname, code: code})
+          }
+        })
       } else {
-        res.json({status: "group exists"})
+        res.json({status: "group exists already"})
       }
     }
   })
@@ -149,7 +154,7 @@ app.post("/join", isLoggedIn, (req, res) => {
       res.json({status: "groupname or code wrong"})
     } else {
       if (data.members.filter(e => e.username == username).length === 1) {
-        res.json({status: "member exists"})
+        res.json({status: "already member of group"})
       } else {
         Group.findOneAndUpdate({groupname: groupname, code: code}, {$push: {members: {username: username}}}, {new: true}, (error2, data2) => {
           if (error2) console.log(error2)
@@ -157,7 +162,7 @@ app.post("/join", isLoggedIn, (req, res) => {
             User.findOneAndUpdate({username: username}, {$push: {groups: groupname}}, {new: true}, (error3, data3) => {
               if (error3) console.log(error3)
               else {
-                res.json({status: "member created"})
+                res.json({status: "joined group"})
               }
             })
           }
