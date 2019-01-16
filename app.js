@@ -138,13 +138,16 @@ app.post("/join", isLoggedIn, (req, res) => {
       res.json({status: "groupname or code wrong"})
     } else {
       if (data.members.filter(e => e.username == username).length === 1) {
-        res.json({status: "member exists", data: data})
+        res.json({status: "member exists"})
       } else {
         Group.findOneAndUpdate({groupname: groupname, code: code}, {$push: {members: {username: username}}}, {new: true}, (error2, data2) => {
           if (error2) console.log(error2)
           else {
             User.findOneAndUpdate({username: username}, {$push: {groups: groupname}}, {new: true}, (error3, data3) => {
-              res.json({status: "member created", data: data2, user: data3})
+              if (error3) console.log(error3)
+              else {
+                res.json({status: "member created"})
+              }
             })
           }
         })
