@@ -132,17 +132,22 @@ app.post("/join", isLoggedIn, (req, res) => {
   const code = req.body.code
   const username = req.user.username
 
-  Group.findOne({groupname: groupname, code: code, "members.username": username}, (error, data) => {
+  Group.findOne({groupname: groupname, code: code}, (error, data) => {
     if (error) console.log(error)
-    else {
-      if (data === null) {
-        Group.findOneAndUpdate({groupname: groupname, code: code}, {$push: {members: {username: username}}}, {new: true}, (error2, data2) => {
-          User.findOneAndUpdate({username: username}, {$push: {groups: groupname}}, {new: true}, (error3, data3) => {
-            res.json({status: "member created", data: data2, user: data3})
-          })
-        })
-      } else {
+    else if (data === null) {
+      res.json({status: "groupname or code wrong"})
+    } else {
+      if (data.members.filter(e => e.username == username).length === 1) {
         res.json({status: "member exists", data: data})
+      } else {
+        Group.findOneAndUpdate({groupname: groupname, code: code}, {$push: {members: {username: username}}}, {new: true}, (error2, data2) => {
+          if (error2) console.log(error2)
+          else {
+            User.findOneAndUpdate({username: username}, {$push: {groups: groupname}}, {new: true}, (error3, data3) => {
+              res.json({status: "member created", data: data2, user: data3})
+            })
+          }
+        })
       }
     }
   })
@@ -285,6 +290,8 @@ app.post("/launch", isLoggedIn, (req, res) => {
     }
   })
 })
+
+// delete group
 
 // SERVER
 app.listen(port, () => console.log(`Server running on port ${port}!`))
