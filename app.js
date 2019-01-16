@@ -45,7 +45,8 @@ const UserSchema = new mongoose.Schema({
   username: String,
   password: String,
   email: String,
-  groups: [String]
+  groups: [String],
+  owner: [String]
 })
 
 // enable passport functions on users
@@ -99,7 +100,17 @@ app.post("/register", (req, res) => {
 })
 
 app.post("/login", passport.authenticate("local"), (req, res) => {
-  res.json("success")
+  User.findOne({username: req.user.username}, (error1, data1) => {
+    if (error1) console.log(error1)
+    else {
+      Group.find({owner: req.user.username}, (error2, data2) => {
+        if (error2) console.log(error2)
+        else {
+          res.json({status: "logged in", username: data1.username, groups: data1.groups, owner: data2.map(e => e.groupname)})
+        }
+      })
+    }
+  })
 })
 
 // GROUPS
@@ -115,9 +126,9 @@ app.post("/create", isLoggedIn, (req, res) => {
     if (error) console.log(error)
     else {
       if (data === null) {
-        res.json({status: "new group created", data: data})
+        res.json({status: "new group created", groupname: groupname})
       } else {
-        res.json({status: "group exists", data: data})
+        res.json({status: "group exists"})
       }
     }
   })
@@ -238,7 +249,10 @@ app.post("/groups", isLoggedIn, (req, res) => {
   const username = req.user.username
 
   User.findOne({username: username}, (error, data) => {
-    res.json(data.groups)
+    if (error) console.log(error)
+    else {
+      res.json({groups: data.groups, owner: data.owner})
+    }
   })
 })
 
