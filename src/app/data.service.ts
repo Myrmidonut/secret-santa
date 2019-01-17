@@ -10,6 +10,7 @@ export class DataService {
   myWishlist: string[]
   partnerWishlist: string[]
   groups: string[]
+  groupsowner: string[]
   members: string[]
   user: string = "testuser"
   activeGroup: {}

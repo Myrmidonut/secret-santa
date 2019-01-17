@@ -118,14 +118,19 @@ app.post("/create", isLoggedIn, (req, res) => {
   const owner = req.user.username
   const code = Math.random().toString(36).substring(2, 7);
 
-  Group.findOneAndUpdate({groupname: groupname, owner: owner}, {code: code}, {upsert: true}, (error, data) => {
-    if (error) console.log(error)
+  Group.findOne({groupname: groupname}, (error1, data1) => {
+    if (error1) console.log(error1)
     else {
-      if (data === null) {
-        User.findOneAndUpdate({username: owner}, {$push: {owner: groupname}}, (error, data) => {
-          if (error) console.log(error)
+      if (data1 === null) {
+        Group.findOneAndUpdate({groupname: groupname}, {code: code, owner: owner, $push: {members: {username: owner}}}, {upsert: true}, (error2, data2) => {
+          if (error2) console.log(error2)
           else {
-            res.json({status: "new group created", groupname: groupname, code: code})
+            User.findOneAndUpdate({username: owner}, {$push: {groups: groupname, owner: groupname}}, {new: true}, (error3, data3) => {
+              if (error3) console.log(error3)
+              else {
+                res.json({status: "new group created", groupname: groupname, code: code})
+              }
+            })
           }
         })
       } else {
@@ -246,12 +251,14 @@ app.post("/group", isLoggedIn, (req, res) => {
   })
 })
 
-app.post("/groups", isLoggedIn, (req, res) => {
+app.get("/groups", isLoggedIn, (req, res) => {
   const username = req.user.username
 
   User.findOne({username: username}, (error, data) => {
     if (error) console.log(error)
     else {
+      console.log(data)
+
       res.json({groups: data.groups, owner: data.owner})
     }
   })
