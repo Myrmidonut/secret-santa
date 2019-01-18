@@ -15,9 +15,7 @@ export class GroupComponent implements OnInit {
     private data: DataService
   ) { }
 
-  groupname: string
-  owner: string
-  members: string[]
+  groupname: string = this.data.groupname
 
   ngOnInit() {
     this.loadGroup()
@@ -35,8 +33,6 @@ export class GroupComponent implements OnInit {
 
     this.httpClient.post<{groupname: string, owner: string, members: string[]}>("/group", body.toString(), httpOptions)
     .subscribe(res => {
-      console.log(res)
-
       this.data.owner = res.owner
       this.data.members = res.members
     })

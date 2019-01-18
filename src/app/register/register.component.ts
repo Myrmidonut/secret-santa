@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DataService } from "../data.service";
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private data: DataService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router
     ) {
     this.registerForm = this.formBuilder.group({
       username: ["", Validators.required],
@@ -43,8 +45,6 @@ export class RegisterComponent implements OnInit {
   }
 
   register(formdata) {
-    console.log(formdata)
-
     let body = new URLSearchParams();
     body.set("username", formdata.username)
     body.set("password", formdata.password)
@@ -58,7 +58,9 @@ export class RegisterComponent implements OnInit {
 
     this.httpClient.post<{username: string, password: string, email: string}>("/register", body.toString(), httpOptions)
     .subscribe(res => {
-      console.log(res)
+      this.data.username = res.username
+
+      this.router.navigate(["/"])
     });
   }
 }

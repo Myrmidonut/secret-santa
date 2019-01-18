@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DataService } from "../data.service";
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private data: DataService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router
     ) {
     this.loginForm = this.formBuilder.group({
       username: ["", Validators.required],
@@ -42,8 +44,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(formdata) {
-    console.log(formdata)
-
     let body = new URLSearchParams()
     body.set("username", formdata.username)
     body.set("password", formdata.password)
@@ -56,12 +56,11 @@ export class LoginComponent implements OnInit {
 
     this.httpClient.post<{username: string, password: string, groups: [string], owner: [string]}>("/login", body.toString(), httpOptions)
     .subscribe(res => {
-      console.log(res)
-
       this.data.username = res.username
-
       this.data.groups = res.groups
       this.data.groupsowner = res.owner
+
+      this.router.navigate(["/"])
     });
   }
 }
