@@ -2,9 +2,7 @@
 
 <ul>
   <li *ngFor="let group of groups; index as i">
-    <a routerLink="../group">
-      <span>{{ group }} {{ i }}</span>
-    </a>
+    <a routerLink="../group" (click)="onClick($event)">{{ group }}</a>
   </li>
 </ul>
 

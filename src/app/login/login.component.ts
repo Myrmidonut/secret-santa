@@ -58,6 +58,8 @@ export class LoginComponent implements OnInit {
     .subscribe(res => {
       console.log(res)
 
+      this.data.username = res.username
+
       this.data.groups = res.groups
       this.data.groupsowner = res.owner
     });

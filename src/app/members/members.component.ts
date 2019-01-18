@@ -13,7 +13,8 @@ export class MembersComponent implements OnInit {
   members: string[]
 
   ngOnInit() {
-    this.data.loadMembers()
-    this.members = this.data.members
+    console.log(this.data.members)
+    console.log(this.data.owner)
+    console.log(this.data.groupname)
   }
 }

@@ -16,37 +16,23 @@ export class GroupsComponent implements OnInit {
     ) { }
 
   groups: string[]
-  owner: string[]
-  combined: any[]
+  groupsowner: string[]
 
   ngOnInit() {
     this.loadGroups()
   }
 
+  onClick(event) {
+    this.data.groupname = event.target.innerText
+  }
+
   loadGroups() {
-    this.httpClient.get("/groups")
+    this.httpClient.get<{groups: string[], groupsowner: string[]}>("/groups")
     .subscribe(res => {
       console.log(res)
 
-      this.groups = this.data.groups
-      this.owner = this.data.groupsowner
-
-      let combined = []
-
-      this.groups.forEach(e => {
-        this.owner.forEach(f => {
-          if (e === f) {
-            combined.push({e: f})
-          } else {
-            combined.push({e: "user"})
-          }
-        })
-      })
-
-      this.combined = combined
-
-      console.log(this.combined)
-
+      this.groups = res.groups
+      this.groupsowner = res.groupsowner
     })
   }
 }

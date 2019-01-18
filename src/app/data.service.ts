@@ -7,13 +7,18 @@ import { Injectable } from '@angular/core';
 export class DataService {
   constructor() { }
 
+  username: string
+
   myWishlist: string[]
   partnerWishlist: string[]
   groups: string[]
   groupsowner: string[]
+
+  groupname: string
+  owner: string
   members: string[]
-  user: string = "testuser"
-  activeGroup: {}
+  partner: string
+  launched: boolean
 
   loadGroups() {
     // fetch from api

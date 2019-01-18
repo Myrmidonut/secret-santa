@@ -96,15 +96,10 @@ app.post("/register", (req, res) => {
 })
 
 app.post("/login", passport.authenticate("local"), (req, res) => {
-  User.findOne({username: req.user.username}, (error1, data1) => {
-    if (error1) console.log(error1)
+  User.findOne({username: req.user.username}, (error, data) => {
+    if (error) console.log(error)
     else {
-      Group.find({owner: req.user.username}, (error2, data2) => {
-        if (error2) console.log(error2)
-        else {
-          res.json({status: "logged in", username: data1.username, groups: data1.groups, owner: data2.map(e => e.groupname)})
-        }
-      })
+      res.json({status: "logged in", username: data.username, groups: data.groups, owner: data.owner})
     }
   })
 })
@@ -241,9 +236,8 @@ app.post("/partnerwishlist", isLoggedIn, (req, res) => {
 app.post("/group", isLoggedIn, (req, res) => {
   const username = req.user.username
   const groupname = req.body.groupname
-  const code = req.body.code
 
-  Group.findOne({groupname: groupname, code: code, "members.username": username}, (error, data) => {
+  Group.findOne({groupname: groupname, "members.username": username}, (error, data) => {
     const members = []
     data.members.forEach(e => members.push(e.username))
 

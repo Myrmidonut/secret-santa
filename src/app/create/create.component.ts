@@ -39,16 +39,16 @@ export class CreateComponent implements OnInit {
 
     this.success = true
 
-    this.createGroup(this.createForm.value, this.data.user)
+    this.createGroup(this.createForm.value)
   }
 
-  createGroup(formdata, owner) {
+  createGroup(formdata) {
     // send groupname and owner to api
     // get groupname and code back
 
     let body = new URLSearchParams()
     body.set("groupname", formdata.groupname)
-    body.set("owner", owner)
+    body.set("owner", this.data.username)
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -60,7 +60,7 @@ export class CreateComponent implements OnInit {
     .subscribe(res => {
       console.log(res)
 
-      this.data.activeGroup = res.groupname
+      this.data.groupname = res.groupname
 
       //this.router.navigate(["/invite"])
     })
