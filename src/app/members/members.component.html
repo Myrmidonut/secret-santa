@@ -8,4 +8,11 @@
   <li *ngFor="let member of data.members">{{ member }}</li>
 </ul>
 
+<div *ngIf="data.owner === data.username">
+  <h3>Owner</h3>
+
+  Delete Member 
+  Invite
+</div>
+
 <a routerLink="../group">Back</a>

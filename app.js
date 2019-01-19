@@ -307,8 +307,35 @@ app.post("/launch", isLoggedIn, (req, res) => {
 })
 
 // delete group
+app.post("/deletegroup", isLoggedIn, (req, res) => {
+  const groupname = req.body.groupname
+  const username = req.user.username
 
-// delete user
+  Group.findOneAndDelete({groupname: groupname, owner: username}, (error, data) => {
+    if (error) console.log(error)
+    else {
+      console.log(data)
+
+      res.json({status: "deleted", data: data})
+    }
+  })
+})
+
+// delete member
+app.post("/deletemember", isLoggedIn, (req, res) => {
+  const member = req.body.member
+  const groupname = req.body.groupname
+  const username = req.user.username
+
+  Group.findOneAndUpdate({groupname: groupname, owner: username}, {$pull: {members: {username: member}}}, {new: true}, (error, data) => {
+    if (error) console.log(error)
+    else {
+      console.log(data)
+
+      res.json({status: "deleted", data: data})
+    }
+  })
+})
 
 // SERVER
 app.listen(port, () => console.log(`Server running on port ${port}!`))
