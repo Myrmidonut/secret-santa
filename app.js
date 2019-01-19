@@ -140,7 +140,7 @@ app.post("/join", isLoggedIn, (req, res) => {
   Group.findOne({groupname: groupname, code: code}, (error, data) => {
     if (error) console.log(error)
     else if (data === null) {
-      res.json({status: "groupname or code wrong"})
+      res.json({status: "Groupname or Code wrong."})
     } else {
       if (data.members.filter(e => e.username == username).length === 1) {
         res.json({status: "already member of group"})

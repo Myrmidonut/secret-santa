@@ -28,6 +28,14 @@
   <br>
   
   <input type="submit">
+
+  <br>
+
+  <div *ngIf="groupError !== ''">
+    {{ groupError }}
+  </div>
 </form>
+
+<br>
 
 <a routerLink="">Back</a>

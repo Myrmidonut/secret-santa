@@ -25,13 +25,15 @@ export class JoinComponent implements OnInit {
   }
 
   joinForm: FormGroup
-  submitted = false
-  success = false
+  submitted: Boolean = false
+  success: Boolean = false
+  groupError: String = ""
 
   ngOnInit() {
   }
 
   onSubmit() {
+    this.groupError = ""
     this.submitted = true
 
     if (this.joinForm.invalid) {
@@ -54,13 +56,15 @@ export class JoinComponent implements OnInit {
       })
     }
 
-    this.httpClient.post<{groupname: string}>("/join", body.toString(), httpOptions)
+    this.httpClient.post<{groupname: string, status: string}>("/join", body.toString(), httpOptions)
     .subscribe(res => {
       if (res.groupname) {
         this.data.groupname = res.groupname
 
         this.router.navigate(["/group"])
-      } else console.log(res)
+      } else {
+        this.groupError = res.status
+      }
     })
   }
 }
