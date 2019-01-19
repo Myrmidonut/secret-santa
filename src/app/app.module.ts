@@ -13,7 +13,7 @@ import { GroupsComponent } from './groups/groups.component';
 import { CreateComponent } from './create/create.component';
 import { JoinComponent } from './join/join.component';
 import { MywishlistComponent } from './mywishlist/mywishlist.component';
-import { PartnerwishlistComponent } from './partnerwishlist/partnerwishlist.component';
+import { PartnerComponent } from './partner/partner.component';
 import { MembersComponent } from './members/members.component';
 import { InviteComponent } from './invite/invite.component';
 import { RegisterComponent } from './register/register.component';
@@ -30,7 +30,7 @@ import { LoginComponent } from './login/login.component';
     CreateComponent,
     JoinComponent,
     MywishlistComponent,
-    PartnerwishlistComponent,
+    PartnerComponent,
     MembersComponent,
     InviteComponent,
     RegisterComponent,

@@ -11,10 +11,12 @@ export class MembersComponent implements OnInit {
   constructor(private data: DataService) { }
 
   members: string[]
+  owner: string
 
   ngOnInit() {
-    console.log(this.data.members)
-    console.log(this.data.owner)
-    console.log(this.data.groupname)
+    this.members = this.data.members
+    this.owner = this.data.owner
+    
+    console.log(this.data.partner)
   }
 }

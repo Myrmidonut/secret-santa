@@ -7,7 +7,7 @@ import { JoinComponent } from "./join/join.component";
 import { GroupComponent } from "./group/group.component";
 import { GroupsComponent } from "./groups/groups.component";
 import { MywishlistComponent } from "./mywishlist/mywishlist.component";
-import { PartnerwishlistComponent } from "./partnerwishlist/partnerwishlist.component";
+import { PartnerComponent } from "./partner/partner.component";
 import { MembersComponent } from "./members/members.component";
 import { InviteComponent } from "./invite/invite.component";
 import { LoginComponent } from "./login/login.component";
@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: "group", component: GroupComponent },
   { path: "groups", component: GroupsComponent },
   { path: "mywishlist", component: MywishlistComponent },
-  { path: "partnerwishlist", component: PartnerwishlistComponent },
+  { path: "partner", component: PartnerComponent },
   { path: "members", component: MembersComponent },
   { path: "invite", component: InviteComponent },
   { path: "login", component: LoginComponent },

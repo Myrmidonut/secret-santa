@@ -201,33 +201,33 @@ app.post("/mywishlist", isLoggedIn, (req, res) => {
   const groupname = req.body.groupname
   //const wishlist = [{title: "test title", description: "test description", link: "test link"}]
   const wishlist = req.body.wishlist
-  const code = req.body.code
   const username = req.user.username
 
   console.log(wishlist)
 
-  Group.findOneAndUpdate({groupname: groupname, code: code, "members.username": username}, {$set: {"members.$.wishlist": wishlist}}, {new: true}, (error, data) => {
+  Group.findOneAndUpdate({groupname: groupname, "members.username": username}, {$set: {"members.$.wishlist": wishlist}}, {new: true}, (error, data) => {
     res.json({status: "wishlist changed", data: data})
   })
 })
 
-app.post("/partnerwishlist", isLoggedIn, (req, res) => {
-  // username
-  // groupname
-  // code
-
+app.post("/partner", isLoggedIn, (req, res) => {
   const groupname = req.body.groupname
   const username = req.user.username
-  const code = req.body.code
   let partner = ""
+  let partnerwishlist = []
 
-  Group.findOne({groupname: groupname, code: code, launched: true}, {members: {$elemMatch: {username: username}}}, (error, data) => {
-    if (error) console.log(error)
+  Group.findOne({groupname: groupname, launched: true}, {members: {$elemMatch: {username: username}}}, (error1, data1) => {
+    if (error1) console.log(error1)
     else {
-      partner = data.members[0].partner
+      partner = data1.members[0].partner
 
-      Group.findOne({groupname: groupname, code: code}, {members: {$elemMatch: {username: partner}}}, (error, data) => {
-        res.json({partner: data.members[0].username, partnerwishlist: data.members[0].wishlist})
+      Group.findOne({groupname: groupname}, {members: {$elemMatch: {username: partner}}}, (error2, data2) => {
+        if (error2) console.log(error2)
+        else {
+          partnerwishlist = data2.members[0].wishlist
+
+          res.json({partner: partner, partnerwishlist: partnerwishlist})
+        }
       })
     }
   })
@@ -236,12 +236,15 @@ app.post("/partnerwishlist", isLoggedIn, (req, res) => {
 app.post("/group", isLoggedIn, (req, res) => {
   const username = req.user.username
   const groupname = req.body.groupname
+  let members = []
 
   Group.findOne({groupname: groupname, "members.username": username}, (error, data) => {
-    const members = []
-    data.members.forEach(e => members.push(e.username))
-
-    res.json({groupname: data.groupname, owner: data.owner, members: members})
+    if (error) console.log(error)
+    else {
+      data.members.forEach(e => members.push(e.username))
+  
+      res.json({groupname: data.groupname, owner: data.owner, members: members})
+    }
   })
 })
 
@@ -251,8 +254,6 @@ app.get("/groups", isLoggedIn, (req, res) => {
   User.findOne({username: username}, (error, data) => {
     if (error) console.log(error)
     else {
-      console.log(data)
-
       res.json({groups: data.groups, owner: data.owner})
     }
   })
