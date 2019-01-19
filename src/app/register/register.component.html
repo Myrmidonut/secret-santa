@@ -3,7 +3,7 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <label>
     Username:
-    <input type="text" formControlName="username">
+    <input type="text" formControlName="username" #myInput>{{ myInput.focus() }}
 
     <div *ngIf="submitted && registerForm.controls.username.errors">
       <div *ngIf="registerForm.controls.username.errors.required">

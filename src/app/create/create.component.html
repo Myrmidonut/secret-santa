@@ -3,7 +3,7 @@
 <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
   <label>
     Groupname:
-    <input type="text" formControlName="groupname"><br>
+    <input type="text" formControlName="groupname" #myInput>{{ myInput.focus() }}
     
     <div *ngIf="submitted && createForm.controls.groupname.errors">
       <div *ngIf="createForm.controls.groupname.errors.required">

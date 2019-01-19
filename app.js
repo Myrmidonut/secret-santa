@@ -313,5 +313,7 @@ app.post("/launch", isLoggedIn, (req, res) => {
 
 // delete group
 
+// delete user
+
 // SERVER
 app.listen(port, () => console.log(`Server running on port ${port}!`))
