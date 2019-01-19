@@ -193,20 +193,22 @@ app.post("/mywishlist", isLoggedIn, (req, res) => {
   // code
   // wishlist entries
 
-  // receive wishlist as json
-  // convert to array
-
-  // JSON.parse(req.body.wishlist)
-
   const groupname = req.body.groupname
-  //const wishlist = [{title: "test title", description: "test description", link: "test link"}]
-  const wishlist = req.body.wishlist
   const username = req.user.username
+
+  const wishlist = {
+    title: req.body.title,
+    description: req.body.description,
+    link: req.body.link
+  }
 
   console.log(wishlist)
 
-  Group.findOneAndUpdate({groupname: groupname, "members.username": username}, {$set: {"members.$.wishlist": wishlist}}, {new: true}, (error, data) => {
-    res.json({status: "wishlist changed", data: data})
+  Group.findOneAndUpdate({groupname: groupname, "members.username": username}, {$push: {"members.$.wishlist": wishlist}}, {new: true}, (error, data) => {
+    if (error) console.log(error)
+    else {
+      res.json({status: "wishlist changed", data: data})
+    }
   })
 })
 

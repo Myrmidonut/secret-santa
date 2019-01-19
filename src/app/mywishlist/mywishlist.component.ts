@@ -19,7 +19,9 @@ export class MywishlistComponent implements OnInit {
     private router: Router
     ) {
       this.wishlistForm = this.formBuilder.group({
-        groupname: ["", Validators.required]
+        title: ["", Validators.required],
+        description: [""],
+        link: [""]
       })
     }
 
@@ -50,11 +52,11 @@ export class MywishlistComponent implements OnInit {
     //   link: "test link"
     // }]
 
-    // JSON.stringify(myWishlist)
-
     let body = new URLSearchParams()
-    body.set("groupname", formdata.groupname)
-    body.set("wishlist", formdata) // values
+    body.set("groupname", this.data.groupname)
+    body.set("title", formdata.title)
+    body.set("description", formdata.description)
+    body.set("link", formdata.link)
 
     const httpOptions = {
       headers: new HttpHeaders({

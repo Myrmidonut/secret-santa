@@ -3,7 +3,7 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <label>
     Username:
-    <input type="text" formControlName="username" #myInput>{{ myInput.focus() }}
+    <input type="text" formControlName="username">
 
     <div *ngIf="submitted && loginForm.controls.username.errors">
       <div *ngIf="loginForm.controls.username.errors.required">

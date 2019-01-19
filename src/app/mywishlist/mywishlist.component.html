@@ -4,4 +4,31 @@
   <li *ngFor="let item of myWishlist">{{ item }}</li>
 </ul>
 
+<form [formGroup]="wishlistForm" (ngSubmit)="onSubmit()">
+  <label>
+    Title:
+    <input type="text" formControlName="title">
+  </label>
+
+  <br>
+
+  <label>
+    Description:
+    <input type="text" formControlName="description">
+  </label>
+
+  <br>
+
+  <label>
+    Link:
+    <input type="text" formControlName="link">
+  </label>
+
+  <br>
+
+  <input type="submit">
+</form>
+
+<br>
+
 <a routerLink="../group">Back</a>
