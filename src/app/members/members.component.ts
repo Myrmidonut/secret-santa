@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from "../data.service";
 
 @Component({
   selector: 'app-members',
@@ -8,15 +7,8 @@ import { DataService } from "../data.service";
 })
 
 export class MembersComponent implements OnInit {
-  constructor(private data: DataService) { }
-
-  members: string[]
-  owner: string
+  constructor() { }
 
   ngOnInit() {
-    this.members = this.data.members
-    this.owner = this.data.owner
-    
-    console.log(this.data.partner)
   }
 }

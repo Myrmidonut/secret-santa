@@ -106,9 +106,6 @@ app.post("/login", passport.authenticate("local"), (req, res) => {
 
 // GROUPS
 app.post("/create", isLoggedIn, (req, res) => {
-  // groupname
-  // owner
-
   const groupname = req.body.groupname
   const owner = req.user.username
   const code = Math.random().toString(36).substring(2, 7);
@@ -136,10 +133,6 @@ app.post("/create", isLoggedIn, (req, res) => {
 })
 
 app.post("/join", isLoggedIn, (req, res) => {
-  // username
-  // groupname
-  // code
-
   const groupname = req.body.groupname
   const code = req.body.code
   const username = req.user.username
@@ -169,9 +162,6 @@ app.post("/join", isLoggedIn, (req, res) => {
 })
 
 app.post("/leave", isLoggedIn, (req, res) => {
-  // username
-  // groupname
-
   const username = req.user.username
   const groupname = req.body.groupname
 
@@ -272,12 +262,6 @@ app.get("/groups", isLoggedIn, (req, res) => {
 })
 
 app.post("/launch", isLoggedIn, (req, res) => {
-  // owner
-  // groupname
-  // code
-
-  // user leaves?
-
   function shuffleArray(items) {
     for (let i = items.length; i-- > 1; ) {
       let j = Math.floor(Math.random() * i);
@@ -289,10 +273,9 @@ app.post("/launch", isLoggedIn, (req, res) => {
 
   const username = req.user.username
   const groupname = req.body.groupname
-  const code = req.body.code
   let partners = []
 
-  Group.findOne({groupname: groupname, code: code}, (error, data) => {
+  Group.findOne({groupname: groupname}, (error, data) => {
     if (error) console.log(error)
     else {
       if (data === null) {
@@ -310,7 +293,7 @@ app.post("/launch", isLoggedIn, (req, res) => {
           e.partner = partners[i]
         })
 
-        Group.findOneAndUpdate({groupname: groupname, code: code}, {members: data.members, launched: true}, {new: true}, (error, data) => {
+        Group.findOneAndUpdate({groupname: groupname}, {members: data.members, launched: true}, {new: true}, (error, data) => {
           if (error) console.log(error)
           else {
             res.json({status: "active user is the owner, launched now", data: data})

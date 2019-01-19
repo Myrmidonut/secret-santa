@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
       })
     }
 
-    this.httpClient.post<{username: string, password: string, groups: [string], owner: [string]}>("/login", body.toString(), httpOptions)
+    this.httpClient.post<{username: string, groups: [string], owner: [string]}>("/login", body.toString(), httpOptions)
     .subscribe(res => {
       this.data.username = res.username
       this.data.groups = res.groups

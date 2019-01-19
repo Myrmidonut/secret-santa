@@ -15,9 +15,6 @@ export class PartnerComponent implements OnInit {
     private httpClient: HttpClient
     ) { }
 
-  partnerWishlist: string[]
-  partner: string
-
   ngOnInit() {
     this.loadPartner()
   }
@@ -32,15 +29,10 @@ export class PartnerComponent implements OnInit {
       })
     }
 
-    this.httpClient.post<{groupname: string, partner: string, partnerwishlist: any[]}>("/partner", body.toString(), httpOptions)
+    this.httpClient.post<{partner: string, partnerwishlist: any[]}>("/partner", body.toString(), httpOptions)
     .subscribe(res => {
       this.data.partnerWishlist = res.partnerwishlist
       this.data.partner = res.partner
-
-      this.partnerWishlist = res.partnerwishlist
-      this.partner = res.partner
-
-      console.log(this.partnerWishlist)
     })
   }
 }

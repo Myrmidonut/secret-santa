@@ -15,9 +15,6 @@ export class GroupsComponent implements OnInit {
     private httpClient: HttpClient
     ) { }
 
-  groups: string[]
-  groupsowner: string[]
-
   ngOnInit() {
     this.loadGroups()
   }
@@ -29,10 +26,8 @@ export class GroupsComponent implements OnInit {
   loadGroups() {
     this.httpClient.get<{groups: string[], groupsowner: string[]}>("/groups")
     .subscribe(res => {
-      console.log(res)
-
-      this.groups = res.groups
-      this.groupsowner = res.groupsowner
+      this.data.groups = res.groups
+      this.data.groupsowner = res.groupsowner
     })
   }
 }

@@ -28,7 +28,6 @@ export class MywishlistComponent implements OnInit {
   wishlistForm: FormGroup
   submitted = false
   success = false
-  myWishlist: String[]
 
   ngOnInit() {
     this.getWishlist()
@@ -56,10 +55,9 @@ export class MywishlistComponent implements OnInit {
       })
     }
 
-    this.httpClient.post<{groupname: string, wishlist: string[]}>("/getwishlist", body.toString(), httpOptions)
+    this.httpClient.post<{wishlist: string[]}>("/getwishlist", body.toString(), httpOptions)
     .subscribe(res => {
       this.data.myWishlist = res.wishlist
-      this.myWishlist = this.data.myWishlist
     })
   }
 
@@ -76,7 +74,7 @@ export class MywishlistComponent implements OnInit {
       })
     }
 
-    this.httpClient.post<{groupname: string}>("/updatewishlist", body.toString(), httpOptions)
+    this.httpClient.post("/updatewishlist", body.toString(), httpOptions)
     .subscribe(res => {
       this.getWishlist()
     })

@@ -1,9 +1,15 @@
-<h2>{{ groupname }}</h2>
+<h2>{{ data.groupname }}</h2>
 
 <a routerLink="../members">Members</a><br>
 <a routerLink="../mywishlist">My Wishlist</a><br>
 <a routerLink="../partner">My Partner</a><br>
 
-<button>Leave</button><br>
+<button>Leave</button>
+
+<div *ngIf="data.owner === data.username">
+  <h3>Owner</h3>
+</div>
+
+<br><br>
 
 <a routerLink="../groups">Back</a>

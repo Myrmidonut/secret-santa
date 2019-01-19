@@ -57,6 +57,9 @@ export class JoinComponent implements OnInit {
     this.httpClient.post<{groupname: string, code: string}>("/join", body.toString(), httpOptions)
     .subscribe(res => {
       console.log(res)
+
+      // set groupname
+      // redirect to /group
     })
   }
 }
