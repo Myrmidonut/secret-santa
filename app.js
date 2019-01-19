@@ -187,27 +187,37 @@ app.post("/leave", isLoggedIn, (req, res) => {
   })
 })
 
-app.post("/mywishlist", isLoggedIn, (req, res) => {
-  // username
-  // groupname
-  // code
-  // wishlist entries
-
+app.post("/getwishlist", isLoggedIn, (req, res) => {
   const groupname = req.body.groupname
   const username = req.user.username
+  let wishlist = []
 
-  const wishlist = {
+  Group.findOne({groupname: groupname, "members.username": username}, {members: {$elemMatch: {username: username}}}, (error, data) => {
+    if (error) console.log(error)
+    else {
+      wishlist = data.members[0].wishlist
+
+      res.json({status: "wishlist loaded", wishlist: wishlist})
+    }
+  })
+})
+
+app.post("/updatewishlist", isLoggedIn, (req, res) => {
+  const groupname = req.body.groupname
+  const username = req.user.username
+  const wishlistEntry = {
     title: req.body.title,
     description: req.body.description,
     link: req.body.link
   }
+  let wishlist = []
 
-  console.log(wishlist)
-
-  Group.findOneAndUpdate({groupname: groupname, "members.username": username}, {$push: {"members.$.wishlist": wishlist}}, {new: true}, (error, data) => {
+  Group.findOneAndUpdate({groupname: groupname, "members.username": username}, {$push: {"members.$.wishlist": wishlistEntry}}, {new: true, fields: {members: {$elemMatch: {username: username}}}}, (error, data) => {
     if (error) console.log(error)
     else {
-      res.json({status: "wishlist changed", data: data})
+      wishlist = data.members[0].wishlist
+
+      res.json({status: "wishlist changed", wishlist: wishlist})
     }
   })
 })

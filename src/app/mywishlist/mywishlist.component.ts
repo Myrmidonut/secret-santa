@@ -28,9 +28,10 @@ export class MywishlistComponent implements OnInit {
   wishlistForm: FormGroup
   submitted = false
   success = false
+  myWishlist: String[]
 
   ngOnInit() {
-    // load wishlist
+    this.getWishlist()
   }
 
   onSubmit() {
@@ -45,13 +46,24 @@ export class MywishlistComponent implements OnInit {
     this.updateWishlist(this.wishlistForm.value)
   }
 
-  updateWishlist(formdata) {
-    // [{
-    //   title: "test title",
-    //   description: "test description",
-    //   link: "test link"
-    // }]
+  getWishlist() {
+    let body = new URLSearchParams()
+    body.set("groupname", this.data.groupname)
 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/x-www-form-urlencoded"
+      })
+    }
+
+    this.httpClient.post<{groupname: string, wishlist: string[]}>("/getwishlist", body.toString(), httpOptions)
+    .subscribe(res => {
+      this.data.myWishlist = res.wishlist
+      this.myWishlist = this.data.myWishlist
+    })
+  }
+
+  updateWishlist(formdata) {
     let body = new URLSearchParams()
     body.set("groupname", this.data.groupname)
     body.set("title", formdata.title)
@@ -64,11 +76,9 @@ export class MywishlistComponent implements OnInit {
       })
     }
 
-    this.httpClient.post<{groupname: string}>("/mywishlist", body.toString(), httpOptions)
+    this.httpClient.post<{groupname: string}>("/updatewishlist", body.toString(), httpOptions)
     .subscribe(res => {
-      console.log(res)
-
-      // update wishlist
+      this.getWishlist()
     })
   }
 }
