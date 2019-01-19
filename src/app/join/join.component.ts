@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DataService } from "../data.service";
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-join',
@@ -14,8 +15,9 @@ export class JoinComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private data: DataService,
-    private httpClient: HttpClient
-    ) {
+    private httpClient: HttpClient,
+    private router: Router
+  ) {
     this.joinForm = this.formBuilder.group({
       groupname: ["", Validators.required],
       code: ["", Validators.required]
@@ -38,12 +40,10 @@ export class JoinComponent implements OnInit {
 
     this.success = true
 
-    this.join(this.joinForm.value)
+    this.joinGroup(this.joinForm.value)
   }
 
-  join(formdata) {
-    console.log(formdata)
-
+  joinGroup(formdata) {
     let body = new URLSearchParams()
     body.set("groupname", formdata.groupname)
     body.set("code", formdata.code)
@@ -54,12 +54,13 @@ export class JoinComponent implements OnInit {
       })
     }
 
-    this.httpClient.post<{groupname: string, code: string}>("/join", body.toString(), httpOptions)
+    this.httpClient.post<{groupname: string}>("/join", body.toString(), httpOptions)
     .subscribe(res => {
-      console.log(res)
+      if (res.groupname) {
+        this.data.groupname = res.groupname
 
-      // set groupname
-      // redirect to /group
+        this.router.navigate(["/group"])
+      } else console.log(res)
     })
   }
 }

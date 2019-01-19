@@ -151,7 +151,7 @@ app.post("/join", isLoggedIn, (req, res) => {
             User.findOneAndUpdate({username: username}, {$push: {groups: groupname}}, {new: true}, (error3, data3) => {
               if (error3) console.log(error3)
               else {
-                res.json({status: "joined group"})
+                res.json({status: "joined group", groupname: data2.groupname})
               }
             })
           }
