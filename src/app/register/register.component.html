@@ -1,8 +1,8 @@
-<h2>Register:</h2>
+<h1>Register:</h1>
 
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <label>
-    Username:
+    Username:<br>
     <input type="text" formControlName="username">
 
     <div *ngIf="submitted && registerForm.controls.username.errors">
@@ -15,7 +15,7 @@
   <br>
 
   <label>
-    Password:
+    Password:<br>
     <input type="text" formControlName="password">
 
     <div *ngIf="submitted && registerForm.controls.password.errors">
@@ -28,7 +28,7 @@
   <br>
   
   <label>
-    Email:
+    Email:<br>
     <input type="text" formControlName="email">
 
     <div *ngIf="submitted && registerForm.controls.email.errors">

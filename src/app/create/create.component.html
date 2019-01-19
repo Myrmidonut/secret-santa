@@ -1,8 +1,8 @@
-<h2>Create a Group:</h2>
+<h1>Create a Group:</h1>
 
 <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
   <label>
-    Groupname:
+    Groupname:<br>
     <input type="text" formControlName="groupname" #myInput>{{ myInput.focus() }}
     
     <div *ngIf="submitted && createForm.controls.groupname.errors">
@@ -11,6 +11,8 @@
       </div>
     </div>
   </label>
+
+  <br>
 
   <input type="submit">
 </form>

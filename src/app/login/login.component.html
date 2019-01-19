@@ -1,8 +1,8 @@
-<h2>Login:</h2>
+<h1>Login:</h1>
 
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <label>
-    Username:
+    Username:<br>
     <input type="text" formControlName="username">
 
     <div *ngIf="submitted && loginForm.controls.username.errors">
@@ -15,7 +15,7 @@
   <br>
 
   <label>
-    Password:
+    Password:<br>
     <input type="text" formControlName="password">
 
     <div *ngIf="submitted && loginForm.controls.password.errors">
