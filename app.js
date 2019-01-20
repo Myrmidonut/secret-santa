@@ -245,8 +245,6 @@ app.post("/group", isLoggedIn, (req, res) => {
   Group.findOne({groupname: groupname, "members.username": username}, (error, data) => {
     if (error) console.log(error)
     else {
-      console.log("/group data: ", data)
-
       if (data.members) {
         data.members.forEach(e => members.push(e.username))
     
@@ -351,18 +349,14 @@ app.post("/removemember", isLoggedIn, (req, res) => {
   const username = req.user.username
 
   if (member === username) {
-    res.json({status: "The owner cannot leave a group."})
+    res.json({status: "The owner cannot leave this group."})
   } else {
     Group.findOneAndUpdate({groupname: groupname, owner: username}, {$pull: {members: {username: member}}}, {new: true}, (error, data) => {
       if (error) console.log(error)
       else {
-        console.log(data)
-  
         User.findOneAndUpdate({username: member}, {$pull: {groups: groupname}}, {new: true}, (error, data) => {
           if (error) console.log(error)
           else {
-            console.log(data)
-  
             res.json({status: "member removed", data: data})
           }
         })
