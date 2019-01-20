@@ -220,7 +220,9 @@ app.post("/partner", isLoggedIn, (req, res) => {
 
   Group.findOne({groupname: groupname, launched: true}, {members: {$elemMatch: {username: username}}}, (error1, data1) => {
     if (error1) console.log(error1)
-    else {
+    else if (data1 === null) {
+      res.json({status: "Group has not started yet.", data: data1})
+    } else {
       partner = data1.members[0].partner
 
       Group.findOne({groupname: groupname}, {members: {$elemMatch: {username: partner}}}, (error2, data2) => {
@@ -240,16 +242,18 @@ app.post("/group", isLoggedIn, (req, res) => {
   const groupname = req.body.groupname
   let members = []
 
-  // error if no member in group
-
   Group.findOne({groupname: groupname, "members.username": username}, (error, data) => {
     if (error) console.log(error)
-    else if (data.members) {
-      data.members.forEach(e => members.push(e.username))
-  
-      res.json({groupname: data.groupname, owner: data.owner, members: members})
-    } else {
-      res.json({groupname: data.groupname, owner: data.owner, members: []})
+    else {
+      console.log("/group data: ", data)
+
+      if (data.members) {
+        data.members.forEach(e => members.push(e.username))
+    
+        res.json({groupname: data.groupname, owner: data.owner, members: members})
+      } else {
+        res.json({groupname: data.groupname, owner: data.owner, members: []})
+      }
     }
   })
 })
@@ -346,21 +350,25 @@ app.post("/removemember", isLoggedIn, (req, res) => {
   const groupname = req.body.groupname
   const username = req.user.username
 
-  Group.findOneAndUpdate({groupname: groupname, owner: username}, {$pull: {members: {username: member}}}, {new: true}, (error, data) => {
-    if (error) console.log(error)
-    else {
-      console.log(data)
-
-      User.findOneAndUpdate({username: member}, {$pull: {groups: groupname}}, {new: true}, (error, data) => {
-        if (error) console.log(error)
-        else {
-          console.log(data)
-
-          res.json({status: "member removed", data: data})
-        }
-      })
-    }
-  })
+  if (member === username) {
+    res.json({status: "The owner cannot leave a group."})
+  } else {
+    Group.findOneAndUpdate({groupname: groupname, owner: username}, {$pull: {members: {username: member}}}, {new: true}, (error, data) => {
+      if (error) console.log(error)
+      else {
+        console.log(data)
+  
+        User.findOneAndUpdate({username: member}, {$pull: {groups: groupname}}, {new: true}, (error, data) => {
+          if (error) console.log(error)
+          else {
+            console.log(data)
+  
+            res.json({status: "member removed", data: data})
+          }
+        })
+      }
+    })
+  }
 })
 
 // SERVER

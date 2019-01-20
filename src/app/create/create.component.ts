@@ -17,7 +17,7 @@ export class CreateComponent implements OnInit {
     private data: DataService, 
     private httpClient: HttpClient,
     private router: Router
-    ) {
+  ) {
     this.createForm = this.formBuilder.group({
       groupname: ["", Validators.required]
     })
@@ -43,9 +43,6 @@ export class CreateComponent implements OnInit {
   }
 
   createGroup(formdata) {
-    // send groupname and owner to api
-    // get groupname and code back
-
     let body = new URLSearchParams()
     body.set("groupname", formdata.groupname)
     body.set("owner", this.data.username)
@@ -56,13 +53,11 @@ export class CreateComponent implements OnInit {
       })
     }
 
-    this.httpClient.post<{groupname: string, owner: string, code: string}>("/create", body.toString(), httpOptions)
+    this.httpClient.post<{groupname: string}>("/create", body.toString(), httpOptions)
     .subscribe(res => {
-      console.log(res)
-
       this.data.groupname = res.groupname
 
-      //this.router.navigate(["/invite"])
+      this.router.navigate(["/group"])
     })
   }
 }

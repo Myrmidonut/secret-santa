@@ -13,7 +13,7 @@ export class PartnerComponent implements OnInit {
   constructor(
     private data: DataService,
     private httpClient: HttpClient
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.loadPartner()
