@@ -262,6 +262,10 @@ app.get("/groups", isLoggedIn, (req, res) => {
 })
 
 app.post("/launch", isLoggedIn, (req, res) => {
+  const username = req.user.username
+  const groupname = req.body.groupname
+  let partners = []
+
   function shuffleArray(items) {
     for (let i = items.length; i-- > 1; ) {
       let j = Math.floor(Math.random() * i);
@@ -271,17 +275,13 @@ app.post("/launch", isLoggedIn, (req, res) => {
     }
   }
 
-  const username = req.user.username
-  const groupname = req.body.groupname
-  let partners = []
-
   Group.findOne({groupname: groupname}, (error, data) => {
     if (error) console.log(error)
     else {
       if (data === null) {
         res.json("groupname not found")
-      } else if (data.launched === true) {
-        res.json({status: "already launched", data: data})
+      //} else if (data.launched === true) {
+      //  res.json({status: "already launched", data: data})
       } else if (data.owner === username) {
         data.members.forEach(e => {
           partners.push(e.username)
@@ -296,7 +296,7 @@ app.post("/launch", isLoggedIn, (req, res) => {
         Group.findOneAndUpdate({groupname: groupname}, {members: data.members, launched: true}, {new: true}, (error, data) => {
           if (error) console.log(error)
           else {
-            res.json({status: "active user is the owner, launched now", data: data})
+            res.json({status: "active user is the owner, launched group now", data: data})
           }
         })
       } else {
@@ -310,13 +310,30 @@ app.post("/launch", isLoggedIn, (req, res) => {
 app.post("/deletegroup", isLoggedIn, (req, res) => {
   const groupname = req.body.groupname
   const username = req.user.username
+  let members = []
+  let owner = ""
 
   Group.findOneAndDelete({groupname: groupname, owner: username}, (error, data) => {
     if (error) console.log(error)
     else {
-      console.log(data)
+      if (data !== null) {
+        members = data.members
+        owner = data.owner
 
-      res.json({status: "deleted", data: data})
+        User.findOneAndUpdate({username: owner}, {$pull: {owner: groupname}}, {new: true}, (error, data) => {
+          if (error) console.log(error)
+          else {
+            members.forEach(e => {
+              User.findOneAndUpdate({username: e.username}, {$pull: {groups: groupname}}, {new: true}, (error, data) => {
+                if (error) console.log(error)
+                else {
+                }
+              })
+            })
+            res.json({status: "group deleted"})
+          }
+        })
+      }
     }
   })
 })

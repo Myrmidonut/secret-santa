@@ -9,9 +9,9 @@
 <div *ngIf="data.owner === data.username">
   <h3>Owner</h3>
 
-  Launch
-  Delete Group
-  Invite
+  <button (click)="deleteGroup()">Delete Group</button>
+  <button (click)="launchGroup()">Launch Group</button>
+  <button (click)="inviteMember()">Invite Member</button>
 </div>
 
 <br><br>
