@@ -240,12 +240,16 @@ app.post("/group", isLoggedIn, (req, res) => {
   const groupname = req.body.groupname
   let members = []
 
+  // error if no member in group
+
   Group.findOne({groupname: groupname, "members.username": username}, (error, data) => {
     if (error) console.log(error)
-    else {
+    else if (data.members) {
       data.members.forEach(e => members.push(e.username))
   
       res.json({groupname: data.groupname, owner: data.owner, members: members})
+    } else {
+      res.json({groupname: data.groupname, owner: data.owner, members: []})
     }
   })
 })
@@ -306,7 +310,6 @@ app.post("/launch", isLoggedIn, (req, res) => {
   })
 })
 
-// delete group
 app.post("/deletegroup", isLoggedIn, (req, res) => {
   const groupname = req.body.groupname
   const username = req.user.username
@@ -338,8 +341,7 @@ app.post("/deletegroup", isLoggedIn, (req, res) => {
   })
 })
 
-// delete member
-app.post("/deletemember", isLoggedIn, (req, res) => {
+app.post("/removemember", isLoggedIn, (req, res) => {
   const member = req.body.member
   const groupname = req.body.groupname
   const username = req.user.username
@@ -349,7 +351,14 @@ app.post("/deletemember", isLoggedIn, (req, res) => {
     else {
       console.log(data)
 
-      res.json({status: "deleted", data: data})
+      User.findOneAndUpdate({username: member}, {$pull: {groups: groupname}}, {new: true}, (error, data) => {
+        if (error) console.log(error)
+        else {
+          console.log(data)
+
+          res.json({status: "member removed", data: data})
+        }
+      })
     }
   })
 })
