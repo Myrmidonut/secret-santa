@@ -114,7 +114,7 @@ app.post("/create", isLoggedIn, (req, res) => {
     if (error1) console.log(error1)
     else {
       if (data1 === null) {
-        Group.findOneAndUpdate({groupname: groupname}, {code: code, owner: owner, $push: {members: {username: owner}}}, {upsert: true}, (error2, data2) => {
+        Group.findOneAndUpdate({groupname: groupname}, {code: code, owner: owner, launched: false, $push: {members: {username: owner}}}, {upsert: true}, (error2, data2) => {
           if (error2) console.log(error2)
           else {
             User.findOneAndUpdate({username: owner}, {$push: {groups: groupname, owner: groupname}}, {new: true}, (error3, data3) => {
@@ -141,6 +141,8 @@ app.post("/join", isLoggedIn, (req, res) => {
     if (error) console.log(error)
     else if (data === null) {
       res.json({status: "Groupname or Code wrong."})
+    } else if (data.launched) {
+      res.json({status: "Group launched already."})
     } else {
       if (data.members.filter(e => e.username == username).length === 1) {
         res.json({status: "already member of group"})
@@ -165,13 +167,18 @@ app.post("/leave", isLoggedIn, (req, res) => {
   const username = req.user.username
   const groupname = req.body.groupname
 
-  Group.findOneAndUpdate({groupname: groupname}, {$pull: {members: {username: username}}}, {new: true}, (error, data) => {
+  Group.findOneAndUpdate({groupname: groupname, launched: false}, {$pull: {members: {username: username}}}, {new: true}, (error, data) => {
     if (error) console.log(error)
     else {
       if (data === null) {
-        res.json({status: "not found", data: data})
+        res.json({status: "not possible", data: data})
       } else {
-        res.json({status: "deleted", data: data})
+        User.findOneAndUpdate({username: username}, {$pull: {groups: groupname}}, (error, data) => {
+          if (error) console.log(error)
+          else {
+            res.json({status: "deleted", data: data})
+          }
+        })
       }
     }
   })

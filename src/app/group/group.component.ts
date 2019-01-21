@@ -21,6 +21,22 @@ export class GroupComponent implements OnInit {
     this.loadGroup()
   }
 
+  leaveGroup() {
+    let body = new URLSearchParams()
+    body.set("groupname", this.data.groupname)
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/x-www-form-urlencoded"
+      })
+    }
+
+    this.httpClient.post("/leave", body.toString(), httpOptions)
+    .subscribe(res => {
+      this.router.navigate(["/groups"])
+    })
+  }
+
   loadGroup() {
     let body = new URLSearchParams()
     body.set("groupname", this.data.groupname)
@@ -31,10 +47,11 @@ export class GroupComponent implements OnInit {
       })
     }
 
-    this.httpClient.post<{owner: string, members: string[]}>("/group", body.toString(), httpOptions)
+    this.httpClient.post<{owner: string, members: string[], launched: boolean}>("/group", body.toString(), httpOptions)
     .subscribe(res => {
       this.data.owner = res.owner
       this.data.members = res.members
+      this.data.launched = res.launched
     })
   }
 
@@ -50,8 +67,6 @@ export class GroupComponent implements OnInit {
 
     this.httpClient.post("/deletegroup", body.toString(), httpOptions)
     .subscribe(res => {
-      console.log(res)
-      
       this.router.navigate(["/groups"])
     })
   }
