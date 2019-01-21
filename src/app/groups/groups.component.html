@@ -1,8 +1,11 @@
-<h2>My Groups</h2>
+<h1>My Groups</h1>
 
 <ul>
-  <li *ngFor="let group of data.groups; index as i">
-    <a routerLink="../group" (click)="onClick($event)">{{ group }}</a>
+  <li *ngFor="let group of combinedGroups">
+    <a routerLink="../group" (click)="onClick($event)">
+      {{ group.name }} 
+      <span *ngIf="group.owner"><i class="fas fa-crown"></i></span>
+    </a>
   </li>
 </ul>
 

@@ -13,7 +13,9 @@ export class GroupsComponent implements OnInit {
   constructor(
     private data: DataService,
     private httpClient: HttpClient
-    ) { }
+  ) { }
+
+  combinedGroups: any[]
 
   ngOnInit() {
     this.loadGroups()
@@ -28,6 +30,17 @@ export class GroupsComponent implements OnInit {
     .subscribe(res => {
       this.data.groups = res.groups
       this.data.groupsowner = res.groupsowner
+      let combinedGroupsTemp = []
+
+      res.groups.map(e => {
+        if (res.groupsowner.indexOf(e)) {
+          combinedGroupsTemp.push({name: e, owner: true})
+        } else {
+          combinedGroupsTemp.push({name: e, owner: false})
+        }
+      })
+
+      this.combinedGroups = combinedGroupsTemp
     })
   }
 }
