@@ -2,7 +2,7 @@
 
 <form [formGroup]="joinForm" (ngSubmit)="onSubmit()">
   <label>
-    Groupname:
+    Groupname:<br>
     <input type="text" formControlName="groupname">
 
     <div *ngIf="submitted && joinForm.controls.groupname.errors">
@@ -15,7 +15,7 @@
   <br>
   
   <label>
-    Code:
+    Code:<br>
     <input type="text" formControlName="code">
 
     <div *ngIf="submitted && joinForm.controls.code.errors">
