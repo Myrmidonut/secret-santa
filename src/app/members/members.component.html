@@ -7,7 +7,7 @@
 <ul>
   <li *ngFor="let member of data.members">
     {{ member }} 
-    <span *ngIf="data.owner === data.username">
+    <span *ngIf="data.owner === data.username && data.owner !== member">
       <button id="{{ member }}" (click)="removeMember($event)">Remove</button>
     </span>
   </li>
