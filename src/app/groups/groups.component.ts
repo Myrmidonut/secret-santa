@@ -18,7 +18,9 @@ export class GroupsComponent implements OnInit {
   combinedGroups: any[]
 
   ngOnInit() {
-    this.loadGroups()
+    if (this.data.username) {
+      this.loadGroups()
+    }
   }
 
   onClick(event) {
