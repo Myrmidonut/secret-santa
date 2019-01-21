@@ -35,7 +35,7 @@ export class GroupsComponent implements OnInit {
       let combinedGroupsTemp = []
 
       res.groups.map(e => {
-        if (res.groupsowner.indexOf(e)) {
+        if (res.groupsowner.includes(e)) {
           combinedGroupsTemp.push({name: e, owner: true})
         } else {
           combinedGroupsTemp.push({name: e, owner: false})

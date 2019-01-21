@@ -2,10 +2,8 @@
 
 <ul>
   <li *ngFor="let group of combinedGroups">
-    <a routerLink="../group" (click)="onClick($event)">
-      {{ group.name }} 
-      <span *ngIf="group.owner"><i class="fas fa-crown"></i></span>
-    </a>
+    <a routerLink="../group" (click)="onClick($event)">{{ group.name }}</a>
+    <span *ngIf="group.owner"><i class="fas fa-crown"></i></span>
   </li>
 </ul>
 

@@ -242,10 +242,7 @@ app.post("/group", isLoggedIn, (req, res) => {
   const groupname = req.body.groupname
   let members = []
 
-  console.log("groupname :", groupname)
-
   Group.findOne({groupname: groupname, "members.username": username}, (error, data) => {
-  //Group.findOne({groupname: groupname}, (error, data) => {
     if (error) console.log(error)
     else {
       if (data.members) {
