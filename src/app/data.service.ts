@@ -11,6 +11,7 @@ export class DataService {
 
   groups: string[]
   groupsowner: string[]
+  groupslaunched: string[]
 
   groupname: string
   owner: string

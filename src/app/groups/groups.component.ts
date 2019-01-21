@@ -28,17 +28,26 @@ export class GroupsComponent implements OnInit {
   }
 
   loadGroups() {
-    this.httpClient.get<{groups: string[], groupsowner: string[]}>("/groups")
+    this.httpClient.get<{groups: string[], groupsowner: string[], groupslaunched: string[]}>("/groups")
     .subscribe(res => {
       this.data.groups = res.groups
       this.data.groupsowner = res.groupsowner
+      this.data.groupslaunched = res.groupslaunched
       let combinedGroupsTemp = []
 
       res.groups.map(e => {
         if (res.groupsowner.includes(e)) {
-          combinedGroupsTemp.push({name: e, owner: true})
+          if (res.groupslaunched.includes(e)) {
+            combinedGroupsTemp.push({name: e, owner: true, launched: true})
+          } else {
+            combinedGroupsTemp.push({name: e, owner: true, launched: false})
+          }
         } else {
-          combinedGroupsTemp.push({name: e, owner: false})
+          if (res.groupslaunched.includes(e)) {
+            combinedGroupsTemp.push({name: e, owner: false, launched: true})
+          } else {
+            combinedGroupsTemp.push({name: e, owner: false, launched: false})
+          }
         }
       })
 

@@ -248,9 +248,9 @@ app.post("/group", isLoggedIn, (req, res) => {
       if (data.members) {
         data.members.forEach(e => members.push(e.username))
     
-        res.json({groupname: data.groupname, owner: data.owner, members: members})
+        res.json({groupname: data.groupname, owner: data.owner, members: members, launched: data.launched})
       } else {
-        res.json({groupname: data.groupname, owner: data.owner, members: []})
+        res.json({groupname: data.groupname, owner: data.owner, members: [], launched: data.launched})
       }
     }
   })
@@ -258,11 +258,24 @@ app.post("/group", isLoggedIn, (req, res) => {
 
 app.get("/groups", isLoggedIn, (req, res) => {
   const username = req.user.username
+  let launched = []
 
-  User.findOne({username: username}, (error, data) => {
-    if (error) console.log(error)
+  User.findOne({username: username}, (error1, data1) => {
+    if (error1) console.log(error)
     else {
-      res.json({groups: data.groups, groupsowner: data.owner})
+      if (data1 !== null) {
+        Group.find({"members.username": username, launched: true}, (error2, data2) => {
+          data2.forEach(e => {
+            if (e.launched) {
+              launched.push(e.groupname)
+            }
+          })
+  
+          res.json({groups: data1.groups, groupsowner: data1.owner, groupslaunched: launched})
+        })
+      } else {
+        res.json({groups: data1.groups, groupsowner: data1.owner})
+      }
     }
   })
 })
@@ -302,11 +315,11 @@ app.post("/launch", isLoggedIn, (req, res) => {
         Group.findOneAndUpdate({groupname: groupname}, {members: data.members, launched: true}, {new: true}, (error, data) => {
           if (error) console.log(error)
           else {
-            res.json({status: "active user is the owner, launched group now", data: data})
+            res.json({status: "launched group now", launched: data.launched})
           }
         })
       } else {
-        res.json({status: "active user is not the owner", data: data})
+        res.json({status: "active user is not the owner"})
       }
     }
   })
