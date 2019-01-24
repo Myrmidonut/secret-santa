@@ -4,7 +4,9 @@
   <li *ngFor="let group of combinedGroups">
     <a routerLink="../group" (click)="onClick(group.name)" class="link">
       {{ group.name }}
+      &nbsp;
       <i *ngIf="group.owner" class="fas fa-crown"></i>
+      &nbsp;
       <i *ngIf="group.launched" class="fas fa-check"></i>
     </a>
   </li>

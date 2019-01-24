@@ -30,19 +30,6 @@ export class MywishlistComponent implements OnInit {
   success: Boolean = false
 
   ngOnInit() {
-    this.data.myWishlist = [
-      {
-        title: "test",
-        description: "a long test",
-        link: "http://www.google.com"
-      },
-      {
-        title: "toy car",
-        description: "a superfast red and blue remote control toy car",
-        link: "www.toysrus.com/toycar"
-      }
-    ]
-
     this.getWishlist()
   }
 
@@ -90,6 +77,12 @@ export class MywishlistComponent implements OnInit {
     this.httpClient.post("/updatewishlist", body.toString(), httpOptions)
     .subscribe(res => {
       this.getWishlist()
+
+      this.wishlistForm.setValue({
+        title: "",
+        description: "",
+        link: ""
+      })
     })
   }
 }
