@@ -1,11 +1,15 @@
 <h1>My Groups</h1>
 
-<ul>
+<ul id="groups">
   <li *ngFor="let group of combinedGroups">
-    <a routerLink="../group" (click)="onClick($event)">{{ group.name }}</a>
-    <span *ngIf="group.owner"><i class="fas fa-crown"></i></span>
-    <span *ngIf="group.launched">Launched</span>
+    <a routerLink="../group" (click)="onClick($event)" class="link">
+      {{ group.name }}
+      <span *ngIf="group.owner"><i class="fas fa-crown"></i></span>
+      <span *ngIf="group.launched"><i class="fas fa-check"></i></span>
+    </a>
   </li>
 </ul>
+
+<br><br>
 
 <a routerLink="" id="back">Back</a>

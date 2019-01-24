@@ -1,21 +1,21 @@
 <h1>{{ data.groupname }}</h1>
 
-<a routerLink="../members">Members</a><br>
-<a routerLink="../mywishlist">My Wishlist</a><br>
-<a routerLink="../partner">My Partner</a><br>
+<a routerLink="../members" class="link">Members</a>
+<a routerLink="../mywishlist" class="link">My Wishlist</a>
+<a routerLink="../partner" class="link">My Partner</a>
 
 <div *ngIf="data.owner !== data.username && !data.launched">
-  <button (click)="leaveGroup()">Leave Group</button>
+  <button (click)="leaveGroup()" class="link">Leave Group</button>
 </div>
 
 <div *ngIf="data.owner === data.username">
-  <h2>Owner Commands:</h2>
+  <h3>Owner Commands:</h3>
 
-  <button (click)="deleteGroup()">Delete Group</button>
-  <button (click)="launchGroup()">Launch Group</button>
-  <button (click)="inviteMember()">Invite Member</button>
+  <button (click)="deleteGroup()" class="link">Delete Group</button>
+  <button (click)="launchGroup()" class="link">Launch Group</button>
+  <button (click)="inviteMember()" class="link">Invite Member</button>
 </div>
 
 <br><br>
 
-<a routerLink="../groups">Back</a>
+<a routerLink="../groups" id="back">Back</a>

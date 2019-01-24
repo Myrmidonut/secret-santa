@@ -30,8 +30,6 @@ export class MywishlistComponent implements OnInit {
   success: Boolean = false
 
   ngOnInit() {
-    //this.getWishlist()
-
     this.data.myWishlist = [
       {
         title: "test",
@@ -44,6 +42,8 @@ export class MywishlistComponent implements OnInit {
         link: "www.toysrus.com/toycar"
       }
     ]
+
+    this.getWishlist()
   }
 
   onSubmit() {

@@ -3,7 +3,7 @@
 <h3>{{ data.partner }}</h3>
 
 <h3>Wishlist:</h3>
-<ul>
+<ul id="wishlist">
   <li *ngFor="let item of data.partnerWishlist">
     {{ item.title }}
     <br>
@@ -13,4 +13,6 @@
   </li>
 </ul>
 
-<a routerLink="../group">Back</a>
+<br><br>
+
+<a routerLink="../group" id="back">Back</a>

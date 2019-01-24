@@ -3,7 +3,7 @@
 <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
   <label>
     Groupname:<br>
-    <input type="text" formControlName="groupname" #myInput>{{ myInput.focus() }}
+    <input type="text" formControlName="groupname" placeholder="Groupname" class="textfield">
     
     <div *ngIf="submitted && createForm.controls.groupname.errors">
       <div *ngIf="createForm.controls.groupname.errors.required">
@@ -14,7 +14,9 @@
 
   <br>
 
-  <input type="submit">
+  <input type="submit" class="link">
 </form>
 
-<a routerLink="">Back</a>
+<br><br>
+
+<a routerLink="" id="back">Back</a>

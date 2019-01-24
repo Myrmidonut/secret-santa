@@ -1,7 +1,7 @@
 <div id="container">
   <h1>My Wishlist</h1>
 
-  <ul>
+  <ul id="wishlist">
     <li *ngFor="let item of data.myWishlist">
       {{ item.title }}<br>
       {{ item.description }}<br>
@@ -12,7 +12,7 @@
   <h3>New Entry:</h3>
 
   <form [formGroup]="wishlistForm" (ngSubmit)="onSubmit()">
-    <input type="text" formControlName="title" placeholder="Title">
+    <input type="text" formControlName="title" placeholder="Title" class="textfield">
 
     <br>
 
@@ -20,14 +20,14 @@
 
     <br>
 
-    <input type="text" formControlName="link" placeholder="Link">
+    <input type="text" formControlName="link" placeholder="Link" class="textfield">
 
     <br>
 
-    <input type="submit">
+    <input type="submit" class="link">
   </form>
 
-  <br>
+  <br><br>
 
   <a routerLink="../group" id="back">Back</a>
 </div>

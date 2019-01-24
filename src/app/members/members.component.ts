@@ -20,6 +20,10 @@ export class MembersComponent implements OnInit {
   member: string
 
   ngOnInit() {
+    if (this.data.username) {}
+    else {
+      this.data.members = ["Tom", "Jim", "Carla"]
+    }
   }
 
   removeMember(event) {

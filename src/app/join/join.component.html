@@ -3,7 +3,7 @@
 <form [formGroup]="joinForm" (ngSubmit)="onSubmit()">
   <label>
     Groupname:<br>
-    <input type="text" formControlName="groupname">
+    <input type="text" formControlName="groupname" placeholder="Groupname" class="textfield">
 
     <div *ngIf="submitted && joinForm.controls.groupname.errors">
       <div *ngIf="joinForm.controls.groupname.errors.required">
@@ -16,7 +16,7 @@
   
   <label>
     Code:<br>
-    <input type="text" formControlName="code">
+    <input type="text" formControlName="code" placeholder="Code" class="textfield">
 
     <div *ngIf="submitted && joinForm.controls.code.errors">
       <div *ngIf="joinForm.controls.code.errors.required">
@@ -27,7 +27,7 @@
 
   <br>
   
-  <input type="submit">
+  <input type="submit" class="link">
 
   <br>
 
@@ -36,6 +36,6 @@
   </div>
 </form>
 
-<br>
+<br><br>
 
-<a routerLink="">Back</a>
+<a routerLink="" id="back">Back</a>

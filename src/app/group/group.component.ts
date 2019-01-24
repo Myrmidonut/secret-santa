@@ -18,7 +18,13 @@ export class GroupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadGroup()
+    if (this.data.username) {
+      this.loadGroup()
+    } else {
+      if (this.data.groupname === "Family") {
+        this.data.owner = "Jim"
+      }
+    }
   }
 
   leaveGroup() {

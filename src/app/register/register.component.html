@@ -3,7 +3,7 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <label>
     Username:<br>
-    <input type="text" formControlName="username">
+    <input type="text" formControlName="username" class="textfield">
 
     <div *ngIf="submitted && registerForm.controls.username.errors">
       <div *ngIf="registerForm.controls.username.errors.required">
@@ -16,7 +16,7 @@
 
   <label>
     Password:<br>
-    <input type="text" formControlName="password">
+    <input type="password" formControlName="password" class="textfield">
 
     <div *ngIf="submitted && registerForm.controls.password.errors">
       <div *ngIf="registerForm.controls.password.errors.required">
@@ -29,7 +29,7 @@
   
   <label>
     Email:<br>
-    <input type="text" formControlName="email">
+    <input type="email" formControlName="email" class="textfield">
 
     <div *ngIf="submitted && registerForm.controls.email.errors">
       <div *ngIf="registerForm.controls.email.errors.required">
@@ -40,9 +40,9 @@
 
   <br>
 
-  <input type="submit">
+  <input type="submit" class="link">
 </form>
 
-<br>
+<br><br>
 
-<a routerLink="">Back</a>
+<a routerLink="" id="back">Back</a>

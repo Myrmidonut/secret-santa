@@ -1,6 +1,6 @@
 <h1>Members</h1>
 
-<a routerLink="../partner">My Partner</a>
+<a routerLink="../partner" class="link">My Partner</a>
 
 <br>
 
@@ -8,7 +8,7 @@
   <li *ngFor="let member of data.members">
     {{ member }} 
     <span *ngIf="data.owner === data.username && data.owner !== member">
-      <button id="{{ member }}" (click)="removeMember($event)">Remove</button>
+      <button id="{{ member }}" (click)="removeMember($event)" class="link">Remove</button>
     </span>
   </li>
 </ul>
@@ -16,8 +16,9 @@
 <div *ngIf="data.owner === data.username">
   <h3>Owner</h3>
 
-  Delete Member 
   Invite
 </div>
 
-<a routerLink="../group">Back</a>
+<br><br>
+
+<a routerLink="../group" id="back">Back</a>

@@ -16,6 +16,19 @@ export class PartnerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.data.partnerWishlist = [
+      {
+        title: "test",
+        description: "a long test",
+        link: "http://www.google.com"
+      },
+      {
+        title: "toy car",
+        description: "a superfast red and blue remote control toy car",
+        link: "www.toysrus.com/toycar"
+      }
+    ]
+
     this.loadPartner()
   }
 
