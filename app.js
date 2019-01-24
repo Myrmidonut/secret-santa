@@ -257,7 +257,7 @@ app.post("/group", isLoggedIn, (req, res) => {
     else {
       if (data.members) {
         data.members.forEach(e => members.push(e.username))
-    
+        
         res.json({groupname: data.groupname, owner: data.owner, members: members, launched: data.launched})
       } else {
         res.json({groupname: data.groupname, owner: data.owner, members: [], launched: data.launched})

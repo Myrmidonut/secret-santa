@@ -20,23 +20,11 @@ export class GroupsComponent implements OnInit {
   ngOnInit() {
     if (this.data.username) {
       this.loadGroups()
-    } else {
-      this.combinedGroups = [
-        {
-          name: "Work Xmas",
-          owner: "Jim",
-          launched: false
-        },
-        {
-          name: "Family",
-          launched: true
-        }
-      ]
     }
   }
 
-  onClick(event) {
-    this.data.groupname = event.target.innerText
+  onClick(groupname) {
+    this.data.groupname = groupname
   }
 
   loadGroups() {
