@@ -17,21 +17,13 @@ export class MembersComponent implements OnInit {
     private router: Router
   ) { }
 
-  member: string
-
   ngOnInit() {
-    if (this.data.username) {}
-    else {
-      this.data.members = ["Tom", "Jim", "Carla"]
-    }
   }
 
-  removeMember(event) {
-    this.member = event.target.id
-
+  removeMember(member) {
     let body = new URLSearchParams()
     body.set("groupname", this.data.groupname)
-    body.set("member", this.member)
+    body.set("member", member)
 
     const httpOptions = {
       headers: new HttpHeaders({

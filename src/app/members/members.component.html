@@ -4,20 +4,15 @@
 
 <br>
 
-<ul>
+<ul id="members">
   <li *ngFor="let member of data.members">
-    {{ member }} 
+    {{ member }}
+    <span *ngIf="member === data.username" id="you">You!</span>
     <span *ngIf="data.owner === data.username && data.owner !== member">
-      <button id="{{ member }}" (click)="removeMember($event)" class="link">Remove</button>
+      <button (click)="removeMember(member)">Remove</button>
     </span>
   </li>
 </ul>
-
-<div *ngIf="data.owner === data.username">
-  <h3>Owner</h3>
-
-  Invite
-</div>
 
 <br><br>
 
