@@ -1,35 +1,33 @@
-<h1>My Wishlist</h1>
+<div id="container">
+  <h1>My Wishlist</h1>
 
-<ul>
-  <li *ngFor="let item of data.myWishlist">
-    {{ item.title }}<br>
-    {{ item.description }}<br>
-    <a href="{{ item.link }}" target="_blank">{{ item.link }}</a>
-  </li>
-</ul>
+  <ul>
+    <li *ngFor="let item of data.myWishlist">
+      {{ item.title }}<br>
+      {{ item.description }}<br>
+      <a href="{{ item.link }}" target="_blank">{{ item.link }}</a>
+    </li>
+  </ul>
 
-<h3>New Entry:</h3>
+  <h3>New Entry:</h3>
 
-<form [formGroup]="wishlistForm" (ngSubmit)="onSubmit()">
-  <input type="text" formControlName="title" placeholder="Title">
+  <form [formGroup]="wishlistForm" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="title" placeholder="Title">
+
+    <br>
+
+    <textarea formControlName="description" placeholder="Description"></textarea>
+
+    <br>
+
+    <input type="text" formControlName="link" placeholder="Link">
+
+    <br>
+
+    <input type="submit">
+  </form>
 
   <br>
 
-  <textarea formControlName="description" (click)="textarea($event)">
-    Description
-  </textarea>
-
-  <br>
-
-  <input type="text" formControlName="link" placeholder="Link">
-
-  <br>
-
-  <input type="submit">
-</form>
-
-<br>
-
-<div id="back">
-  <a routerLink="../group">Back</a>
+  <a routerLink="../group" id="back">Back</a>
 </div>

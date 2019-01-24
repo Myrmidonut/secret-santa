@@ -46,11 +46,6 @@ export class MywishlistComponent implements OnInit {
     ]
   }
 
-  textarea(event) {
-    //event.target.innerText = ""
-    //event.target.style.color = "black"
-  }
-
   onSubmit() {
     this.submitted = true
 

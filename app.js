@@ -1,4 +1,5 @@
 const express               = require('express')
+const session               = require("express-session")
 const path                  = require("path")
 const mongoose              = require("mongoose")
 const bodyParser            = require("body-parser")
@@ -54,12 +55,14 @@ UserSchema.plugin(passportLocalMongoose)
 
 const User = mongoose.model("User", UserSchema)
 
-// PASSPORT
-app.use(require("express-session")({
+// EXPRESS SESSION
+app.use(session({
   secret: "secret message",
   resave: false,
   saveUninitialized: false
 }))
+
+// PASSPORT
 app.use(passport.initialize())
 app.use(passport.session())
 
