@@ -16,7 +16,7 @@ export class DataService {
   groupname: string
   owner: string
   members: string[]
-  myWishlist: string[]
+  myWishlist: any[]
   partner: string
   partnerWishlist: any[]
   launched: boolean

@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     private data: DataService,
     private httpClient: HttpClient,
     private router: Router
-    ) {
+  ) {
     this.loginForm = this.formBuilder.group({
       username: ["", Validators.required],
       password: ["", Validators.required]
@@ -25,8 +25,8 @@ export class LoginComponent implements OnInit {
   }
 
   loginForm: FormGroup
-  submitted = false
-  success = false
+  submitted: Boolean = false
+  success: Boolean = false
 
   ngOnInit() {
   }

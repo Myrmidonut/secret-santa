@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
     private data: DataService,
     private httpClient: HttpClient,
     private router: Router
-    ) {
+  ) {
     this.registerForm = this.formBuilder.group({
       username: ["", Validators.required],
       password: ["", Validators.required],
@@ -26,8 +26,8 @@ export class RegisterComponent implements OnInit {
   }
 
   registerForm: FormGroup
-  submitted = false
-  success = false
+  submitted: Boolean = false
+  success: Boolean = false
 
   ngOnInit() {
   }

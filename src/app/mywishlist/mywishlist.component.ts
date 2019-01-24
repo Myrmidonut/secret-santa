@@ -17,20 +17,33 @@ export class MywishlistComponent implements OnInit {
     private httpClient: HttpClient,
     private formBuilder: FormBuilder,
     private router: Router
-    ) {
-      this.wishlistForm = this.formBuilder.group({
-        title: ["", Validators.required],
-        description: [""],
-        link: [""]
-      })
-    }
+  ) {
+    this.wishlistForm = this.formBuilder.group({
+      title: ["", Validators.required],
+      description: [""],
+      link: [""]
+    })
+  }
 
   wishlistForm: FormGroup
-  submitted = false
-  success = false
+  submitted: Boolean = false
+  success: Boolean = false
 
   ngOnInit() {
-    this.getWishlist()
+    //this.getWishlist()
+
+    this.data.myWishlist = [
+      {
+        title: "test",
+        description: "a long test",
+        link: "http://www.google.com"
+      },
+      {
+        title: "toy car",
+        description: "a superfast red and blue remote control toy car",
+        link: "www.toysrus.com/toycar"
+      }
+    ]
   }
 
   onSubmit() {

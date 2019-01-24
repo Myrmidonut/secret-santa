@@ -24,8 +24,8 @@ export class CreateComponent implements OnInit {
   }
 
   createForm: FormGroup
-  submitted = false
-  success = false
+  submitted: Boolean = false
+  success: Boolean = false
 
   ngOnInit() {
   }

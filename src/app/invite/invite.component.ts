@@ -12,11 +12,11 @@ export class InviteComponent implements OnInit {
   constructor(
     private formbuilder: FormBuilder, 
     private data: DataService, 
-    ) {
-      this.inviteForm = this.formbuilder.group({
-        email: ["", Validators.required]
-      })
-     }
+  ) {
+    this.inviteForm = this.formbuilder.group({
+      email: ["", Validators.required]
+    })
+  }
 
   inviteForm: FormGroup
 

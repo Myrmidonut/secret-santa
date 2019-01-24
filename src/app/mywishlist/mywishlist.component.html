@@ -1,4 +1,4 @@
-<h2>My Wishlist</h2>
+<h1>My Wishlist</h1>
 
 <ul>
   <li *ngFor="let item of data.myWishlist">
@@ -11,24 +11,15 @@
 <h3>New Entry:</h3>
 
 <form [formGroup]="wishlistForm" (ngSubmit)="onSubmit()">
-  <label>
-    Title:
-    <input type="text" formControlName="title">
-  </label>
+  <input type="text" formControlName="title" placeholder="Title">
 
   <br>
 
-  <label>
-    Description:
-    <input type="text" formControlName="description">
-  </label>
+  <input type="text" formControlName="description" placeholder="Description">
 
   <br>
 
-  <label>
-    Link:
-    <input type="text" formControlName="link">
-  </label>
+  <input type="text" formControlName="link" placeholder="Link">
 
   <br>
 
@@ -37,4 +28,6 @@
 
 <br>
 
-<a routerLink="../group">Back</a>
+<div id="back">
+  <a routerLink="../group">Back</a>
+</div>

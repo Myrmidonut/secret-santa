@@ -1,0 +1,70 @@
+h1, h3 {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+h1 {
+  margin-top: 50px;
+}
+
+form a {
+  display: block;
+  text-align: center;
+  height: 30px;
+  max-width: 200px;
+  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: sans-serif;
+  background: lightgray;
+  line-height: 30px;
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+}
+
+form {
+  margin: auto;
+  display: block;
+  text-align: center;
+}
+
+input {
+  height: 30px;
+  margin: 10px;
+  font-family: sans-serif;
+  font-size: 20px;
+  padding-left: 5px;
+}
+
+ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+li {
+  border: 1px solid black;
+  margin: 10px auto;
+  padding: 5px;
+  font-family: sans-serif;
+  max-width: 500px;
+}
+
+#back {
+  margin-bottom: 50px;
+}
+
+#back a {
+  display: block;
+  text-align: center;
+  height: 30px;
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: sans-serif;
+  background: lightgray;
+  line-height: 30px;
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+}
