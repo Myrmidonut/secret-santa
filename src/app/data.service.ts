@@ -20,4 +20,5 @@ export class DataService {
   partner: string
   partnerWishlist: any[]
   launched: boolean
+  code: string
 }

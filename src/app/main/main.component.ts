@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from "../data.service"
+import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-main',
@@ -9,9 +11,20 @@ import { DataService } from "../data.service"
 
 export class MainComponent implements OnInit {
   constructor(
-    private data: DataService
+    private data: DataService,
+    private httpClient: HttpClient,
+    private router: Router
   ) { }
 
   ngOnInit() {
+  }
+
+  logout() {
+    this.httpClient.get("/logout")
+    .subscribe(res => {
+      //this.router.navigate(["/"])
+
+      window.location.href = "/"
+    })
   }
 }

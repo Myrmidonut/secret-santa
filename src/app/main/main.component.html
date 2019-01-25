@@ -5,6 +5,7 @@
     <a routerLink="groups" class="link">My Groups</a>
     <a routerLink="create" class="link">Create a Group</a>
     <a routerLink="join" class="link">Join a Group</a>
+    <button (click)="logout()" class="link">Logout</button>
   </div>
 
   <div *ngIf="!this.data.username">

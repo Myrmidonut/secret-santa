@@ -57,7 +57,7 @@ export class GroupComponent implements OnInit {
       this.data.members = res.members
       this.data.launched = res.launched
 
-      if (res.code) this.code = res.code
+      if (res.code) this.data.code = res.code
     })
   }
 

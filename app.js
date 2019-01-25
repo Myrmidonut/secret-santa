@@ -107,6 +107,12 @@ app.post("/login", passport.authenticate("local"), (req, res) => {
   })
 })
 
+app.get("/logout", (req, res) => {
+  console.log("logout route")
+  req.logout()
+  res.json({status: "Logged out"})
+})
+
 // GROUPS
 app.post("/create", isLoggedIn, (req, res) => {
   const groupname = req.body.groupname
@@ -205,11 +211,19 @@ app.post("/getwishlist", isLoggedIn, (req, res) => {
 app.post("/updatewishlist", isLoggedIn, (req, res) => {
   const groupname = req.body.groupname
   const username = req.user.username
+  let link = req.body.link
+
+  if (link.indexOf("http") !== 0) {
+    const temp = link
+    link = "http://" + temp
+  }
+
   const wishlistEntry = {
     title: req.body.title,
     description: req.body.description,
-    link: req.body.link
+    link: link
   }
+  
   let wishlist = []
 
   Group.findOneAndUpdate({groupname: groupname, "members.username": username}, {$push: {"members.$.wishlist": wishlistEntry}}, {new: true, fields: {members: {$elemMatch: {username: username}}}}, (error, data) => {
