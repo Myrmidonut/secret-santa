@@ -11,6 +11,7 @@
 <div *ngIf="data.owner === data.username">
   <h3>Owner Commands:</h3>
 
+  <span>Code: {{ code }}</span>
   <button (click)="deleteGroup()" class="link">Delete Group</button>
   <button (click)="launchGroup()" class="link">Launch Group</button>
   <button (click)="inviteMember()" class="link">Invite Member</button>

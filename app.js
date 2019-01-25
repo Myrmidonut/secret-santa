@@ -258,9 +258,17 @@ app.post("/group", isLoggedIn, (req, res) => {
       if (data.members) {
         data.members.forEach(e => members.push(e.username))
         
-        res.json({groupname: data.groupname, owner: data.owner, members: members, launched: data.launched})
+        if (username === data.owner) {
+          res.json({groupname: data.groupname, owner: data.owner, members: members, launched: data.launched, code: data.code})
+        } else {
+          res.json({groupname: data.groupname, owner: data.owner, members: members, launched: data.launched})
+        }
       } else {
-        res.json({groupname: data.groupname, owner: data.owner, members: [], launched: data.launched})
+        if (username === data.owner) {
+          res.json({groupname: data.groupname, owner: data.owner, members: [], launched: data.launched, code: code})
+        } else {
+          res.json({groupname: data.groupname, owner: data.owner, members: [], launched: data.launched})
+        }
       }
     }
   })

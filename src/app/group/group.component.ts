@@ -17,6 +17,8 @@ export class GroupComponent implements OnInit {
     private router: Router
   ) { }
 
+  code: string
+
   ngOnInit() {
     //if (this.data.username) {
       this.loadGroup()
@@ -49,11 +51,13 @@ export class GroupComponent implements OnInit {
       })
     }
 
-    this.httpClient.post<{owner: string, members: string[], launched: boolean}>("/group", body.toString(), httpOptions)
+    this.httpClient.post<{owner: string, members: string[], launched: boolean, code: string}>("/group", body.toString(), httpOptions)
     .subscribe(res => {
       this.data.owner = res.owner
       this.data.members = res.members
       this.data.launched = res.launched
+
+      if (res.code) this.code = res.code
     })
   }
 
