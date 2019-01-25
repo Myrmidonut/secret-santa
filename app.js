@@ -108,7 +108,6 @@ app.post("/login", passport.authenticate("local"), (req, res) => {
 })
 
 app.get("/logout", (req, res) => {
-  console.log("logout route")
   req.logout()
   res.json({status: "Logged out"})
 })
@@ -223,7 +222,7 @@ app.post("/updatewishlist", isLoggedIn, (req, res) => {
     description: req.body.description,
     link: link
   }
-  
+
   let wishlist = []
 
   Group.findOneAndUpdate({groupname: groupname, "members.username": username}, {$push: {"members.$.wishlist": wishlistEntry}}, {new: true, fields: {members: {$elemMatch: {username: username}}}}, (error, data) => {
@@ -392,17 +391,22 @@ app.post("/removemember", isLoggedIn, (req, res) => {
   const member = req.body.member
   const groupname = req.body.groupname
   const username = req.user.username
+  let members = []
 
   if (member === username) {
     res.json({status: "The owner cannot leave this group."})
   } else {
-    Group.findOneAndUpdate({groupname: groupname, owner: username}, {$pull: {members: {username: member}}}, {new: true}, (error, data) => {
-      if (error) console.log(error)
+    Group.findOneAndUpdate({groupname: groupname, owner: username}, {$pull: {members: {username: member}}}, {new: true}, (error1, data1) => {
+      if (error1) console.log(error1)
       else {
-        User.findOneAndUpdate({username: member}, {$pull: {groups: groupname}}, {new: true}, (error, data) => {
-          if (error) console.log(error)
+        User.findOneAndUpdate({username: member}, {$pull: {groups: groupname}}, {new: true}, (error2, data2) => {
+          if (error2) console.log(error2)
           else {
-            res.json({status: "member removed", data: data})
+            if (data1.members) {
+              data1.members.forEach(e => members.push(e.username))
+            }
+
+            res.json({status: "member removed", members: members})
           }
         })
       }

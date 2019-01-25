@@ -31,11 +31,9 @@ export class MembersComponent implements OnInit {
       })
     }
 
-    this.httpClient.post("/removemember", body.toString(), httpOptions)
+    this.httpClient.post<{members: string[]}>("/removemember", body.toString(), httpOptions)
     .subscribe(res => {
-      console.log(res)
-
-      //this.router.navigate(["/members"])
+      this.data.members = res.members
     })
   }
 }
