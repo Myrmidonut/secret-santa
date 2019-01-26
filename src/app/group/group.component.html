@@ -1,5 +1,7 @@
 <h1>{{ data.groupname }}</h1>
 
+<span *ngIf="data.launched">Launched</span>
+
 <a routerLink="../members" class="link">Members</a>
 <a routerLink="../mywishlist" class="link">My Wishlist</a>
 <a routerLink="../partner" class="link">My Partner</a>

@@ -20,9 +20,7 @@ export class GroupComponent implements OnInit {
   code: string
 
   ngOnInit() {
-    //if (this.data.username) {
-      this.loadGroup()
-    //}
+    this.loadGroup()
   }
 
   leaveGroup() {
@@ -91,9 +89,5 @@ export class GroupComponent implements OnInit {
     .subscribe(res => {
       console.log(res)
     })
-  }
-
-  inviteMember() {
-    console.log("invite member")
   }
 }

@@ -8,6 +8,7 @@
   <li *ngFor="let member of data.members">
     {{ member }}
     <span *ngIf="member === data.username" id="you">You!</span>
+    <span *ngIf="member === data.partner" id="you">Partner</span>
     <span *ngIf="data.owner === data.username && data.owner !== member">
       <button (click)="removeMember(member)">Remove</button>
     </span>

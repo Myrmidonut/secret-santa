@@ -2,7 +2,7 @@
 
 <ul id="groups">
   <li *ngFor="let group of combinedGroups">
-    <a routerLink="../group" (click)="onClick(group.name)" class="link">
+    <a routerLink="../group" (click)="onClick(group.name)" class="link group">
       {{ group.name }}
       &nbsp;
       <i *ngIf="group.owner" class="fas fa-crown"></i>

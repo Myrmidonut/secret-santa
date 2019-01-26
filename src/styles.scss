@@ -21,6 +21,12 @@
   cursor: pointer;
 }
 
+.group {
+  min-height: 40px;
+  max-width: 400px;
+  word-wrap: break-word;
+}
+
 .textfield {
   height: 40px;
   margin: 10px;

@@ -18,6 +18,7 @@ export class MembersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadPartner()
   }
 
   removeMember(member) {
@@ -34,6 +35,22 @@ export class MembersComponent implements OnInit {
     this.httpClient.post<{members: string[]}>("/removemember", body.toString(), httpOptions)
     .subscribe(res => {
       this.data.members = res.members
+    })
+  }
+
+  loadPartner() {
+    let body = new URLSearchParams()
+    body.set("groupname", this.data.groupname)
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/x-www-form-urlencoded"
+      })
+    }
+
+    this.httpClient.post<{partner: string, partnerwishlist: any[]}>("/partner", body.toString(), httpOptions)
+    .subscribe(res => {
+      this.data.partner = res.partner
     })
   }
 }
