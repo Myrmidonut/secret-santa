@@ -207,7 +207,7 @@ app.post("/getwishlist", isLoggedIn, (req, res) => {
   })
 })
 
-app.post("/updatewishlist", isLoggedIn, (req, res) => {
+app.post("/addwishlist", isLoggedIn, (req, res) => {
   const groupname = req.body.groupname
   const username = req.user.username
   let link = req.body.link

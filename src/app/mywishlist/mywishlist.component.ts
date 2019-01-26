@@ -42,7 +42,7 @@ export class MywishlistComponent implements OnInit {
 
     this.success = true
 
-    this.updateWishlist(this.wishlistForm.value)
+    this.addWishlist(this.wishlistForm.value)
   }
 
   getWishlist() {
@@ -61,7 +61,7 @@ export class MywishlistComponent implements OnInit {
     })
   }
 
-  updateWishlist(formdata) {
+  addWishlist(formdata) {
     let body = new URLSearchParams()
     body.set("groupname", this.data.groupname)
     body.set("title", formdata.title)
@@ -74,7 +74,7 @@ export class MywishlistComponent implements OnInit {
       })
     }
 
-    this.httpClient.post("/updatewishlist", body.toString(), httpOptions)
+    this.httpClient.post("/addwishlist", body.toString(), httpOptions)
     .subscribe(res => {
       this.getWishlist()
 
@@ -84,5 +84,19 @@ export class MywishlistComponent implements OnInit {
         link: ""
       })
     })
+  }
+ 
+  editWishlist(i) {
+    console.log(i)
+
+    this.wishlistForm.setValue({
+      title: this.data.myWishlist[i].title,
+      description: this.data.myWishlist[i].description,
+      link: this.data.myWishlist[i].link
+    })
+  }
+
+  deleteWishlist(i) {
+    console.log(i)
   }
 }
