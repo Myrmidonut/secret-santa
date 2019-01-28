@@ -256,6 +256,32 @@ app.post("/savewishlist", isLoggedIn, (req, res) => {
   }
 })
 
+app.post("/deletewishlistentry", isLoggedIn, (req, res) => {
+  const groupname = req.body.groupname
+  const username = req.user.username
+  const myWish = Number(req.body.mywish)
+
+  let wishlist = []
+  let modifiedWishlist = []
+
+  Group.findOne({groupname: groupname, "members.username": username}, (error1, data1) => {
+    if (error1) console.log(error1)
+    else {
+      modifiedWishlist = data1.members[0].wishlist
+      modifiedWishlist.splice(myWish, 1)
+
+      Group.findOneAndUpdate({groupname: groupname, "members.username": username}, {$set: {"members.$.wishlist": modifiedWishlist}}, {new: true, fields: {members: {$elemMatch: {username: username}}}}, (error2, data2) => {
+        if (error2) console.log(error2)
+        else {
+          wishlist = data2.members[0].wishlist
+    
+          res.json({status: "wishlist entry deleted", wishlist: wishlist})
+        }
+      })
+    }
+  })
+})
+
 app.post("/partner", isLoggedIn, (req, res) => {
   const groupname = req.body.groupname
   const username = req.user.username

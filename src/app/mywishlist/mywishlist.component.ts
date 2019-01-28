@@ -51,5 +51,20 @@ export class MywishlistComponent implements OnInit {
 
   deleteWishlist(i) {
     console.log(i)
+
+    let body = new URLSearchParams()
+    body.set("groupname", this.data.groupname)
+    body.set("mywish", i)
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/x-www-form-urlencoded"
+      })
+    }
+
+    this.httpClient.post<{wishlist: string[]}>("/deletewishlistentry", body.toString(), httpOptions)
+    .subscribe(res => {
+      this.data.myWishlist = res.wishlist
+    })
   }
 }
