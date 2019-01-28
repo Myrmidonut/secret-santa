@@ -11,7 +11,7 @@ import { Router } from "@angular/router";
 
 export class MainComponent implements OnInit {
   constructor(
-    private data: DataService,
+    public data: DataService,
     private httpClient: HttpClient,
     private router: Router
   ) { }

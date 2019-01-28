@@ -11,7 +11,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 export class PartnerComponent implements OnInit {
   constructor(
-    private data: DataService,
+    public data: DataService,
     private httpClient: HttpClient
   ) { }
 

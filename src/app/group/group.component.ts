@@ -13,7 +13,7 @@ import { Router } from "@angular/router";
 export class GroupComponent implements OnInit {
   constructor(
     private httpClient: HttpClient,
-    private data: DataService,
+    public data: DataService,
     private router: Router
   ) { }
 

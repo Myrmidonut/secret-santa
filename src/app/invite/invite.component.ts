@@ -11,7 +11,7 @@ import { DataService } from "../data.service";
 export class InviteComponent implements OnInit {
   constructor(
     private formbuilder: FormBuilder, 
-    private data: DataService, 
+    public data: DataService, 
   ) {
     this.inviteForm = this.formbuilder.group({
       email: ["", Validators.required]

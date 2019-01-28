@@ -12,7 +12,7 @@ import { Router } from "@angular/router";
 
 export class MembersComponent implements OnInit {
   constructor(
-    private data: DataService,
+    public data: DataService,
     private httpClient: HttpClient,
     private router: Router
   ) { }
