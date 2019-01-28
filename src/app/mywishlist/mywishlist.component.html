@@ -1,35 +1,19 @@
-<div id="container">
-  <h1>My Wishlist</h1>
+<h1>My Wishlist</h1>
 
-  <ul id="wishlist">
-    <li *ngFor="let item of data.myWishlist; index as i" id="{{ i }}">
-      {{ item.title }}<br>
-      {{ item.description }}<br>
-      <a href="{{ item.link }}" target="_blank">{{ item.link }}</a>
-      <button (click)="editWishlist(i)">Edit</button>
-      <button (click)="deleteWishlist(i)">Delete</button>
-    </li>
-  </ul>
+<ul id="wishlist">
+  <li *ngFor="let item of data.myWishlist; index as i" id="{{ i }}">
+    {{ item.title }}<br>
+    {{ item.description }}<br>
+    <a href="{{ item.link }}" target="_blank">{{ item.link }}</a>
+    <button (click)="editWishlist(i)">Edit</button>
+    <button (click)="deleteWishlist(i)">Delete</button>
+  </li>
+</ul>
 
-  <h3>New Entry:</h3>
+<br>
 
-  <form [formGroup]="wishlistForm" (ngSubmit)="onSubmit()">
-    <input type="text" formControlName="title" placeholder="Title" class="textfield">
+<button (click)="newWishlist()" class="link">New</button>
 
-    <br>
+<br><br>
 
-    <textarea formControlName="description" placeholder="Description"></textarea>
-
-    <br>
-
-    <input type="text" formControlName="link" placeholder="Link" class="textfield">
-
-    <br>
-
-    <input type="submit" class="link">
-  </form>
-
-  <br><br>
-
-  <a routerLink="../group" id="back">Back</a>
-</div>
+<a routerLink="../group" id="back">Back</a>

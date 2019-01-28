@@ -1,0 +1,21 @@
+<h3>New Entry:</h3>
+
+<form [formGroup]="wishlistForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="title" placeholder="Title" class="textfield">
+
+  <br>
+
+  <textarea formControlName="description" placeholder="Description"></textarea>
+
+  <br>
+
+  <input type="text" formControlName="link" placeholder="Link" class="textfield">
+
+  <br>
+
+  <input type="submit" class="link">
+</form>
+
+<br><br>
+
+<a routerLink="../mywishlist" id="back">Back</a>

@@ -12,6 +12,7 @@ import { MembersComponent } from "./members/members.component";
 import { InviteComponent } from "./invite/invite.component";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
+import { MywishComponent } from "./mywish/mywish.component";
 
 const routes: Routes = [
   { path: "", component: MainComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: "members", component: MembersComponent },
   { path: "invite", component: InviteComponent },
   { path: "login", component: LoginComponent },
-  { path: "register", component: RegisterComponent }
+  { path: "register", component: RegisterComponent },
+  { path: "mywish", component: MywishComponent }
 ];
 
 @NgModule({

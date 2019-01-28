@@ -18,6 +18,7 @@ import { MembersComponent } from './members/members.component';
 import { InviteComponent } from './invite/invite.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { MywishComponent } from './mywish/mywish.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { LoginComponent } from './login/login.component';
     MembersComponent,
     InviteComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    MywishComponent
   ],
   imports: [
     BrowserModule,

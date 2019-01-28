@@ -207,10 +207,11 @@ app.post("/getwishlist", isLoggedIn, (req, res) => {
   })
 })
 
-app.post("/addwishlist", isLoggedIn, (req, res) => {
+app.post("/savewishlist", isLoggedIn, (req, res) => {
   const groupname = req.body.groupname
   const username = req.user.username
   let link = req.body.link
+  const myWish = Number(req.body.mywish)
 
   if (link.indexOf("http") !== 0) {
     const temp = link
@@ -224,15 +225,35 @@ app.post("/addwishlist", isLoggedIn, (req, res) => {
   }
 
   let wishlist = []
+  let modifiedWishlist = []
 
-  Group.findOneAndUpdate({groupname: groupname, "members.username": username}, {$push: {"members.$.wishlist": wishlistEntry}}, {new: true, fields: {members: {$elemMatch: {username: username}}}}, (error, data) => {
-    if (error) console.log(error)
-    else {
-      wishlist = data.members[0].wishlist
+  if (myWish === -1) {
+    Group.findOneAndUpdate({groupname: groupname, "members.username": username}, {$push: {"members.$.wishlist": wishlistEntry}}, {new: true, fields: {members: {$elemMatch: {username: username}}}}, (error, data) => {
+      if (error) console.log(error)
+      else {
+        wishlist = data.members[0].wishlist
+  
+        res.json({status: "new wishlist entry", wishlist: wishlist})
+      }
+    })
+  } else {
+    Group.findOne({groupname: groupname, "members.username": username}, (error1, data1) => {
+      if (error1) console.log(error1)
+      else {
+        modifiedWishlist = data1.members[0].wishlist
+        modifiedWishlist[myWish] = wishlistEntry
 
-      res.json({status: "wishlist changed", wishlist: wishlist})
-    }
-  })
+        Group.findOneAndUpdate({groupname: groupname, "members.username": username}, {$set: {"members.$.wishlist": modifiedWishlist}}, {new: true, fields: {members: {$elemMatch: {username: username}}}}, (error2, data2) => {
+          if (error2) console.log(error2)
+          else {
+            wishlist = data2.members[0].wishlist
+      
+            res.json({status: "wishlist entry edited", wishlist: wishlist})
+          }
+        })
+      }
+    })
+  }
 })
 
 app.post("/partner", isLoggedIn, (req, res) => {

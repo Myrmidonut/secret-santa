@@ -14,11 +14,12 @@ export class DataService {
   groupslaunched: string[]
 
   groupname: string
+  code: string
+  launched: boolean
   owner: string
   members: string[]
   myWishlist: any[]
+  myWish: number
   partner: string
   partnerWishlist: any[]
-  launched: boolean
-  code: string
 }
