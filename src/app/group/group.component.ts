@@ -85,9 +85,9 @@ export class GroupComponent implements OnInit {
       })
     }
 
-    this.httpClient.post("/launch", body.toString(), httpOptions)
+    this.httpClient.post<{launched: boolean}>("/launch", body.toString(), httpOptions)
     .subscribe(res => {
-      console.log(res)
+      this.data.launched = res.launched
     })
   }
 }

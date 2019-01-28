@@ -1,6 +1,7 @@
 <h1>{{ data.groupname }}</h1>
 
-<span *ngIf="data.launched">Launched</span>
+<h3 *ngIf="data.launched">You have a partner!</h3>
+<h3 *ngIf="!data.launched">No partner yet!</h3>
 
 <a routerLink="../members" class="link">Members</a>
 <a routerLink="../mywishlist" class="link">My Wishlist</a>
@@ -18,6 +19,6 @@
   <button (click)="deleteGroup()" class="link">Delete Group</button>
 </div>
 
-<br><br>
+<br>
 
 <a routerLink="../groups" id="back">Back</a>

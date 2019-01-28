@@ -1,18 +1,16 @@
 <h1>My Partner</h1>
 
-<h3>{{ data.partner }}</h3>
+<h3 >{{ data.partner || "No partner yet!"}}</h3>
 
-<h3>Wishlist:</h3>
 <ul id="wishlist">
   <li *ngFor="let item of data.partnerWishlist">
-    {{ item.title }}
-    <br>
-    {{ item.description }}  
+    <span class="title">{{ item.title }}</span>
+    <span class="description">{{ item.description }}</span>
     <br>
     <a href="{{ item.link }}" target="_blank">{{ item.link }}</a>
   </li>
 </ul>
 
-<br><br>
+<br>
 
 <a routerLink="../group" id="back">Back</a>

@@ -23,7 +23,7 @@
 
 .group {
   min-height: 40px;
-  max-width: 400px;
+  max-width: 500px;
   word-wrap: break-word;
 }
 
@@ -52,6 +52,25 @@
     max-width: 500px;
     font-size: 18px;
   }
+
+  .title {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  button {
+    border: none;
+    height: 35px;
+    width: 100px;
+    font-size: 20px;
+  }
 }
 
 #groups {
@@ -74,6 +93,8 @@
     border: none;
     height: 40px;
     font-size: 20px;
+    background: lightgray;
+    margin-left: 5px;
   }
 
   button:hover {

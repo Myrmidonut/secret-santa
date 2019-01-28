@@ -1,12 +1,12 @@
 <h1>Invite Member</h1>
 
-<span id="code">Invite Code: {{ data.code }}</span>
+<span id="code">Invite Code: <strong>{{ data.code }}</strong></span>
 
 <form [formGroup]="inviteForm">
   <input type="email" placeholder="Email" formControlName="email" class="textfield"><br>
   <input type="submit" class="link">
 </form>
 
-<br><br>
+<br>
 
 <a routerLink="../group" id="back">Back</a>
