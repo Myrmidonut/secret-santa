@@ -6,7 +6,7 @@
     <input type="text" formControlName="groupname" placeholder="Groupname" class="textfield">
     
     <div *ngIf="submitted && createForm.controls.groupname.errors">
-      <div *ngIf="createForm.controls.groupname.errors.required">
+      <div *ngIf="createForm.controls.groupname.errors.required" class="error">
         A name is required.
       </div>
     </div>
@@ -14,7 +14,7 @@
 
   <br>
 
-  <input type="submit" class="link">
+  <input type="submit" class="link" value="Create">
 </form>
 
 <br>

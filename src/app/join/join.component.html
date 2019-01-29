@@ -1,4 +1,4 @@
-<h1>Join Group</h1>
+<h1>Join a group</h1>
 
 <form [formGroup]="joinForm" (ngSubmit)="onSubmit()">
   <label>
@@ -6,7 +6,7 @@
     <input type="text" formControlName="groupname" placeholder="Groupname" class="textfield">
 
     <div *ngIf="submitted && joinForm.controls.groupname.errors">
-      <div *ngIf="joinForm.controls.groupname.errors.required">
+      <div *ngIf="joinForm.controls.groupname.errors.required" class="error">
         A groupname is required.
       </div>
     </div>
@@ -19,21 +19,19 @@
     <input type="text" formControlName="code" placeholder="Code" class="textfield">
 
     <div *ngIf="submitted && joinForm.controls.code.errors">
-      <div *ngIf="joinForm.controls.code.errors.required">
+      <div *ngIf="joinForm.controls.code.errors.required" class="error">
         A code is required.
       </div>
+    </div>
+
+    <div id="badcode" *ngIf="groupError !== ''">
+      {{ groupError }}
     </div>
   </label>
 
   <br>
   
-  <input type="submit" class="link">
-
-  <br>
-
-  <div *ngIf="groupError !== ''">
-    {{ groupError }}
-  </div>
+  <input type="submit" class="link" value="Join">
 </form>
 
 <br>

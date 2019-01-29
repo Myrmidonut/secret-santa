@@ -19,7 +19,7 @@
     <input type="password" formControlName="password" class="textfield">
 
     <div *ngIf="submitted && registerForm.controls.password.errors">
-      <div *ngIf="registerForm.controls.password.errors.required">
+      <div *ngIf="registerForm.controls.password.errors.required" class="error">
         A password is required.
       </div>
     </div>
@@ -32,7 +32,7 @@
     <input type="email" formControlName="email" class="textfield">
 
     <div *ngIf="submitted && registerForm.controls.email.errors">
-      <div *ngIf="registerForm.controls.email.errors.required">
+      <div *ngIf="registerForm.controls.email.errors.required" class="error">
         An email is required.
       </div>
     </div>
@@ -40,7 +40,7 @@
 
   <br>
 
-  <input type="submit" class="link">
+  <input type="submit" class="link" value="Register">
 </form>
 
 <br>
