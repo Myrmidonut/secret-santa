@@ -6,11 +6,24 @@
 
 <ul id="members">
   <li *ngFor="let member of data.members">
-    {{ member }}
-    <span *ngIf="member === data.username" id="you">You!</span>
-    <span *ngIf="member === data.partner" id="you">Partner</span>
+    <div class="member-icons">
+      <span>
+        {{ member }}
+      </span>
+
+      <span *ngIf="member === data.owner">
+        <i class="fas fa-crown"></i>
+      </span>
+
+      <span *ngIf="member === data.partner">
+        <i class="fas fa-user-friends"></i>
+      </span>
+    </div>
+
     <span *ngIf="data.owner === data.username && data.owner !== member">
-      <button (click)="removeMember(member)">Remove</button>
+      <button (click)="removeMember(member)">
+        <i class="fas fa-user-times"></i>
+      </button>
     </span>
   </li>
 </ul>

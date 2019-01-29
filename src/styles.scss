@@ -42,14 +42,15 @@
 #wishlist {
   padding-left: 0;
   list-style-type: none;
+  width: 90%;
+  max-width: 500px;
+  margin: auto;
   
   li {
     border: 1px solid black;
     margin: 10px auto;
     padding: 5px;
     font-family: sans-serif;
-    width: 90%;
-    max-width: 500px;
     font-size: 18px;
   }
 
@@ -81,33 +82,40 @@
 #members {
   padding-left: 0;
   list-style-type: none;
+  margin: auto;
+  width: 90%;
+  max-width: 500px;
 
   li {
-    text-align: center;
     font-family: sans-serif;
     font-size: 20px;
     margin: 10px;
-  }
-
-  button {
-    border: none;
-    height: 40px;
-    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
     background: lightgray;
-    margin-left: 5px;
-  }
+    height: 40px;
 
-  button:hover {
-    cursor: pointer;
-  }
-}
+    .member-icons {
+      display: flex;
+      align-items: center;
 
-#you {
-  line-height: 40px;
-  display: inline-block;
-  width: 86px;
-  background: lightgray;
-  height: 40px;
+      span {
+        margin-left: 10px;
+      }
+    }
+
+    button {
+      border: none;
+      height: 40px;
+      width: 40px;
+      font-size: 20px;
+      background: gray;
+    }
+  
+    button:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 #code {
