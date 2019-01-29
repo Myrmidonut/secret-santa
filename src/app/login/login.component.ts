@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup
   submitted: Boolean = false
   success: Boolean = false
+  failed: Boolean = false
 
   ngOnInit() {
   }
@@ -44,6 +45,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(formdata) {
+    this.failed = false
+
     let body = new URLSearchParams()
     body.set("username", formdata.username)
     body.set("password", formdata.password)
@@ -54,13 +57,17 @@ export class LoginComponent implements OnInit {
       })
     }
 
-    this.httpClient.post<{username: string, groups: [string], owner: [string]}>("/login", body.toString(), httpOptions)
+    this.httpClient.post<{status: string, username: string, groups: [string], owner: [string]}>("/login", body.toString(), httpOptions)
     .subscribe(res => {
-      this.data.username = res.username
-      this.data.groups = res.groups
-      this.data.groupsowner = res.owner
+      if (!res.username) {
+        this.failed = true;
+      } else {
+        this.data.username = res.username
+        this.data.groups = res.groups
+        this.data.groupsowner = res.owner
 
-      this.router.navigate(["/"])
+        this.router.navigate(["/"])
+      }
     });
   }
 }

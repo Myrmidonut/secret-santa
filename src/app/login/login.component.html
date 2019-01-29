@@ -23,6 +23,10 @@
         A password is required.
       </div>
     </div>
+
+    <div *ngIf="failed" class="error">
+      Login failed.
+    </div>
   </label>
 
   <br>
