@@ -50,8 +50,6 @@ export class MywishlistComponent implements OnInit {
   }
 
   deleteWishlist(i) {
-    console.log(i)
-
     let body = new URLSearchParams()
     body.set("groupname", this.data.groupname)
     body.set("mywish", i)

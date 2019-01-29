@@ -11,7 +11,10 @@ require("dotenv").config()
 const app = express()
 const port = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, "/dist/" /*"dist/secret-santa"*/)))
+// local
+app.use(express.static(path.join(__dirname, "dist/secret-santa")))
+// Heroku
+// app.use(express.static(path.join(__dirname, "/dist/")))
 app.use(bodyParser.urlencoded({extended: false}));
 
 // MONGOOSE
@@ -213,7 +216,7 @@ app.post("/savewishlist", isLoggedIn, (req, res) => {
   let link = req.body.link
   const myWish = Number(req.body.mywish)
 
-  if (link.indexOf("http") !== 0) {
+  if (link && link.indexOf("http") !== 0) {
     const temp = link
     link = "http://" + temp
   }
@@ -264,7 +267,7 @@ app.post("/deletewishlistentry", isLoggedIn, (req, res) => {
   let wishlist = []
   let modifiedWishlist = []
 
-  Group.findOne({groupname: groupname, "members.username": username}, (error1, data1) => {
+  Group.findOne({groupname: groupname, "members.username": username}, {members: {$elemMatch: {username: username}}}, (error1, data1) => {
     if (error1) console.log(error1)
     else {
       modifiedWishlist = data1.members[0].wishlist
