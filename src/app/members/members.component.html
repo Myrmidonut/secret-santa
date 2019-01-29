@@ -12,16 +12,16 @@
       </span>
 
       <span *ngIf="member === data.owner">
-        <i class="fas fa-crown"></i>
+        <i class="fas fa-crown" title="Groupowner"></i>
       </span>
 
       <span *ngIf="member === data.partner">
-        <i class="fas fa-user-friends"></i>
+        <i class="fas fa-user-friends" title="Your partner"></i>
       </span>
     </div>
 
     <span *ngIf="data.owner === data.username && data.owner !== member">
-      <button (click)="removeMember(member)">
+      <button (click)="removeMember(member)" title="Remove member">
         <i class="fas fa-user-times"></i>
       </button>
     </span>

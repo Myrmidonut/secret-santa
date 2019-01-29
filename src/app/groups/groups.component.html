@@ -3,11 +3,14 @@
 <ul id="groups">
   <li *ngFor="let group of combinedGroups">
     <a routerLink="../group" (click)="onClick(group.name)" class="link group">
-      {{ group.name }}
-      &nbsp;
-      <i *ngIf="group.owner" class="fas fa-crown"></i>
-      &nbsp;
-      <i *ngIf="group.launched" class="fas fa-check"></i>
+      <span>
+        {{ group.name }}
+      </span>
+
+      <span>
+        <i *ngIf="group.owner" class="fas fa-crown" title="Owner"></i>
+        <i *ngIf="group.launched" class="fas fa-check" title="Partner designated"></i>
+      </span>
     </a>
   </li>
 </ul>

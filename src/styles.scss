@@ -77,6 +77,19 @@
 #groups {
   padding-left: 0;
   list-style-type: none;
+
+  a {
+    display: flex;
+    justify-content: space-between;
+  
+    span {
+      margin-left: 10px;
+
+      i {
+        margin-right: 10px;
+      }
+    }
+  }
 }
 
 #members {
@@ -110,10 +123,7 @@
       width: 40px;
       font-size: 20px;
       background: gray;
-    }
-  
-    button:hover {
-      cursor: pointer;
+      padding: 0;
     }
   }
 }
@@ -164,4 +174,8 @@ textarea {
   font-size: 20px;
   border: 1px solid black;
   padding: 5px;
+}
+
+button:hover {
+  cursor: pointer;
 }
