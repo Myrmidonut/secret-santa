@@ -26,6 +26,7 @@ export class CreateComponent implements OnInit {
   createForm: FormGroup
   submitted: Boolean = false
   success: Boolean = false
+  failed: Boolean = false
 
   ngOnInit() {
   }
@@ -55,9 +56,13 @@ export class CreateComponent implements OnInit {
 
     this.httpClient.post<{groupname: string}>("/create", body.toString(), httpOptions)
     .subscribe(res => {
-      this.data.groupname = res.groupname
+      if (res.groupname) {
+        this.data.groupname = res.groupname
 
-      this.router.navigate(["/group"])
+        this.router.navigate(["/group"])
+      } else {
+        this.failed = true
+      }
     })
   }
 }

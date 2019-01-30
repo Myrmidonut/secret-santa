@@ -10,6 +10,10 @@
         A name is required.
       </div>
     </div>
+
+    <div *ngIf="failed" class="error">
+      Group exists already.
+    </div>
   </label>
 
   <br>
