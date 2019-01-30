@@ -17,8 +17,14 @@ export class MembersComponent implements OnInit {
     private router: Router
   ) { }
 
+  verifyRemove: String = ""
+
   ngOnInit() {
     this.loadPartner()
+  }
+
+  verifyRemoveMember(member) {
+    this.verifyRemove = member
   }
 
   removeMember(member) {
