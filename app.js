@@ -12,9 +12,9 @@ const app = express()
 const port = process.env.PORT || 3000;
 
 // local
-app.use(express.static(path.join(__dirname, "dist/secret-santa")))
+// app.use(express.static(path.join(__dirname, "dist/secret-santa")))
 // Heroku
-// app.use(express.static(path.join(__dirname, "/dist/")))
+app.use(express.static(path.join(__dirname, "/dist/")))
 app.use(bodyParser.urlencoded({extended: false}));
 
 // MONGOOSE
@@ -488,7 +488,7 @@ app.post("/removemember", isLoggedIn, (req, res) => {
             if (data1.members) {
               data1.members.forEach(e => members.push(e.username))
             }
-            
+
             res.json({status: "member removed", members: members})
           }
         })
