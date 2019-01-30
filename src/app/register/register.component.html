@@ -6,7 +6,7 @@
     <input type="text" formControlName="username" class="textfield">
 
     <div *ngIf="submitted && registerForm.controls.username.errors">
-      <div *ngIf="registerForm.controls.username.errors.required">
+      <div *ngIf="registerForm.controls.username.errors.required" class="error">
         A username is required.
       </div>
     </div>
