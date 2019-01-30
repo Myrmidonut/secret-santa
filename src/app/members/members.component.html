@@ -21,11 +21,11 @@
     </div>
 
     <span *ngIf="data.owner === data.username && data.owner !== member">
-      <button *ngIf="verifyRemove === member" (click)="removeMember(member)" title="Remove member" class="confirm-delete">
+      <button *ngIf="confirmRemove === member" (click)="removeMember(member)" title="Remove member" class="confirm-delete">
         Confirm delete
       </button>
 
-      <button (click)="verifyRemoveMember(member)" title="Remove member">
+      <button (click)="confirmRemoveMember(member)" title="Remove member">
         <i class="fas fa-user-times"></i>
       </button>
     </span>

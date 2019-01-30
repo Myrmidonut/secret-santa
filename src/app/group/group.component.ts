@@ -18,25 +18,34 @@ export class GroupComponent implements OnInit {
   ) { }
 
   code: string
+  leaveButton: string = "Leave Group"
+  confirmLeave: boolean = false
+  confirmLeaveGroupClass: string = ""
 
   ngOnInit() {
     this.loadGroup()
   }
 
   leaveGroup() {
-    let body = new URLSearchParams()
-    body.set("groupname", this.data.groupname)
+    if (!this.confirmLeave) {
+      this.leaveButton = "Confirm leave"
+      this.confirmLeave = true
+      this.confirmLeaveGroupClass = "confirmLeaveGroupClass"
+    } else {
+      let body = new URLSearchParams()
+      body.set("groupname", this.data.groupname)
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/x-www-form-urlencoded"
+      const httpOptions = {
+        headers: new HttpHeaders({
+          "Content-Type": "application/x-www-form-urlencoded"
+        })
+      }
+
+      this.httpClient.post("/leave", body.toString(), httpOptions)
+      .subscribe(res => {
+        this.router.navigate(["/groups"])
       })
     }
-
-    this.httpClient.post("/leave", body.toString(), httpOptions)
-    .subscribe(res => {
-      this.router.navigate(["/groups"])
-    })
   }
 
   loadGroup() {

@@ -141,6 +141,7 @@
 
     .confirm-delete {
       width: 140px;
+      background: red;
     }
   }
 }
@@ -196,4 +197,8 @@ textarea {
 
 button:hover {
   cursor: pointer;
+}
+
+#confirmLeaveGroupClass {
+  background: red;
 }
