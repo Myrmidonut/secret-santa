@@ -30,6 +30,7 @@ export class GroupComponent implements OnInit {
 
   ngOnInit() {
     this.loadGroup()
+    this.loadPartner()
   }
 
   leaveGroup() {
@@ -117,7 +118,29 @@ export class GroupComponent implements OnInit {
         this.confirmLaunch = false
         this.launchButton = "Assign Partners"
         this.confirmLaunchGroupId = ""
+
+        this.loadPartner()
       })
     }
+  }
+
+  loadPartner() {
+    let body = new URLSearchParams()
+    body.set("groupname", this.data.groupname)
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/x-www-form-urlencoded"
+      })
+    }
+
+    this.httpClient.post<{partner: string}>("/partner", body.toString(), httpOptions)
+    .subscribe(res => {
+      if (res.partner) {
+        this.data.partner = res.partner
+      } else {
+        this.data.partner = undefined
+      }
+    })
   }
 }

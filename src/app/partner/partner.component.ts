@@ -35,8 +35,7 @@ export class PartnerComponent implements OnInit {
         this.data.partnerWishlist = res.partnerwishlist
         this.data.partner = res.partner
       } else {
-        //this.data.partnerWishlist = []
-        //this.data.partner = ""
+        this.data.partner = undefined
       }
     })
   }

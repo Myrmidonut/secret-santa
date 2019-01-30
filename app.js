@@ -478,13 +478,17 @@ app.post("/removemember", isLoggedIn, (req, res) => {
     Group.findOneAndUpdate({groupname: groupname, owner: username}, {$pull: {members: {username: member}}}, {new: true}, (error1, data1) => {
       if (error1) console.log(error1)
       else {
+        Group.findOneAndUpdate({groupname: groupname, owner: username, "members.partner": member}, {$set: {"members.$.partner": ""}}, (error, data) => {
+          if (error) console.log(error)
+        })
+
         User.findOneAndUpdate({username: member}, {$pull: {groups: groupname}}, {new: true}, (error2, data2) => {
           if (error2) console.log(error2)
           else {
             if (data1.members) {
               data1.members.forEach(e => members.push(e.username))
             }
-
+            
             res.json({status: "member removed", members: members})
           }
         })
