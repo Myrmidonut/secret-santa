@@ -21,7 +21,7 @@
     </div>
 
     <span *ngIf="data.owner === data.username && data.owner !== member">
-      <button *ngIf="confirmRemove === member" (click)="removeMember(member)" title="Remove member" class="confirm-delete">
+      <button *ngIf="confirmRemove === member" (click)="removeMember(member)" title="Remove member" class="confirm-delete-member">
         Confirm delete
       </button>
 

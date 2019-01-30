@@ -17,6 +17,8 @@ export class MywishlistComponent implements OnInit {
     private router: Router
   ) { }
 
+    confirmDelete: string
+
   ngOnInit() {
     this.getWishlist()
   }
@@ -37,19 +39,23 @@ export class MywishlistComponent implements OnInit {
     })
   }
 
-  newWishlist() {
+  newWish() {
     this.data.myWish = -1
 
     this.router.navigate(["/mywish"])
   }
  
-  editWishlist(i) {
+  editWish(i) {
     this.data.myWish = i
 
     this.router.navigate(["/mywish"])
   }
 
-  deleteWishlist(i) {
+  confirmDeleteWish(i) {
+    this.confirmDelete = i
+  }
+
+  deleteWish(i) {
     let body = new URLSearchParams()
     body.set("groupname", this.data.groupname)
     body.set("mywish", i)
