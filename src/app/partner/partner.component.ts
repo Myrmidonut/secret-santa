@@ -31,8 +31,13 @@ export class PartnerComponent implements OnInit {
 
     this.httpClient.post<{partner: string, partnerwishlist: any[]}>("/partner", body.toString(), httpOptions)
     .subscribe(res => {
-      this.data.partnerWishlist = res.partnerwishlist
-      this.data.partner = res.partner
+      if (res.partner) {
+        this.data.partnerWishlist = res.partnerwishlist
+        this.data.partner = res.partner
+      } else {
+        //this.data.partnerWishlist = []
+        //this.data.partner = ""
+      }
     })
   }
 }

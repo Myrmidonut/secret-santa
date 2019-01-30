@@ -20,7 +20,7 @@ export class GroupComponent implements OnInit {
   code: string
   leaveButton: string = "Leave Group"
   deleteButton: string = "Delete Group"
-  launchButton: string = "Launch Group"
+  launchButton: string = "Assign Partners"
   confirmLeave: boolean = false
   confirmLeaveGroupId: string = ""
   confirmLaunch: boolean = false
@@ -34,7 +34,7 @@ export class GroupComponent implements OnInit {
 
   leaveGroup() {
     if (!this.confirmLeave) {
-      this.leaveButton = "Confirm leave"
+      this.leaveButton = "Confirm Leave"
       this.confirmLeave = true
       this.confirmLeaveGroupId = "confirmLeaveGroupId"
     } else {
@@ -76,7 +76,7 @@ export class GroupComponent implements OnInit {
 
   deleteGroup() {
     if (!this.confirmDelete) {
-      this.deleteButton = "Confirm delete"
+      this.deleteButton = "Confirm Delete"
       this.confirmDelete = true
       this.confirmDeleteGroupId = "confirmDeleteGroupId"
     } else {
@@ -98,7 +98,7 @@ export class GroupComponent implements OnInit {
 
   launchGroup() {
     if (!this.confirmLaunch) {
-      this.launchButton = "Confirm launch"
+      this.launchButton = "Confirm Partners"
       this.confirmLaunch = true
       this.confirmLaunchGroupId = "confirmLaunchGroupId"
     } else {
@@ -115,7 +115,7 @@ export class GroupComponent implements OnInit {
       .subscribe(res => {
         this.data.launched = res.launched
         this.confirmLaunch = false
-        this.launchButton = "Launch Group"
+        this.launchButton = "Assign Partners"
         this.confirmLaunchGroupId = ""
       })
     }
