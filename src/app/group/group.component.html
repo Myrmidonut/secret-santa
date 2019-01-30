@@ -8,15 +8,15 @@
 <a routerLink="../partner" class="link">My Partner</a>
 
 <div *ngIf="data.owner !== data.username && !data.launched">  
-  <button id="{{ confirmLeaveGroupClass }}" (click)="leaveGroup()" class="link">{{ leaveButton }}</button>
+  <button id="{{ confirmLeaveGroupId }}" (click)="leaveGroup()" class="link">{{ leaveButton }}</button>
 </div>
 
 <div *ngIf="data.owner === data.username">
   <h3>You are the owner:</h3>
 
   <a routerLink="../invite" class="link">Invite Member</a>
-  <button (click)="launchGroup()" class="link">Launch Group</button>
-  <button (click)="deleteGroup()" class="link">Delete Group</button>
+  <button id="{{ confirmLaunchGroupId }}" (click)="launchGroup()" class="link">{{ launchButton }}</button>
+  <button id="{{ confirmDeleteGroupId }}" (click)="deleteGroup()" class="link">{{ deleteButton }}</button>
 </div>
 
 <br>

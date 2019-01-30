@@ -27,7 +27,7 @@
 .link:hover, #back:hover {
   cursor: pointer;
 
-  border: 3px solid red;
+  border: 3px solid green;
 }
 
 .link:active, #back:active {
@@ -199,6 +199,6 @@ button:hover {
   cursor: pointer;
 }
 
-#confirmLeaveGroupClass {
+#confirmLeaveGroupId, #confirmDeleteGroupId, #confirmLaunchGroupId {
   background: red;
 }

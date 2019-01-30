@@ -19,8 +19,14 @@ export class GroupComponent implements OnInit {
 
   code: string
   leaveButton: string = "Leave Group"
+  deleteButton: string = "Delete Group"
+  launchButton: string = "Launch Group"
   confirmLeave: boolean = false
-  confirmLeaveGroupClass: string = ""
+  confirmLeaveGroupId: string = ""
+  confirmLaunch: boolean = false
+  confirmLaunchGroupId: string = ""
+  confirmDelete: boolean = false
+  confirmDeleteGroupId: string = ""
 
   ngOnInit() {
     this.loadGroup()
@@ -30,7 +36,7 @@ export class GroupComponent implements OnInit {
     if (!this.confirmLeave) {
       this.leaveButton = "Confirm leave"
       this.confirmLeave = true
-      this.confirmLeaveGroupClass = "confirmLeaveGroupClass"
+      this.confirmLeaveGroupId = "confirmLeaveGroupId"
     } else {
       let body = new URLSearchParams()
       body.set("groupname", this.data.groupname)
@@ -69,34 +75,49 @@ export class GroupComponent implements OnInit {
   }
 
   deleteGroup() {
-    let body = new URLSearchParams()
-    body.set("groupname", this.data.groupname)
+    if (!this.confirmDelete) {
+      this.deleteButton = "Confirm delete"
+      this.confirmDelete = true
+      this.confirmDeleteGroupId = "confirmDeleteGroupId"
+    } else {
+      let body = new URLSearchParams()
+      body.set("groupname", this.data.groupname)
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/x-www-form-urlencoded"
+      const httpOptions = {
+        headers: new HttpHeaders({
+          "Content-Type": "application/x-www-form-urlencoded"
+        })
+      }
+
+      this.httpClient.post("/deletegroup", body.toString(), httpOptions)
+      .subscribe(res => {
+        this.router.navigate(["/groups"])
       })
     }
-
-    this.httpClient.post("/deletegroup", body.toString(), httpOptions)
-    .subscribe(res => {
-      this.router.navigate(["/groups"])
-    })
   }
 
   launchGroup() {
-    let body = new URLSearchParams()
-    body.set("groupname", this.data.groupname)
+    if (!this.confirmLaunch) {
+      this.launchButton = "Confirm launch"
+      this.confirmLaunch = true
+      this.confirmLaunchGroupId = "confirmLaunchGroupId"
+    } else {
+      let body = new URLSearchParams()
+      body.set("groupname", this.data.groupname)
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/x-www-form-urlencoded"
+      const httpOptions = {
+        headers: new HttpHeaders({
+          "Content-Type": "application/x-www-form-urlencoded"
+        })
+      }
+
+      this.httpClient.post<{launched: boolean}>("/launch", body.toString(), httpOptions)
+      .subscribe(res => {
+        this.data.launched = res.launched
+        this.confirmLaunch = false
+        this.launchButton = "Launch Group"
+        this.confirmLaunchGroupId = ""
       })
     }
-
-    this.httpClient.post<{launched: boolean}>("/launch", body.toString(), httpOptions)
-    .subscribe(res => {
-      this.data.launched = res.launched
-    })
   }
 }
