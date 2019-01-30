@@ -42,7 +42,7 @@
 
 .group {
   min-height: 40px;
-  max-width: 500px;
+  max-width: 400px;
   word-wrap: break-word;
 
   @media screen and (min-width: 700px) {
@@ -53,7 +53,7 @@
 .textfield {
   height: 40px;
   width: 90%;
-  max-width: 500px;
+  max-width: 400px;
   margin: 10px;
   font-family: sans-serif;
   font-size: 20px;
@@ -72,11 +72,12 @@
   padding-left: 0;
   list-style-type: none;
   width: 90%;
-  max-width: 500px;
+  max-width: 400px;
   margin: auto;
   
   li {
     border: 1px solid black;
+    border-radius: 8px;
     margin: 10px auto;
     padding: 5px;
     font-family: sans-serif;
@@ -150,7 +151,7 @@
   list-style-type: none;
   margin: auto;
   width: 90%;
-  max-width: 500px;
+  max-width: 400px;
 
   li {
     font-family: sans-serif;
@@ -160,6 +161,7 @@
     justify-content: space-between;
     background: lightgray;
     height: 40px;
+    border-radius: 8px;
 
     @media screen and (min-width: 700px) {
       height: 30px;
@@ -182,6 +184,7 @@
       font-size: 20px;
       background: gray;
       padding: 0;
+      border-radius: 0 8px 8px 0;
 
       @media screen and (min-width: 700px) {
         height: 30px;
@@ -193,6 +196,7 @@
     .confirm-delete-member {
       width: 140px;
       background: red;
+      border-radius: 0;
     }
   }
 }
@@ -213,7 +217,7 @@
   border: 1px solid red;
   margin: auto;
   width: 90%;
-  max-width: 500px;
+  max-width: 400px;
   font-family: sans-serif;
   font-size: 20px;
   padding: 3px;
@@ -250,7 +254,7 @@ label {
 textarea {
   height: 100px;
   width: 90%;
-  max-width: 500px;
+  max-width: 400px;
   margin: 10px;
   font-family: sans-serif;
   font-size: 20px;
