@@ -32,6 +32,11 @@ export class MembersComponent implements OnInit {
       const index = this.data.demoGroups[this.data.demoGroupIndex].members.indexOf(member)
       this.data.demoGroups[this.data.demoGroupIndex].members.splice(index, 1)
       this.data.members = this.data.demoGroups[this.data.demoGroupIndex].members
+
+      if (this.data.partner === member) {
+        this.data.demoGroups[this.data.demoGroupIndex].partner = undefined
+        this.data.partner = undefined
+      }
     } else {
       let body = new URLSearchParams()
       body.set("groupname", this.data.groupname)

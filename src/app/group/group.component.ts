@@ -41,7 +41,12 @@ export class GroupComponent implements OnInit {
       this.data.members = this.data.demoGroups[this.data.demoGroupIndex].members
       this.data.launched = this.data.demoGroups[this.data.demoGroupIndex].launched
       this.data.code = this.data.demoGroups[this.data.demoGroupIndex].code
-      this.data.partner = this.data.demoGroups[this.data.demoGroupIndex].partner
+      if (this.data.demoGroups[this.data.demoGroupIndex].members.indexOf(this.data.demoGroups[this.data.demoGroupIndex].partner) !== -1) {
+        this.data.partner = this.data.demoGroups[this.data.demoGroupIndex].partner
+      } else {
+        this.data.demoGroups[this.data.demoGroupIndex].partner = undefined
+        this.data.partner = undefined
+      }
     }
   }
 

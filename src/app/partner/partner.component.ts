@@ -21,11 +21,12 @@ export class PartnerComponent implements OnInit {
 
   loadPartner() {
     if (this.data.demo) {
-      if (this.data.demoGroups[this.data.demoGroupIndex].launched) {
+      if (this.data.demoGroups[this.data.demoGroupIndex].launched && this.data.demoGroups[this.data.demoGroupIndex].partner) {
         this.data.partner = this.data.demoGroups[this.data.demoGroupIndex].partner
         this.data.partnerWishlist = this.data.demoGroups[this.data.demoGroupIndex].partnerWishlist
       } else {
         this.data.partner = undefined
+        this.data.partnerWishlist = undefined
       }
     } else {
       let body = new URLSearchParams()
