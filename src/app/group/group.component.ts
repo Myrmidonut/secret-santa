@@ -29,8 +29,20 @@ export class GroupComponent implements OnInit {
   confirmDeleteGroupId: string = ""
 
   ngOnInit() {
-    this.loadGroup()
-    this.loadPartner()
+    if (this.data.username && !this.data.demo) {
+      this.loadGroup()
+      this.loadPartner()
+    } else {
+      this.data.demoGroupIndex = this.data.demoGroups.findIndex(e => {
+        return e.groupname === this.data.groupname
+      })
+
+      this.data.owner = this.data.demoGroups[this.data.demoGroupIndex].owner
+      this.data.members = this.data.demoGroups[this.data.demoGroupIndex].members
+      this.data.launched = this.data.demoGroups[this.data.demoGroupIndex].launched
+      this.data.code = this.data.demoGroups[this.data.demoGroupIndex].code
+      this.data.partner = this.data.demoGroups[this.data.demoGroupIndex].partner
+    }
   }
 
   leaveGroup() {
@@ -39,19 +51,24 @@ export class GroupComponent implements OnInit {
       this.confirmLeave = true
       this.confirmLeaveGroupId = "confirmLeaveGroupId"
     } else {
-      let body = new URLSearchParams()
-      body.set("groupname", this.data.groupname)
+      if (this.data.demo) {
+        this.data.demoGroups.splice(this.data.demoGroupIndex, 1)
+        this.router.navigate(["/groups"])
+      } else {
+        let body = new URLSearchParams()
+        body.set("groupname", this.data.groupname)
 
-      const httpOptions = {
-        headers: new HttpHeaders({
-          "Content-Type": "application/x-www-form-urlencoded"
+        const httpOptions = {
+          headers: new HttpHeaders({
+            "Content-Type": "application/x-www-form-urlencoded"
+          })
+        }
+
+        this.httpClient.post("/leave", body.toString(), httpOptions)
+        .subscribe(res => {
+          this.router.navigate(["/groups"])
         })
       }
-
-      this.httpClient.post("/leave", body.toString(), httpOptions)
-      .subscribe(res => {
-        this.router.navigate(["/groups"])
-      })
     }
   }
 
@@ -81,19 +98,24 @@ export class GroupComponent implements OnInit {
       this.confirmDelete = true
       this.confirmDeleteGroupId = "confirmDeleteGroupId"
     } else {
-      let body = new URLSearchParams()
-      body.set("groupname", this.data.groupname)
+      if (this.data.demo) {
+        this.data.demoGroups.splice(this.data.demoGroupIndex, 1)
+        this.router.navigate(["/groups"])
+      } else {
+        let body = new URLSearchParams()
+        body.set("groupname", this.data.groupname)
 
-      const httpOptions = {
-        headers: new HttpHeaders({
-          "Content-Type": "application/x-www-form-urlencoded"
+        const httpOptions = {
+          headers: new HttpHeaders({
+            "Content-Type": "application/x-www-form-urlencoded"
+          })
+        }
+
+        this.httpClient.post("/deletegroup", body.toString(), httpOptions)
+        .subscribe(res => {
+          this.router.navigate(["/groups"])
         })
       }
-
-      this.httpClient.post("/deletegroup", body.toString(), httpOptions)
-      .subscribe(res => {
-        this.router.navigate(["/groups"])
-      })
     }
   }
 
@@ -102,6 +124,47 @@ export class GroupComponent implements OnInit {
       this.launchButton = "Confirm Partners"
       this.confirmLaunch = true
       this.confirmLaunchGroupId = "confirmLaunchGroupId"
+    } else {
+      if (this.data.demo) {
+        let partner = this.data.demoGroups[this.data.demoGroupIndex].members[Math.floor(Math.random() * this.data.demoGroups[this.data.demoGroupIndex].members.length)]
+        this.data.demoGroups[this.data.demoGroupIndex].partner = partner
+        this.data.demoGroups[this.data.demoGroupIndex].launched = true
+        this.data.launched = true
+        this.data.partner = partner
+
+        this.confirmLaunch = false
+        this.launchButton = "Assign Partners"
+        this.confirmLaunchGroupId = ""
+      } else {
+        let body = new URLSearchParams()
+        body.set("groupname", this.data.groupname)
+
+        const httpOptions = {
+          headers: new HttpHeaders({
+            "Content-Type": "application/x-www-form-urlencoded"
+          })
+        }
+
+        this.httpClient.post<{launched: boolean}>("/launch", body.toString(), httpOptions)
+        .subscribe(res => {
+          this.data.launched = res.launched
+          this.confirmLaunch = false
+          this.launchButton = "Assign Partners"
+          this.confirmLaunchGroupId = ""
+
+          this.loadPartner()
+        })
+      }
+    }
+  }
+
+  loadPartner() {
+    if (this.data.demo) {
+      if (this.data.demoGroups[this.data.demoGroupIndex].partner) {
+        this.data.partner = this.data.demoGroups[this.data.demoGroupIndex].partner
+      } else {
+        this.data.partner = undefined
+      }
     } else {
       let body = new URLSearchParams()
       body.set("groupname", this.data.groupname)
@@ -112,35 +175,14 @@ export class GroupComponent implements OnInit {
         })
       }
 
-      this.httpClient.post<{launched: boolean}>("/launch", body.toString(), httpOptions)
+      this.httpClient.post<{partner: string}>("/partner", body.toString(), httpOptions)
       .subscribe(res => {
-        this.data.launched = res.launched
-        this.confirmLaunch = false
-        this.launchButton = "Assign Partners"
-        this.confirmLaunchGroupId = ""
-
-        this.loadPartner()
+        if (res.partner) {
+          this.data.partner = res.partner
+        } else {
+          this.data.partner = undefined
+        }
       })
     }
-  }
-
-  loadPartner() {
-    let body = new URLSearchParams()
-    body.set("groupname", this.data.groupname)
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/x-www-form-urlencoded"
-      })
-    }
-
-    this.httpClient.post<{partner: string}>("/partner", body.toString(), httpOptions)
-    .subscribe(res => {
-      if (res.partner) {
-        this.data.partner = res.partner
-      } else {
-        this.data.partner = undefined
-      }
-    })
   }
 }

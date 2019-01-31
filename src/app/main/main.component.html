@@ -2,9 +2,11 @@
   <h1>Welcome to Secret Santa!</h1>
 
   <h3>
-    Login and create a group for your friends or family or join a group!
+    Create or join a Secret Santa group with your friends, family, colleagues...
     <br>
-    Create a wishlist for your designated partner and hope for the best!
+    Partners get assigned randomly and only you can see who your partner is and whats on their wishlist.
+    <br>
+    Don't forget to make a wishlist for yourself, maybe you get lucky and get something nice!
   </h3>
 
   <div *ngIf="this.data.username">
@@ -17,5 +19,6 @@
   <div *ngIf="!this.data.username">
     <a routerLink="login" class="link">Login</a>
     <a routerLink="register" class="link">Register</a>
+    <button (click)="demo()" class="link">Demo Mode</button>
   </div>
 </div>

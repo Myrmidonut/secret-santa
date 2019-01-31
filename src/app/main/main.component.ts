@@ -27,4 +27,16 @@ export class MainComponent implements OnInit {
       window.location.href = "/"
     })
   }
+
+  demo() {
+    this.data.demo = true
+
+    this.data.username = "Demo User"
+
+    this.data.groups = ["Family", "Work"]
+    this.data.groupsowner = ["Family"]
+    this.data.groupslaunched = ["Work"]
+
+    //this.router.navigate(["/"])
+  }
 }

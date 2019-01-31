@@ -2,9 +2,9 @@
 
 <ul id="groups">
   <li *ngFor="let group of combinedGroups">
-    <a routerLink="../group" (click)="onClick(group.name)" class="link group">
+    <a routerLink="../group" (click)="onClick(group.groupname)" class="link group">
       <span>
-        {{ group.name }}
+        {{ group.groupname }}
       </span>
 
       <span>

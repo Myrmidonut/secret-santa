@@ -7,7 +7,7 @@
 <a routerLink="../mywishlist" class="link">My Wishlist</a>
 <a routerLink="../partner" class="link">My Partner</a>
 
-<div *ngIf="data.owner !== data.username && !data.launched">  
+<div *ngIf="data.owner !== data.username">  
   <button id="{{ confirmLeaveGroupId }}" (click)="leaveGroup()" class="link">{{ leaveButton }}</button>
 </div>
 

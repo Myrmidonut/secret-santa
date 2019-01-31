@@ -54,22 +54,46 @@ export class MywishComponent implements OnInit {
   }
 
   saveWishlist(formdata) {
-    let body = new URLSearchParams()
-    body.set("groupname", this.data.groupname)
-    body.set("title", formdata.title)
-    body.set("description", formdata.description)
-    body.set("link", formdata.link)
-    body.set("mywish", String(this.data.myWish))
+    if (this.data.demo) {
+      if (formdata.link && formdata.link.indexOf("http") !== 0) {
+        const temp = formdata.link
+        formdata.link = "http://" + temp
+      }
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/x-www-form-urlencoded"
+      if (this.data.myWish === -1) {
+        this.data.demoGroups[this.data.demoGroupIndex].myWishlist.push({
+          title: formdata.title,
+          description: formdata.description,
+          link: formdata.link
+        })
+      } else {
+        this.data.demoGroups[this.data.demoGroupIndex].myWishlist[this.data.myWish] = {
+          title: formdata.title,
+          description: formdata.description,
+          link: formdata.link
+        }
+      }
+
+      this.data.myWishlist = this.data.demoGroups[this.data.demoGroupIndex].myWishlist
+      this.router.navigate(["/mywishlist"])
+    } else {
+      let body = new URLSearchParams()
+      body.set("groupname", this.data.groupname)
+      body.set("title", formdata.title)
+      body.set("description", formdata.description)
+      body.set("link", formdata.link)
+      body.set("mywish", String(this.data.myWish))
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+          "Content-Type": "application/x-www-form-urlencoded"
+        })
+      }
+
+      this.httpClient.post("/savewishlist", body.toString(), httpOptions)
+      .subscribe(res => {
+        this.router.navigate(["/mywishlist"])
       })
     }
-
-    this.httpClient.post("/savewishlist", body.toString(), httpOptions)
-    .subscribe(res => {
-      this.router.navigate(["/mywishlist"])
-    })
   }
 }

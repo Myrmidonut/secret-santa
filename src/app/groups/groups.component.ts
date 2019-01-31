@@ -18,8 +18,10 @@ export class GroupsComponent implements OnInit {
   combinedGroups: any[]
 
   ngOnInit() {
-    if (this.data.username) {
+    if (this.data.username && !this.data.demo) {
       this.loadGroups()
+    } else if (this.data.demo) {
+      this.combinedGroups = this.data.demoGroups
     }
   }
 
@@ -38,15 +40,15 @@ export class GroupsComponent implements OnInit {
       res.groups.map(e => {
         if (res.groupsowner.includes(e)) {
           if (res.groupslaunched.includes(e)) {
-            combinedGroupsTemp.push({name: e, owner: true, launched: true})
+            combinedGroupsTemp.push({groupname: e, owner: true, launched: true})
           } else {
-            combinedGroupsTemp.push({name: e, owner: true, launched: false})
+            combinedGroupsTemp.push({groupname: e, owner: true, launched: false})
           }
         } else {
           if (res.groupslaunched.includes(e)) {
-            combinedGroupsTemp.push({name: e, owner: false, launched: true})
+            combinedGroupsTemp.push({groupname: e, owner: false, launched: true})
           } else {
-            combinedGroupsTemp.push({name: e, owner: false, launched: false})
+            combinedGroupsTemp.push({groupname: e, owner: false, launched: false})
           }
         }
       })

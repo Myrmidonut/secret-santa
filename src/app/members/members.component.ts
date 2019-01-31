@@ -28,35 +28,45 @@ export class MembersComponent implements OnInit {
   }
 
   removeMember(member) {
-    let body = new URLSearchParams()
-    body.set("groupname", this.data.groupname)
-    body.set("member", member)
+    if (this.data.demo) {
+      const index = this.data.demoGroups[this.data.demoGroupIndex].members.indexOf(member)
+      this.data.demoGroups[this.data.demoGroupIndex].members.splice(index, 1)
+      this.data.members = this.data.demoGroups[this.data.demoGroupIndex].members
+    } else {
+      let body = new URLSearchParams()
+      body.set("groupname", this.data.groupname)
+      body.set("member", member)
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/x-www-form-urlencoded"
+      const httpOptions = {
+        headers: new HttpHeaders({
+          "Content-Type": "application/x-www-form-urlencoded"
+        })
+      }
+
+      this.httpClient.post<{members: string[]}>("/removemember", body.toString(), httpOptions)
+      .subscribe(res => {
+        this.data.members = res.members
       })
     }
-
-    this.httpClient.post<{members: string[]}>("/removemember", body.toString(), httpOptions)
-    .subscribe(res => {
-      this.data.members = res.members
-    })
   }
 
   loadPartner() {
-    let body = new URLSearchParams()
-    body.set("groupname", this.data.groupname)
+    if (this.data.demo) {
+      this.data.partner = this.data.demoGroups[this.data.demoGroupIndex].partner
+    } else {
+      let body = new URLSearchParams()
+      body.set("groupname", this.data.groupname)
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/x-www-form-urlencoded"
+      const httpOptions = {
+        headers: new HttpHeaders({
+          "Content-Type": "application/x-www-form-urlencoded"
+        })
+      }
+
+      this.httpClient.post<{partner: string, partnerwishlist: any[]}>("/partner", body.toString(), httpOptions)
+      .subscribe(res => {
+        this.data.partner = res.partner
       })
     }
-
-    this.httpClient.post<{partner: string, partnerwishlist: any[]}>("/partner", body.toString(), httpOptions)
-    .subscribe(res => {
-      this.data.partner = res.partner
-    })
   }
 }

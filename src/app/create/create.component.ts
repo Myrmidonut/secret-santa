@@ -44,25 +44,40 @@ export class CreateComponent implements OnInit {
   }
 
   createGroup(formdata) {
-    let body = new URLSearchParams()
-    body.set("groupname", formdata.groupname)
-    body.set("owner", this.data.username)
+    if (this.data.demo) {
+      this.data.demoGroups.push({
+        groupname: formdata.groupname,
+        owner: "Demo User",
+        code: "abc12",
+        launched: false,
+        members: ["Demo User"],
+        myWishlist: [],
+        partner: undefined,
+        partnerWishlist: []
+      })
+      this.data.groupname = formdata.groupname
+      this.router.navigate(["/group"])
+    } else {
+      let body = new URLSearchParams()
+      body.set("groupname", formdata.groupname)
+      body.set("owner", this.data.username)
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/x-www-form-urlencoded"
+      const httpOptions = {
+        headers: new HttpHeaders({
+          "Content-Type": "application/x-www-form-urlencoded"
+        })
+      }
+
+      this.httpClient.post<{groupname: string}>("/create", body.toString(), httpOptions)
+      .subscribe(res => {
+        if (res.groupname) {
+          this.data.groupname = res.groupname
+
+          this.router.navigate(["/group"])
+        } else {
+          this.failed = true
+        }
       })
     }
-
-    this.httpClient.post<{groupname: string}>("/create", body.toString(), httpOptions)
-    .subscribe(res => {
-      if (res.groupname) {
-        this.data.groupname = res.groupname
-
-        this.router.navigate(["/group"])
-      } else {
-        this.failed = true
-      }
-    })
   }
 }

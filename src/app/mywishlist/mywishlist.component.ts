@@ -24,19 +24,23 @@ export class MywishlistComponent implements OnInit {
   }
 
   getWishlist() {
-    let body = new URLSearchParams()
-    body.set("groupname", this.data.groupname)
+    if (this.data.demo) {
+      this.data.myWishlist = this.data.demoGroups[this.data.demoGroupIndex].myWishlist
+    } else {
+      let body = new URLSearchParams()
+      body.set("groupname", this.data.groupname)
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/x-www-form-urlencoded"
+      const httpOptions = {
+        headers: new HttpHeaders({
+          "Content-Type": "application/x-www-form-urlencoded"
+        })
+      }
+
+      this.httpClient.post<{wishlist: string[]}>("/getwishlist", body.toString(), httpOptions)
+      .subscribe(res => {
+        this.data.myWishlist = res.wishlist
       })
     }
-
-    this.httpClient.post<{wishlist: string[]}>("/getwishlist", body.toString(), httpOptions)
-    .subscribe(res => {
-      this.data.myWishlist = res.wishlist
-    })
   }
 
   newWish() {
@@ -56,19 +60,24 @@ export class MywishlistComponent implements OnInit {
   }
 
   deleteWish(i) {
-    let body = new URLSearchParams()
-    body.set("groupname", this.data.groupname)
-    body.set("mywish", i)
+    if (this.data.demo) {
+      this.data.demoGroups[this.data.demoGroupIndex].myWishlist.splice(i, 1)
+      this.data.myWishlist = this.data.demoGroups[this.data.demoGroupIndex].myWishlist
+    } else {
+      let body = new URLSearchParams()
+      body.set("groupname", this.data.groupname)
+      body.set("mywish", i)
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/x-www-form-urlencoded"
+      const httpOptions = {
+        headers: new HttpHeaders({
+          "Content-Type": "application/x-www-form-urlencoded"
+        })
+      }
+
+      this.httpClient.post<{wishlist: string[]}>("/deletewishlistentry", body.toString(), httpOptions)
+      .subscribe(res => {
+        this.data.myWishlist = res.wishlist
       })
     }
-
-    this.httpClient.post<{wishlist: string[]}>("/deletewishlistentry", body.toString(), httpOptions)
-    .subscribe(res => {
-      this.data.myWishlist = res.wishlist
-    })
   }
 }
