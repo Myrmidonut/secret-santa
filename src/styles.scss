@@ -1,13 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+
+$font-family: 'Arvo', serif;
+
+html, body {
+  @media screen and (min-width: 700px) {
+    height: 100%;
+    margin: 0;
+  }
+}
+
+#main {
+  @media screen and (min-width: 700px) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  app-groups,
+  app-create,
+  app-group,
+  app-invite,
+  app-join,
+  app-login,
+  app-main,
+  app-members,
+  app-mywish,
+  app-mywishlist,
+  app-partner,
+  app-register {
+    width: 100%;
+  }
+}
+
 .link, #back {
   margin: 20px;
   display: block;
   text-align: center;
-  height: 40px;
+  height: 46px;
   max-width: 200px;
   margin-left: auto;
   margin-right: auto;
-  font-family: sans-serif;
+  font-family: $font-family;
   background: lightgray;
   line-height: 40px;
   font-size: 20px;
@@ -16,18 +51,22 @@
   border: none;
   width: 100%;
   border: 3px solid #424242;
-  box-sizing: content-box;
+  box-sizing: border-box;
   transition: all 0.3s;
   padding: 0;
   border-radius: 10px;
   box-shadow: 3px 3px 7px gray;
 
   @media screen and (min-width: 700px) {
-    height: 30px;
+    height: 36px;
     line-height: 30px;
     max-width: 165px;
     font-size: 17px;
   }
+}
+
+#back {
+  margin-top: 40px;
 }
 
 .link:hover, #back:hover {
@@ -55,7 +94,7 @@
   width: 90%;
   max-width: 400px;
   margin: 10px;
-  font-family: sans-serif;
+  font-family: $font-family;
   font-size: 20px;
   line-height: 40px;
   border: 1px solid black;
@@ -71,7 +110,6 @@
 #wishlist {
   padding-left: 0;
   list-style-type: none;
-  width: 90%;
   max-width: 400px;
   margin: auto;
   
@@ -79,8 +117,8 @@
     border: 1px solid black;
     border-radius: 8px;
     margin: 10px auto;
-    padding: 5px;
-    font-family: sans-serif;
+    padding: 10px;
+    font-family: $font-family;
     font-size: 17px;
   }
 
@@ -131,6 +169,8 @@
 #groups {
   padding-left: 0;
   list-style-type: none;
+  margin: auto;
+  max-width: 400px;
 
   a {
     display: flex;
@@ -150,13 +190,13 @@
   padding-left: 0;
   list-style-type: none;
   margin: auto;
-  width: 90%;
   max-width: 400px;
 
   li {
-    font-family: sans-serif;
+    font-family: $font-family;
     font-size: 20px;
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     background: lightgray;
@@ -206,7 +246,7 @@
   font-size: 20px;
   display: block;
   text-align: center;
-  font-family: sans-serif;
+  font-family: $font-family;
 
   @media screen and (min-width: 700px) {
     font-size: 17px;
@@ -218,7 +258,7 @@
   margin: auto;
   width: 90%;
   max-width: 400px;
-  font-family: sans-serif;
+  font-family: $font-family;
   font-size: 20px;
   padding: 3px;
 
@@ -231,9 +271,14 @@
   margin-top: 5px;
 }
 
+#invite-code {
+  background: lightgray;
+  padding: 5px;
+}
+
 h1, h3 {
   text-align: center;
-  font-family: sans-serif;
+  font-family: $font-family;
 }
 
 form {
@@ -243,7 +288,7 @@ form {
 }
 
 label {
-  font-family: sans-serif;
+  font-family: $font-family;
   font-size: 20px;
 
   @media screen and (min-width: 700px) {
@@ -256,7 +301,7 @@ textarea {
   width: 90%;
   max-width: 400px;
   margin: 10px;
-  font-family: sans-serif;
+  font-family: $font-family;
   font-size: 20px;
   border: 1px solid black;
   padding: 5px;

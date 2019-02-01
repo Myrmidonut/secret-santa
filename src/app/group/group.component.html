@@ -3,9 +3,9 @@
 <h3 *ngIf="data.partner">You have a partner!</h3>
 <h3 *ngIf="!data.partner">No partner yet!</h3>
 
-<a routerLink="../members" class="link">Members</a>
-<a routerLink="../mywishlist" class="link">My Wishlist</a>
 <a routerLink="../partner" class="link">My Partner</a>
+<a routerLink="../mywishlist" class="link">My Wishlist</a>
+<a routerLink="../members" class="link">Members</a>
 
 <div *ngIf="data.owner !== data.username">  
   <button id="{{ confirmLeaveGroupId }}" (click)="leaveGroup()" class="link">{{ leaveButton }}</button>
@@ -18,7 +18,5 @@
   <button id="{{ confirmLaunchGroupId }}" (click)="launchGroup()" class="link">{{ launchButton }}</button>
   <button id="{{ confirmDeleteGroupId }}" (click)="deleteGroup()" class="link">{{ deleteButton }}</button>
 </div>
-
-<br>
 
 <a routerLink="../groups" id="back">Back</a>

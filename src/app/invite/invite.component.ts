@@ -14,7 +14,7 @@ export class InviteComponent implements OnInit {
     public data: DataService, 
   ) {
     this.inviteForm = this.formbuilder.group({
-      email: ["", Validators.required]
+      email: [{value: "", disabled: true}, Validators.required]
     })
   }
 

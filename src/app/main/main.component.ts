@@ -20,12 +20,16 @@ export class MainComponent implements OnInit {
   }
 
   logout() {
-    this.httpClient.get("/logout")
-    .subscribe(res => {
-      //this.router.navigate(["/"])
-
+    if (this.data.demo) {
       window.location.href = "/"
-    })
+    } else {
+      this.httpClient.get("/logout")
+      .subscribe(res => {
+        //this.router.navigate(["/"])
+
+        window.location.href = "/"
+      })
+    }
   }
 
   demo() {
