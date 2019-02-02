@@ -1,8 +1,18 @@
-<h1>Members</h1>
+<h1>Groupmembers</h1>
 
 <a routerLink="../partner" class="link">My Partner</a>
 
 <br>
+
+<p id="members-icons">
+  <i class="fas fa-crown"></i>  Groupowner
+  <br>
+  <i class="fas fa-user-friends"></i>  My Partner
+  <br>
+  <span *ngIf="data.owner === data.username">
+    <i class="fas fa-user-times"></i>  Remove Groupmember
+  </span>
+</p>
 
 <ul id="members">
   <li *ngFor="let member of data.members">
@@ -16,16 +26,16 @@
       </span>
 
       <span *ngIf="member === data.partner">
-        <i class="fas fa-user-friends" title="Your partner"></i>
+        <i class="fas fa-user-friends" title="Your Partner"></i>
       </span>
     </div>
 
     <span *ngIf="data.owner === data.username && data.owner !== member">
-      <button *ngIf="confirmRemove === member" (click)="removeMember(member)" title="Remove member" class="confirm-delete-member">
+      <button *ngIf="confirmRemove === member" (click)="removeMember(member)" title="Remove Groupmember" class="confirm-delete-member">
         Confirm delete
       </button>
 
-      <button (click)="confirmRemoveMember(member)" title="Remove member">
+      <button (click)="confirmRemoveMember(member)" title="Remove Groupmember">
         <i class="fas fa-user-times"></i>
       </button>
     </span>

@@ -1,5 +1,11 @@
 <h1>My Groups</h1>
 
+<p id="groups-icons">
+  <i class="fas fa-crown"></i> Groupowner
+  <br>
+  <i class="fas fa-check"></i> Secret Santa ready!
+</p>
+
 <ul id="groups">
   <li *ngFor="let group of combinedGroups">
     <a routerLink="../group" (click)="onClick(group.groupname)" class="link group">
@@ -8,8 +14,8 @@
       </span>
 
       <span>
-        <i *ngIf="group.owner" class="fas fa-crown" title="Owner"></i>
-        <i *ngIf="group.launched" class="fas fa-check" title="Partner designated"></i>
+        <i *ngIf="group.owner" class="fas fa-crown" title="Groupowner"></i>
+        <i *ngIf="group.launched" class="fas fa-check" title="Secret Santa ready!"></i>
       </span>
     </a>
   </li>
