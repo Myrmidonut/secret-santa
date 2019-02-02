@@ -6,6 +6,7 @@ const bodyParser            = require("body-parser")
 const passport              = require("passport")
 const LocalStrategy         = require("passport-local")
 const passportLocalMongoose = require("passport-local-mongoose")
+const sanitizer             = require("express-sanitizer")
 require("dotenv").config()
 
 const app = express()
@@ -16,6 +17,9 @@ app.use(express.static(path.join(__dirname, "dist/secret-santa")))
 // Heroku
 //app.use(express.static(path.join(__dirname, "/dist/")))
 app.use(bodyParser.urlencoded({extended: false}));
+
+// SANITIZER
+app.use(sanitizer())
 
 // MONGOOSE
 mongoose.connect(process.env.DB)
@@ -88,9 +92,13 @@ app.get('/', (req, res) => {
 
 // ACCOUNT
 app.post("/register", (req, res) => {
-  const newUser = new User({username: req.body.username, email: req.body.email})
+  const username = req.sanitize(req.body.username)
+  const email = req.sanitize(req.body.email)
+  const password = req.sanitize(req.body.password)
 
-  User.register(newUser, req.body.password, (error, user) => {
+  const newUser = new User({username: username, email: email})
+
+  User.register(newUser, password, (error, user) => {
     if (error) {
       res.json(error)
     } else {
@@ -144,7 +152,7 @@ app.get("/logout", (req, res) => {
 
 // GROUPS
 app.post("/create", isLoggedIn, (req, res) => {
-  const groupname = req.body.groupname
+  const groupname = req.sanitize(req.body.groupname)
   const owner = req.user.username
   const code = Math.random().toString(36).substring(2, 7);
 
@@ -171,8 +179,8 @@ app.post("/create", isLoggedIn, (req, res) => {
 })
 
 app.post("/join", isLoggedIn, (req, res) => {
-  const groupname = req.body.groupname
-  const code = req.body.code
+  const groupname = req.sanitize(req.body.groupname)
+  const code = req.sanitize(req.body.code)
   const username = req.user.username
 
   Group.findOne({groupname: groupname, code: code}, (error, data) => {
@@ -203,7 +211,7 @@ app.post("/join", isLoggedIn, (req, res) => {
 
 app.post("/leave", isLoggedIn, (req, res) => {
   const username = req.user.username
-  const groupname = req.body.groupname
+  const groupname = req.sanitize(req.body.groupname)
 
   Group.findOneAndUpdate({groupname: groupname/*, launched: false*/}, {$pull: {members: {username: username}}}, {new: true}, (error, data) => {
     if (error) console.log(error)
@@ -223,7 +231,7 @@ app.post("/leave", isLoggedIn, (req, res) => {
 })
 
 app.post("/getwishlist", isLoggedIn, (req, res) => {
-  const groupname = req.body.groupname
+  const groupname = req.sanitize(req.body.groupname)
   const username = req.user.username
   let wishlist = []
 
@@ -238,10 +246,10 @@ app.post("/getwishlist", isLoggedIn, (req, res) => {
 })
 
 app.post("/savewishlist", isLoggedIn, (req, res) => {
-  const groupname = req.body.groupname
+  const groupname = req.sanitize(req.body.groupname)
   const username = req.user.username
-  let link = req.body.link
-  const myWish = Number(req.body.mywish)
+  let link = req.sanitize(req.body.link)
+  const myWish = Number(req.sanitize(req.body.mywish))
 
   if (link && link.indexOf("http") !== 0) {
     const temp = link
@@ -249,8 +257,8 @@ app.post("/savewishlist", isLoggedIn, (req, res) => {
   }
 
   const wishlistEntry = {
-    title: req.body.title,
-    description: req.body.description,
+    title: req.sanitize(req.body.title),
+    description: req.sanitize(req.body.description),
     link: link
   }
 
@@ -287,9 +295,9 @@ app.post("/savewishlist", isLoggedIn, (req, res) => {
 })
 
 app.post("/deletewishlistentry", isLoggedIn, (req, res) => {
-  const groupname = req.body.groupname
+  const groupname = req.sanitize(req.body.groupname)
   const username = req.user.username
-  const myWish = Number(req.body.mywish)
+  const myWish = Number(req.sanitize(req.body.mywish))
 
   let wishlist = []
   let modifiedWishlist = []
@@ -313,7 +321,7 @@ app.post("/deletewishlistentry", isLoggedIn, (req, res) => {
 })
 
 app.post("/partner", isLoggedIn, (req, res) => {
-  const groupname = req.body.groupname
+  const groupname = req.sanitize(req.body.groupname)
   const username = req.user.username
   let partner = ""
   let partnerwishlist = []
@@ -341,7 +349,7 @@ app.post("/partner", isLoggedIn, (req, res) => {
 
 app.post("/group", isLoggedIn, (req, res) => {
   const username = req.user.username
-  const groupname = req.body.groupname
+  const groupname = req.sanitize(req.body.groupname)
   let members = []
 
   Group.findOne({groupname: groupname, "members.username": username}, (error, data) => {
@@ -392,7 +400,7 @@ app.get("/groups", isLoggedIn, (req, res) => {
 
 app.post("/launch", isLoggedIn, (req, res) => {
   const username = req.user.username
-  const groupname = req.body.groupname
+  const groupname = req.sanitize(req.body.groupname)
   let partners = []
 
   function shuffleArray(items) {
@@ -436,7 +444,7 @@ app.post("/launch", isLoggedIn, (req, res) => {
 })
 
 app.post("/deletegroup", isLoggedIn, (req, res) => {
-  const groupname = req.body.groupname
+  const groupname = req.sanitize(req.body.groupname)
   const username = req.user.username
   let members = []
   let owner = ""
@@ -467,8 +475,8 @@ app.post("/deletegroup", isLoggedIn, (req, res) => {
 })
 
 app.post("/removemember", isLoggedIn, (req, res) => {
-  const member = req.body.member
-  const groupname = req.body.groupname
+  const member = req.sanitize(req.body.member)
+  const groupname = req.sanitize(req.body.groupname)
   const username = req.user.username
   let members = []
 
