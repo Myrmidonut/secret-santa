@@ -10,6 +10,9 @@ html, body {
 }
 
 #main {
+  background: url("assets/background2.jpg");
+  background-size: cover;
+
   @media screen and (min-width: 700px) {
     width: 100%;
     min-height: 100%;
@@ -31,6 +34,10 @@ html, body {
   app-partner,
   app-register {
     width: 100%;
+
+    xbackground: white;
+    xopacity: 0.9;
+    xbox-shadow: 0 0 10px 10px white;
   }
 }
 
@@ -130,7 +137,7 @@ html, body {
   margin: auto;
   
   li {
-    border: 1px solid black;
+    border: 3px solid #424242;
     border-radius: 8px;
     margin: 10px auto;
     padding: 10px;
@@ -218,6 +225,7 @@ html, body {
     background: lightgray;
     height: 40px;
     border-radius: 8px;
+    border: 3px solid #424242;
 
     @media screen and (min-width: 700px) {
       height: 30px;
@@ -240,7 +248,7 @@ html, body {
       font-size: 20px;
       background: gray;
       padding: 0;
-      border-radius: 0 8px 8px 0;
+      border-radius: 0 5px 5px 0;
 
       @media screen and (min-width: 700px) {
         height: 30px;
