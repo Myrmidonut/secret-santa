@@ -63,6 +63,7 @@ export class MywishlistComponent implements OnInit {
     if (this.data.demo) {
       this.data.demoGroups[this.data.demoGroupIndex].myWishlist.splice(i, 1)
       this.data.myWishlist = this.data.demoGroups[this.data.demoGroupIndex].myWishlist
+      this.confirmDelete = undefined
     } else {
       let body = new URLSearchParams()
       body.set("groupname", this.data.groupname)
@@ -77,6 +78,7 @@ export class MywishlistComponent implements OnInit {
       this.httpClient.post<{wishlist: string[]}>("/deletewishlistentry", body.toString(), httpOptions)
       .subscribe(res => {
         this.data.myWishlist = res.wishlist
+        this.confirmDelete = undefined
       })
     }
   }
