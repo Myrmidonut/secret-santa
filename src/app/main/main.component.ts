@@ -25,8 +25,6 @@ export class MainComponent implements OnInit {
     } else {
       this.httpClient.get("/logout")
       .subscribe(res => {
-        //this.router.navigate(["/"])
-
         window.location.href = "/"
       })
     }
@@ -34,13 +32,9 @@ export class MainComponent implements OnInit {
 
   demo() {
     this.data.demo = true
-
     this.data.username = "Demo User"
-
     this.data.groups = ["Family", "Work"]
     this.data.groupsowner = ["Family"]
     this.data.groupslaunched = ["Work"]
-
-    //this.router.navigate(["/"])
   }
 }
