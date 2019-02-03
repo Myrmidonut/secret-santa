@@ -3,6 +3,9 @@
 $font-family: 'Arvo', serif;
 
 html, body {
+  height:100%;
+  margin: 0;
+
   @media screen and (min-width: 700px) {
     height: 100%;
     margin: 0;
@@ -12,14 +15,11 @@ html, body {
 #main {
   background: url("assets/background.jpg");
   background-size: cover;
-
-  @media screen and (min-width: 700px) {
-    width: 100%;
-    min-height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   app-groups,
   app-create,
@@ -34,10 +34,6 @@ html, body {
   app-partner,
   app-register {
     width: 100%;
-
-    xbackground: white;
-    xopacity: 0.9;
-    xbox-shadow: 0 0 10px 10px white;
   }
 }
 
@@ -118,12 +114,14 @@ html, body {
   font-family: $font-family;
   margin: auto;
   max-width: 212px;
+  text-shadow: 0 0 15px white;
 }
 
 #groups-icons {
   font-family: $font-family;
   margin: auto;
   max-width: 175px;
+  text-shadow: 0 0 15px white;
 
   .fa-check {
     width: 20px;
@@ -131,7 +129,7 @@ html, body {
 }
 
 #wishlist {
-  padding-left: 0;
+  padding: 5px;
   list-style-type: none;
   max-width: 400px;
   margin: auto;
@@ -143,6 +141,7 @@ html, body {
     padding: 10px;
     font-family: $font-family;
     font-size: 17px;
+    background: white;
   }
 
   .title {
@@ -190,7 +189,7 @@ html, body {
 }
 
 #groups {
-  padding-left: 0;
+  padding: 5px;
   list-style-type: none;
   margin: auto;
   max-width: 400px;
@@ -210,7 +209,7 @@ html, body {
 }
 
 #members {
-  padding-left: 0;
+  padding: 5px;
   list-style-type: none;
   margin: auto;
   max-width: 400px;
@@ -303,6 +302,8 @@ html, body {
 h1, h3 {
   text-align: center;
   font-family: $font-family;
+  text-shadow: 0 0 15px white;
+  margin: 5px;
 }
 
 form {
@@ -314,6 +315,7 @@ form {
 label {
   font-family: $font-family;
   font-size: 20px;
+  text-shadow: 0 0 15px white;
 
   @media screen and (min-width: 700px) {
     font-size: 17px;
