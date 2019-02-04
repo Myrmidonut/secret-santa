@@ -1,6 +1,8 @@
 <h1>My Partner</h1>
 
-<h3 >{{ data.partner || "No partner yet!"}}</h3>
+<h3>
+  <strong id="partner">{{ data.partner || "No partner yet!"}}</strong>
+</h3>
 
 <ul id="wishlist">
   <li *ngFor="let item of data.partnerWishlist">

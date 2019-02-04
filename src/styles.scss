@@ -125,14 +125,14 @@ html, body {
   font-family: $font-family;
   margin: auto;
   max-width: 212px;
-  text-shadow: 0 0 15px white;
+  text-shadow: 3px 3px 7px gray;
 }
 
 #groups-icons {
   font-family: $font-family;
   margin: auto;
   max-width: 175px;
-  text-shadow: 0 0 15px white;
+  text-shadow: 3px 3px 7px gray;
 
   .fa-check {
     width: 20px;
@@ -305,7 +305,7 @@ html, body {
   margin-top: 5px;
 }
 
-#invite-code {
+#invite-code, #partner {
   background: lightgray;
   padding: 5px;
 }
@@ -317,6 +317,10 @@ h1, h3 {
   margin: 5px;
 }
 
+h3 {
+  margin-top: 12px;
+}
+
 form {
   margin: auto;
   display: block;
@@ -326,7 +330,7 @@ form {
 label {
   font-family: $font-family;
   font-size: 20px;
-  text-shadow: 0 0 15px white;
+  text-shadow: 3px 3px 7px gray;
 
   @media screen and (min-width: 800px) {
     font-size: 17px;
