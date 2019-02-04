@@ -13,13 +13,18 @@ html, body {
 }
 
 #main {
-  background: url("assets/background.jpg");
+  background: url("assets/background2.jpg");
   background-size: cover;
   width: 100%;
   min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 700px) {
+    background: url("assets/background.jpg");
+    background-size: cover;
+  }
 
   app-groups,
   app-create,
@@ -34,6 +39,12 @@ html, body {
   app-partner,
   app-register {
     width: 100%;
+    background: rgba(121, 85, 72, 0.6);
+
+    @media screen and (min-width: 700px) {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
   }
 }
 
@@ -302,7 +313,7 @@ html, body {
 h1, h3 {
   text-align: center;
   font-family: $font-family;
-  text-shadow: 0 0 15px white;
+  text-shadow: 3px 3px 7px gray;
   margin: 5px;
 }
 
