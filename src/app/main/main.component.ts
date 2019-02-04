@@ -17,6 +17,16 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.checkLoginStatus()
+  }
+
+  checkLoginStatus() {
+    this.httpClient.get<{username: string}>("/loginstatus")
+    .subscribe(res => {
+      if (res.username) {
+        this.data.username = res.username
+      }
+    })
   }
 
   logout() {

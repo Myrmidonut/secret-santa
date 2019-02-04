@@ -12,10 +12,13 @@ require("dotenv").config()
 const app = express()
 const port = process.env.PORT || 3000;
 
+// FOLDER
 // local
 //app.use(express.static(path.join(__dirname, "dist/secret-santa")))
 // Heroku
 app.use(express.static(path.join(__dirname, "/dist/")))
+
+// BODY PARSER
 app.use(bodyParser.urlencoded({extended: false}));
 
 // SANITIZER
@@ -148,6 +151,14 @@ app.post('/login', (req, res, next) => {
 app.get("/logout", (req, res) => {
   req.logout()
   res.json({status: "Logged out"})
+})
+
+app.get("/loginstatus", (req, res) => {
+  if (req.user) {
+    res.json({username: req.user.username})
+  } else {
+    res.json({status: "Not logged in."})
+  }
 })
 
 // GROUPS
@@ -504,6 +515,10 @@ app.post("/removemember", isLoggedIn, (req, res) => {
     })
   }
 })
+
+//app.get('/*', (req, res) => {
+//  res.sendFile(path.join(__dirname, "dist/secret-santa/index.html"))
+//})
 
 // SERVER
 app.listen(port, () => console.log(`Server running on port ${port}!`))
