@@ -4,6 +4,7 @@ import { DataService } from "../data.service";
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from "@angular/router";
+import { CustomValidators } from "../custom-validators";
 
 @Component({
   selector: 'app-register',
@@ -21,8 +22,14 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       username: ["", Validators.required],
       password: ["", Validators.required],
+      confirmPassword: ["", Validators.required],
       email: ["", Validators.required]
-    })
+    },
+    {
+      // check whether our password and confirm password match
+      validator: CustomValidators.passwordMatchValidator
+    }
+    )
   }
 
   registerForm: FormGroup

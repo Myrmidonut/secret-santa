@@ -13,6 +13,19 @@
   </label>
 
   <br>
+  
+  <label>
+    Email:<br>
+    <input type="email" formControlName="email" class="textfield" placeholder="Email">
+
+    <div *ngIf="submitted && registerForm.controls.email.errors">
+      <div *ngIf="registerForm.controls.email.errors.required" class="error">
+        An email is required.
+      </div>
+    </div>
+  </label>
+
+  <br>
 
   <label>
     Password:<br>
@@ -26,15 +39,20 @@
   </label>
 
   <br>
-  
-  <label>
-    Email:<br>
-    <input type="email" formControlName="email" class="textfield" placeholder="Email">
 
-    <div *ngIf="submitted && registerForm.controls.email.errors">
-      <div *ngIf="registerForm.controls.email.errors.required" class="error">
-        An email is required.
+  <label>
+    Confirm Password:<br>
+    <input type="password" formControlName="confirmPassword" class="textfield" placeholder="Confirm Password">
+
+    <div *ngIf="submitted && registerForm.controls.confirmPassword.errors">
+      <div *ngIf="registerForm.controls.confirmPassword.errors.required" class="error">
+        Confirm the password.
       </div>
+
+      <div *ngIf="registerForm.controls.confirmPassword.errors.NoPassswordMatch" class="error">
+        Passwords don't match.
+      </div>
+
     </div>
   </label>
 
