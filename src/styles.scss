@@ -12,6 +12,13 @@ html, body {
   }
 }
 
+#background-overlay {
+  position: fixed;
+  background: rgba(121, 85, 72, 0.6);
+  height: 100%;
+  width: 100%;
+}
+
 #main {
   background: url("assets/background.jpg");
   background-size: cover;
@@ -38,8 +45,8 @@ html, body {
   app-mywishlist,
   app-partner,
   app-register {
+    z-index: 1;
     width: 100%;
-    background: rgba(121, 85, 72, 0.6);
 
     @media screen and (min-width: 800px) {
       padding-top: 20px;
