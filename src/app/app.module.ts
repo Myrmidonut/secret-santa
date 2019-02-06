@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from './app.component';
-import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
 import { GroupComponent } from './group/group.component';
@@ -23,7 +22,6 @@ import { MywishComponent } from './mywish/mywish.component';
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
     FooterComponent,
     MainComponent,
     GroupComponent,

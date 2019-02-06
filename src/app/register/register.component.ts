@@ -26,10 +26,8 @@ export class RegisterComponent implements OnInit {
       email: ["", Validators.required]
     },
     {
-      // check whether our password and confirm password match
       validator: CustomValidators.passwordMatchValidator
-    }
-    )
+    })
   }
 
   registerForm: FormGroup

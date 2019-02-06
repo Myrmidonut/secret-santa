@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from "../data.service";
 import { HttpClient } from "@angular/common/http";
-import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-groups',

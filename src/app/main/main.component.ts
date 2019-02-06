@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from "../data.service"
 import { HttpClient } from "@angular/common/http";
-import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-main',
@@ -12,8 +11,7 @@ import { Router } from "@angular/router";
 export class MainComponent implements OnInit {
   constructor(
     public data: DataService,
-    private httpClient: HttpClient,
-    private router: Router
+    private httpClient: HttpClient
   ) { }
 
   ngOnInit() {
@@ -21,12 +19,14 @@ export class MainComponent implements OnInit {
   }
 
   checkLoginStatus() {
-    this.httpClient.get<{username: string}>("/loginstatus")
-    .subscribe(res => {
-      if (res.username) {
-        this.data.username = res.username
-      }
-    })
+    if (!this.data.demo) {
+      this.httpClient.get<{username: string}>("/loginstatus")
+      .subscribe(res => {
+        if (res.username) {
+          this.data.username = res.username
+        }
+      })
+    }
   }
 
   logout() {

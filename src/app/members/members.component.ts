@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from "../data.service";
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
-import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-members',
@@ -13,8 +12,7 @@ import { Router } from "@angular/router";
 export class MembersComponent implements OnInit {
   constructor(
     public data: DataService,
-    private httpClient: HttpClient,
-    private router: Router
+    private httpClient: HttpClient
   ) { }
 
   confirmRemove: String = ""
