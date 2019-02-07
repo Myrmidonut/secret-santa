@@ -39,7 +39,7 @@ html, body {
 }
 
 #main {
-  background: url("assets/background.jpg");
+  background: url("assets/background3.jpg");
   background-size: cover;
   width: 100%;
   min-height: 100%;
@@ -47,7 +47,12 @@ html, body {
   justify-content: center;
   align-items: center;
 
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 451px) {
+    background: url("assets/background.jpg");
+    background-size: cover;
+  }
+
+  @media screen and (min-width: 1251px) {
     background: url("assets/background2.jpg");
     background-size: cover;
   }
