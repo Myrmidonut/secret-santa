@@ -32,7 +32,7 @@ export class GroupComponent implements OnInit {
     if (this.data.username && !this.data.demo) {
       this.loadGroup()
       this.loadPartner()
-    } else {
+    } else if (this.data.demo) {
       this.data.demoGroupIndex = this.data.demoGroups.findIndex(e => {
         return e.groupname === this.data.groupname
       })

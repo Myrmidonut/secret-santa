@@ -26,7 +26,8 @@ const routes: Routes = [
   { path: "invite", component: InviteComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
-  { path: "mywish", component: MywishComponent }
+  { path: "mywish", component: MywishComponent },
+  { path: "**", component: MainComponent }
 ];
 
 @NgModule({

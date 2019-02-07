@@ -20,7 +20,9 @@ export class MywishlistComponent implements OnInit {
     confirmDelete: string
 
   ngOnInit() {
-    this.getWishlist()
+    if (this.data.username) {
+      this.getWishlist()
+    }
   }
 
   getWishlist() {

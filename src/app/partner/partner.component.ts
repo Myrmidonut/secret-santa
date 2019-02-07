@@ -16,7 +16,9 @@ export class PartnerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadPartner()
+    if (this.data.username) {
+      this.loadPartner()
+    }
   }
 
   loadPartner() {

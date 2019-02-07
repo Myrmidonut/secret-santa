@@ -30,14 +30,16 @@ export class MywishComponent implements OnInit {
   success: Boolean = false
 
   ngOnInit() {
-    const i = this.data.myWish
+    if (this.data.username) {
+      const i = this.data.myWish
 
-    if (i !== -1) {
-      this.wishlistForm.setValue({
-        title: this.data.myWishlist[i].title,
-        description: this.data.myWishlist[i].description,
-        link: this.data.myWishlist[i].link
-      })
+      if (i !== -1) {
+        this.wishlistForm.setValue({
+          title: this.data.myWishlist[i].title,
+          description: this.data.myWishlist[i].description,
+          link: this.data.myWishlist[i].link
+        })
+      }
     }
   }
 

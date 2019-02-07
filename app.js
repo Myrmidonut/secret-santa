@@ -84,7 +84,8 @@ function isLoggedIn(req, res, next) {
   if (req.user) {
     return next()
   } else {
-    res.json("not authenticated")
+    //res.json("not authenticated")
+    res.sendFile(path.join(__dirname, "dist/secret-santa/index.html"))
   }
 }
 
@@ -516,9 +517,9 @@ app.post("/removemember", isLoggedIn, (req, res) => {
   }
 })
 
-//app.get('/*', (req, res) => {
-//  res.sendFile(path.join(__dirname, "dist/secret-santa/index.html"))
-//})
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, "dist/secret-santa/index.html"))
+})
 
 // SERVER
 app.listen(port, () => console.log(`Server running on port ${port}!`))
