@@ -1,27 +1,34 @@
-# SecretSanta
+# Secret Santa
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
+## Introduction
+Create or join [Secret Santa](https://en.wikipedia.org/wiki/Secret_Santa "Wikipedia") groups. A demo mode is available to check out the site without registering.
 
-## Development server
+Groupowners get access to administrative options: removing groupowners, deleting a group, assigning secret santas, inviting groupmembers.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Joining groups requires the groupname and a code.
 
-## Code scaffolding
+Secret santa partners are randomly generated and hidden from other groupmembers. Groupmembers can create wishlists that their secret santa can view.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Behind the scenes
+### Frontend
+* Angular
 
-## Build
+### Backend
+* Node
+* Express
+* Mongoose
+* Passport
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Database
+* MongoDB
 
-## Running unit tests
+### Hosting
+* Heroku
+* mLab
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Preview Images
+![Main](main.png)
+![Mobile](mobile.png)
+![Groups](groups.png)
+![Groupmembers](groupmembers.png)
+![Wishlist](wishlist.png)
