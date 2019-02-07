@@ -85,13 +85,15 @@ function isLoggedIn(req, res, next) {
     return next()
   } else {
     //res.json("not authenticated")
-    res.sendFile(path.join(__dirname, "dist/secret-santa/index.html"))
+    //res.sendFile(path.join(__dirname, "dist/secret-santa/index.html"))
+    res.sendFile(path.join(__dirname, "dist/index.html"))
   }
 }
 
 // START
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, "dist/secret-santa/index.html"))
+  //res.sendFile(path.join(__dirname, "dist/secret-santa/index.html"))
+  res.sendFile(path.join(__dirname, "dist/index.html"))
 })
 
 // ACCOUNT
@@ -518,7 +520,7 @@ app.post("/removemember", isLoggedIn, (req, res) => {
 })
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, "dist/secret-santa/index.html"))
+  res.sendFile(path.join(__dirname, "dist/index.html"))
 })
 
 // SERVER
