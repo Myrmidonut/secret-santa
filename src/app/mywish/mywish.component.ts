@@ -30,6 +30,10 @@ export class MywishComponent implements OnInit {
   success: Boolean = false
 
   ngOnInit() {
+    this.loadWish()
+  }
+
+  loadWish() {
     if (this.data.username) {
       const i = this.data.myWish
 
@@ -40,6 +44,8 @@ export class MywishComponent implements OnInit {
           link: this.data.myWishlist[i].link
         })
       }
+    } else {
+      this.router.navigate(["/"])
     }
   }
 

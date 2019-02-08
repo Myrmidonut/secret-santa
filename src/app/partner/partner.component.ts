@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from "../data.service";
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-partner',
@@ -12,12 +13,19 @@ import { HttpHeaders } from '@angular/common/http';
 export class PartnerComponent implements OnInit {
   constructor(
     public data: DataService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.checkLoginStatus()
+  }
+
+  checkLoginStatus() {
     if (this.data.username) {
       this.loadPartner()
+    } else {
+      this.router.navigate(["/"])
     }
   }
 

@@ -29,10 +29,11 @@ export class GroupComponent implements OnInit {
   confirmDeleteGroupId: string = ""
 
   ngOnInit() {
-    if (this.data.username && !this.data.demo) {
-      this.loadGroup()
-      this.loadPartner()
-    } else if (this.data.demo) {
+    this.checkLoginStatus()
+  }
+
+  checkLoginStatus() {
+    if (this.data.demo) {
       this.data.demoGroupIndex = this.data.demoGroups.findIndex(e => {
         return e.groupname === this.data.groupname
       })
@@ -47,6 +48,11 @@ export class GroupComponent implements OnInit {
         this.data.demoGroups[this.data.demoGroupIndex].partner = undefined
         this.data.partner = undefined
       }
+    } else if (this.data.username) {
+      this.loadGroup()
+      this.loadPartner()
+    } else {
+      this.router.navigate(["/"])
     }
   }
 

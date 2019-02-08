@@ -12,10 +12,7 @@ require("dotenv").config()
 const app = express()
 const port = process.env.PORT || 3000;
 
-// FOLDER
-// local
-//app.use(express.static(path.join(__dirname, "dist/secret-santa")))
-// Heroku
+// ANGULAR PRODUCTION FOLDER
 app.use(express.static(path.join(__dirname, "/dist/")))
 
 // BODY PARSER
@@ -60,7 +57,7 @@ const UserSchema = new mongoose.Schema({
   owner: [String]
 })
 
-// enable passport functions on users
+// PASSPORT FUNCTIONS ON USERSCHEMA
 UserSchema.plugin(passportLocalMongoose)
 
 const User = mongoose.model("User", UserSchema)
@@ -84,15 +81,12 @@ function isLoggedIn(req, res, next) {
   if (req.user) {
     return next()
   } else {
-    //res.json("not authenticated")
-    //res.sendFile(path.join(__dirname, "dist/secret-santa/index.html"))
     res.sendFile(path.join(__dirname, "dist/index.html"))
   }
 }
 
 // START
 app.get('/', (req, res) => {
-  //res.sendFile(path.join(__dirname, "dist/secret-santa/index.html"))
   res.sendFile(path.join(__dirname, "dist/index.html"))
 })
 
@@ -151,12 +145,12 @@ app.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-app.get("/logout", (req, res) => {
+app.post("/logout", (req, res) => {
   req.logout()
   res.json({status: "Logged out"})
 })
 
-app.get("/loginstatus", (req, res) => {
+app.post("/loginstatus", (req, res) => {
   if (req.user) {
     res.json({username: req.user.username})
   } else {
@@ -388,7 +382,7 @@ app.post("/group", isLoggedIn, (req, res) => {
   })
 })
 
-app.get("/groups", isLoggedIn, (req, res) => {
+app.post("/groups", isLoggedIn, (req, res) => {
   const username = req.user.username
   let launched = []
 

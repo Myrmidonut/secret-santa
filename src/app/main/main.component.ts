@@ -20,7 +20,9 @@ export class MainComponent implements OnInit {
 
   checkLoginStatus() {
     if (!this.data.demo) {
-      this.httpClient.get<{username: string}>("/loginstatus")
+      let body = new URLSearchParams()
+
+      this.httpClient.post<{username: string}>("/loginstatus", body.toString())
       .subscribe(res => {
         if (res.username) {
           this.data.username = res.username
@@ -33,7 +35,9 @@ export class MainComponent implements OnInit {
     if (this.data.demo) {
       window.location.href = "/"
     } else {
-      this.httpClient.get("/logout")
+      let body = new URLSearchParams()
+
+      this.httpClient.post("/logout", body.toString())
       .subscribe(res => {
         window.location.href = "/"
       })

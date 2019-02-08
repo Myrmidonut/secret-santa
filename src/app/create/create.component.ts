@@ -29,6 +29,22 @@ export class CreateComponent implements OnInit {
   failed: Boolean = false
 
   ngOnInit() {
+    this.checkLoginStatus()
+  }
+
+  checkLoginStatus() {
+    if (!this.data.username) {
+      let body = new URLSearchParams()
+
+      this.httpClient.post<{username: string}>("/loginstatus", body.toString())
+      .subscribe(res => {
+        if (res.username) {
+          this.data.username = res.username
+        } else {
+          this.router.navigate(["/"])
+        }
+      })
+    }
   }
 
   onSubmit() {
@@ -57,7 +73,7 @@ export class CreateComponent implements OnInit {
       })
       this.data.groupname = formdata.groupname
       this.router.navigate(["/group"])
-    } else {
+    } else if (this.data.username) {
       let body = new URLSearchParams()
       body.set("groupname", formdata.groupname)
       body.set("owner", this.data.username)
@@ -78,6 +94,8 @@ export class CreateComponent implements OnInit {
           this.failed = true
         }
       })
+    } else {
+      this.router.navigate(["/"])
     }
   }
 }

@@ -20,8 +20,14 @@ export class MywishlistComponent implements OnInit {
     confirmDelete: string
 
   ngOnInit() {
+    this.checkLoginStatus()
+  }
+
+  checkLoginStatus() {
     if (this.data.username) {
       this.getWishlist()
+    } else {
+      this.router.navigate(["/"])
     }
   }
 

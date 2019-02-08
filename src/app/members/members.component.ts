@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from "../data.service";
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-members',
@@ -12,7 +13,8 @@ import { HttpHeaders } from '@angular/common/http';
 export class MembersComponent implements OnInit {
   constructor(
     public data: DataService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router
   ) { }
 
   confirmRemove: String = ""
@@ -56,7 +58,7 @@ export class MembersComponent implements OnInit {
   loadPartner() {
     if (this.data.demo) {
       this.data.partner = this.data.demoGroups[this.data.demoGroupIndex].partner
-    } else {
+    } else if (this.data.username) {
       let body = new URLSearchParams()
       body.set("groupname", this.data.groupname)
 
@@ -70,6 +72,8 @@ export class MembersComponent implements OnInit {
       .subscribe(res => {
         this.data.partner = res.partner
       })
+    } else {
+      this.router.navigate(["/"])
     }
   }
 }
