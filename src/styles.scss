@@ -14,47 +14,41 @@ html, body {
 
 #footer {
     width: 100%;
-    height: 30px;
-    line-height: 30px;
+    height: 40px;
+    line-height: 40px;
     position: fixed;
     bottom: 0;
     left: 0;
     text-align: center;
     font-family: 'Arvo', serif;
-    background: gray;
+    font-size: 20px;
+    background: rgba(255, 255, 255, 0.7);
     z-index: 2;
 
+    @media screen and (min-width: 1200px) {
+      font-size: 17px;
+    }
+
     a {
-      color: white;
+      color: black;
       text-decoration: underline;
     }
 }
 
-#background-overlay {
-  position: fixed;
-  background: rgba(121, 85, 72, 0.5);
-  height: 100%;
-  width: 100%;
-  top: 0;
-}
-
 #main {
-  background: url("assets/background3.jpg");
+  background: url("assets/background-portrait.jpg");
   background-size: cover;
   width: 100%;
   min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-position: center 80%;
 
-  @media screen and (min-width: 451px) {
-    background: url("assets/background.jpg");
+  @media screen and (min-width: 1200px) {
+    background: url("assets/background-landscape.jpg");
     background-size: cover;
-  }
-
-  @media screen and (min-width: 1251px) {
-    background: url("assets/background2.jpg");
-    background-size: cover;
+    background-position: right center;
   }
 
   app-groups,
@@ -74,7 +68,7 @@ html, body {
     padding-top: 20px;
     padding-bottom: 35px;
 
-    @media screen and (min-width: 800px) {
+    @media screen and (min-width: 1200px) {
       padding-top: 20px;
       padding-bottom: 20px;
     }
@@ -102,9 +96,10 @@ html, body {
   transition: all 0.3s;
   padding: 0;
   border-radius: 10px;
-  box-shadow: 3px 3px 7px gray;
+  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.7);
 
-  @media screen and (min-width: 800px) {
+
+  @media screen and (min-width: 1200px) {
     height: 36px;
     line-height: 30px;
     max-width: 165px;
@@ -131,7 +126,7 @@ html, body {
   max-width: 400px;
   word-wrap: break-word;
 
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 1200px) {
     min-height: 30px;
   }
 }
@@ -147,7 +142,7 @@ html, body {
   border: 1px solid black;
   padding-left: 5px;
 
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 1200px) {
     height: 30px;
     line-height: 30px;
     font-size: 17px;
@@ -155,17 +150,19 @@ html, body {
 }
 
 #members-icons {
+  color: white;
   font-family: $font-family;
   margin: auto;
   max-width: 212px;
-  text-shadow: 3px 3px 7px gray;
+  text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.7);
 }
 
 #groups-icons {
+  color: white;
   font-family: $font-family;
   margin: auto;
   max-width: 175px;
-  text-shadow: 3px 3px 7px gray;
+  text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.7);
 
   .fa-check {
     width: 20px;
@@ -212,7 +209,7 @@ html, body {
     border-radius: 8px;
     box-shadow: 3px 3px 7px gray;
 
-    @media screen and (min-width: 800px) {
+    @media screen and (min-width: 1200px) {
       height: 30px;
       font-size: 17px;
     }
@@ -270,7 +267,7 @@ html, body {
     border-radius: 8px;
     border: 3px solid #424242;
 
-    @media screen and (min-width: 800px) {
+    @media screen and (min-width: 1200px) {
       height: 30px;
       font-size: 17px;
     }
@@ -293,7 +290,7 @@ html, body {
       padding: 0;
       border-radius: 0 5px 5px 0;
 
-      @media screen and (min-width: 800px) {
+      @media screen and (min-width: 1200px) {
         height: 30px;
         width: 30px;
         font-size: 17px;
@@ -314,8 +311,10 @@ html, body {
   display: block;
   text-align: center;
   font-family: $font-family;
+  color: white;
+  text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.7);
 
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 1200px) {
     font-size: 17px;
   }
 }
@@ -329,7 +328,7 @@ html, body {
   font-size: 20px;
   padding: 3px;
 
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 1200px) {
     font-size: 17px;
   }
 }
@@ -339,14 +338,14 @@ html, body {
 }
 
 #invite-code, #partner {
-  background: lightgray;
   padding: 5px;
 }
 
 h1, h3 {
+  color: white;
   text-align: center;
   font-family: $font-family;
-  text-shadow: 3px 3px 7px gray;
+  text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.7);
   margin: 5px;
 }
 
@@ -363,9 +362,10 @@ form {
 label {
   font-family: $font-family;
   font-size: 20px;
-  text-shadow: 3px 3px 7px gray;
+  color: white;
+  text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.7);
 
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 1200px) {
     font-size: 17px;
   }
 }
@@ -380,7 +380,7 @@ textarea {
   border: 1px solid black;
   padding: 5px;
 
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 1200px) {
     font-size: 17px;
   }
 }

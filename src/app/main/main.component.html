@@ -1,25 +1,23 @@
-<div id="container">
-  <h1>Secret Santa!</h1>
+<h1>Secret Santa!</h1>
 
-  <h3>
-    <p>
-      Create or join a Secret Santa group and write your wishlist!
-    </p>
-    <p>
-      Only you can see your random partner and their wishlist.
-    </p>
-  </h3>
+<h3>
+  <p>
+    Create or join a Secret Santa group and write your wishlist!
+  </p>
+  <p>
+    Only you can see your random partner and their wishlist.
+  </p>
+</h3>
 
-  <div *ngIf="this.data.username">
-    <a routerLink="groups" class="link">My Groups</a>
-    <a routerLink="create" class="link">Create a Group</a>
-    <a routerLink="join" class="link">Join a Group</a>
-    <button (click)="logout()" class="link">Logout</button>
-  </div>
+<div *ngIf="this.data.username">
+  <a routerLink="groups" class="link">My Groups</a>
+  <a routerLink="create" class="link">Create a Group</a>
+  <a routerLink="join" class="link">Join a Group</a>
+  <button (click)="logout()" class="link">Logout</button>
+</div>
 
-  <div *ngIf="!this.data.username">
-    <a routerLink="login" class="link">Login</a>
-    <a routerLink="register" class="link">Register</a>
-    <button (click)="demo()" class="link">Demo Mode</button>
-  </div>
+<div *ngIf="!this.data.username">
+  <a routerLink="login" class="link">Login</a>
+  <a routerLink="register" class="link">Register</a>
+  <button (click)="demo()" class="link">Demo Mode</button>
 </div>
