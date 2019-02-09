@@ -92,8 +92,8 @@ app.get('/', (req, res) => {
 
 // ACCOUNT
 app.post("/register", (req, res) => {
-  const username = req.sanitize(req.body.username)
-  const email = req.sanitize(req.body.email)
+  const username = req.sanitize(req.body.username).toLowerCase()
+  const email = req.sanitize(req.body.email).toLowerCase()
   const password = req.sanitize(req.body.password)
 
   const newUser = new User({username: username, email: email})

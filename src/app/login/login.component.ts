@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     this.failed = false
 
     let body = new URLSearchParams()
-    body.set("username", formdata.username)
+    body.set("username", formdata.username.toLowerCase())
     body.set("password", formdata.password)
 
     const httpOptions = {

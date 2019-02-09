@@ -51,9 +51,9 @@ export class RegisterComponent implements OnInit {
 
   register(formdata) {
     let body = new URLSearchParams();
-    body.set("username", formdata.username)
+    body.set("username", formdata.username.toLowerCase())
     body.set("password", formdata.password)
-    body.set("email", formdata.email)
+    body.set("email", formdata.email.toLowerCase())
 
     const httpOptions = {
       headers: new HttpHeaders({
