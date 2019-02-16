@@ -11,7 +11,7 @@ Groupowners get access to administrative options:
 
 Joining groups requires the groupname and a code.
 
-Secret santa partners are randomly generated and hidden from other groupmembers. Groupmembers can create wishlists that their secret santa can view.
+Secret santa partners are randomly generated and hidden from other groupmembers. Groupmembers can create wishlists that only their secret santa can view.
 
 ***
 
@@ -36,16 +36,16 @@ Secret santa partners are randomly generated and hidden from other groupmembers.
 
 ## Preview Images
 ### Main Screen:
-![Main](main.png)
+![Main](readme_images/main.png)
 
 ### Mobile Main Screen:
-![Mobile](mobile.png)
+![Mobile](readme_images/mobile.png)
 
 ### Groups View:
-![Groups](groups.png)
+![Groups](readme_images/groups.png)
 
 ### Groupmembers View:
-![Groupmembers](groupmembers.png)
+![Groupmembers](readme_images/groupmembers.png)
 
 ### Wishlist View:
-![Wishlist](wishlist.png)
+![Wishlist](readme_images/wishlist.png)
