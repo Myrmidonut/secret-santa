@@ -4,15 +4,17 @@
 
 <br>
 
-<p id="members-icons">
-  <i class="fas fa-crown"></i>  Groupowner
-  <br>
-  <i class="fas fa-user-friends"></i>  My Partner
-  <br>
-  <span *ngIf="data.owner === data.username">
-    <i class="fas fa-user-times"></i>  Remove Groupmember
-  </span>
-</p>
+<div id="icons-description">
+  <p>
+    <i class="fas fa-crown"></i> Groupowner
+    <br>
+    <i class="fas fa-user-friends"></i> My Partner
+    <br>
+    <span *ngIf="data.owner === data.username">
+      <i class="fas fa-user-times"></i> Remove Groupmember
+    </span>
+  </p>
+</div>
 
 <ul id="members">
   <li *ngFor="let member of data.members">
