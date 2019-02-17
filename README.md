@@ -15,6 +15,11 @@ Secret santa partners are randomly generated and hidden from other groupmembers.
 
 ***
 
+## Final Project
+https://peaceful-oasis-32890.herokuapp.com
+
+***
+
 ## Behind the scenes
 ### Frontend:
 * Angular
