@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(sanitizer())
 
 // MONGOOSE
-mongoose.connect(process.env.DB)
+mongoose.connect(process.env.DB, { useNewUrlParser: true })
 
 const db = mongoose.connection
 
